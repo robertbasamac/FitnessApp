@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09B3986E2811CC040067ECE4 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B3986D2811CC040067ECE4 /* Schedule.swift */; };
+		09B398712811CC0E0067ECE4 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B398702811CC0E0067ECE4 /* Workout.swift */; };
+		09B398732811CC180067ECE4 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B398722811CC180067ECE4 /* Exercise.swift */; };
 		09FE501F280DD95600DE4368 /* FitnessAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE501E280DD95600DE4368 /* FitnessAppApp.swift */; };
 		09FE5021280DD95600DE4368 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE5020280DD95600DE4368 /* ContentView.swift */; };
 		09FE5023280DD95700DE4368 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09FE5022280DD95700DE4368 /* Assets.xcassets */; };
@@ -17,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09B3986D2811CC040067ECE4 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		09B398702811CC0E0067ECE4 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		09B398722811CC180067ECE4 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		09FE501B280DD95600DE4368 /* FitnessApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitnessApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09FE501E280DD95600DE4368 /* FitnessAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessAppApp.swift; sourceTree = "<group>"; };
 		09FE5020280DD95600DE4368 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -38,6 +44,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09B3986C2811CBE10067ECE4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				09B3986D2811CC040067ECE4 /* Schedule.swift */,
+				09B398702811CC0E0067ECE4 /* Workout.swift */,
+				09B398722811CC180067ECE4 /* Exercise.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		09FE5012280DD95600DE4368 = {
 			isa = PBXGroup;
 			children = (
@@ -57,6 +73,7 @@
 		09FE501D280DD95600DE4368 /* FitnessApp */ = {
 			isa = PBXGroup;
 			children = (
+				09B3986C2811CBE10067ECE4 /* Model */,
 				09FE502D280DD9AE00DE4368 /* View Model */,
 				09FE502C280DD9A700DE4368 /* View */,
 				09FE501E280DD95600DE4368 /* FitnessAppApp.swift */,
@@ -162,7 +179,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09B3986E2811CC040067ECE4 /* Schedule.swift in Sources */,
+				09B398732811CC180067ECE4 /* Exercise.swift in Sources */,
 				09FE5034280DDF4100DE4368 /* DateModel.swift in Sources */,
+				09B398712811CC0E0067ECE4 /* Workout.swift in Sources */,
 				09FE502F280DD9DF00DE4368 /* HomeView.swift in Sources */,
 				09FE5021280DD95600DE4368 /* ContentView.swift in Sources */,
 				09FE5036280DF50C00DE4368 /* BaseView.swift in Sources */,
@@ -298,11 +318,15 @@
 				DEVELOPMENT_TEAM = 878Q47ZQ84;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FitnessApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -312,7 +336,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -327,11 +351,15 @@
 				DEVELOPMENT_TEAM = 878Q47ZQ84;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FitnessApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -341,7 +369,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

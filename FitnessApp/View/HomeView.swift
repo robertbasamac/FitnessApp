@@ -12,68 +12,72 @@ struct HomeView: View {
     @StateObject var dateModel = DateModel()
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
+        GeometryReader { geometry in
 
-            LazyVStack(spacing: 10, pinnedViews: [.sectionHeaders]) {
-                
-                Section {
+            ScrollView(.vertical, showsIndicators: false) {
+
+                LazyVStack(spacing: 10, pinnedViews: [.sectionHeaders]) {
                     
-                    //MARK: - Week View
-                    ScrollView(.horizontal, showsIndicators: false) {
+                    Section {
                         
-                        HStack(spacing: 10) {
+                        //MARK: - Week View
+                        ScrollView(.horizontal, showsIndicators: false) {
                             
-                            ForEach(dateModel.currentWeek, id: \.self) { day in
+                            HStack(spacing: 4) {
                                 
-                                VStack(spacing: 10) {
-                                    // EEE will return day number
-                                    Text(dateModel.extractDate(date: day, format: "dd"))
-                                        .font(.system(size: 15))
-                                        .fontWeight(.semibold)
+                                ForEach(dateModel.currentWeek, id: \.self) { day in
                                     
-                                    // EEE will return day as MON, TUE ...
-                                    Text(dateModel.extractDate(date: day, format: "EEE"))
-                                        .font(.system(size: 14))
-                                    
-                                    Circle()
-                                        .fill(.white)
-                                        .frame(width: 8, height: 8)
-                                        .opacity(dateModel.isToday(date: day) ? 1 : 0)
-                                }
-                                // Foreground Style
-                                .foregroundStyle(dateModel.isToday(date: day) ? .primary : .tertiary)
-                                .foregroundColor(dateModel.isToday(date: day) ? .white : .black)
-                                
-                                // Capsule Shape
-                                .frame(width: 45, height: 90)
-                                .background (
-                                    ZStack {
-                                        // Matched Geometry Effect
-                                        if dateModel.isToday(date: day) {
-                                            Capsule()
-                                                .fill(.black)
-                                                .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
-                                        }
+                                    VStack() {
+                                        // EEE will return day number
+                                        Text(dateModel.extractDate(date: day, format: "dd"))
+                                            .font(.system(size: 15))
+                                            .fontWeight(.semibold)
+                                        
+                                        // EEE will return day as MON, TUE ...
+                                        Text(dateModel.extractDate(date: day, format: "EEE"))
+                                            .font(.system(size: 14))
+                                        
+                                        Circle()
+                                            .fill(.white)
+                                            .frame(width: 8, height: 8)
+                                            .opacity(dateModel.isToday(date: day) ? 1 : 0)
                                     }
-                                )
-                                .contentShape(Capsule())
-                                .onTapGesture {
-                                    // Updating Current Day
-                                    withAnimation {
-                                        dateModel.currentDay = day
+                                    // Foreground Style
+                                    .foregroundStyle(dateModel.isToday(date: day) ? .primary : .tertiary)
+                                    .foregroundColor(dateModel.isToday(date: day) ? .white : .black)
+                                    
+                                    // Capsule Shape
+                                    .frame(width: (geometry.size.width - 32) / 7, height: geometry.size.width / 7 * 1.7)
+                                    .background (
+                                        ZStack {
+                                            // Matched Geometry Effect
+                                            if dateModel.isToday(date: day) {
+                                                Capsule()
+                                                    .fill(.black)
+                                                    .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
+                                            }
+                                        }
+                                    )
+                                    .contentShape(Capsule())
+                                    .onTapGesture {
+                                        // Updating Current Day
+                                        withAnimation {
+                                            dateModel.currentDay = day
+                                        }
                                     }
                                 }
                             }
+//                            .padding(.horizontal)
+                            .frame(maxWidth: .infinity)
+                            .frame(minWidth: geometry.size.width)      // make the scroll view content full-width
                         }
-                        .padding(.horizontal)
-                        .frame(maxWidth: .infinity)
+                    } header: {
+                        HeaderView()
                     }
-                } header: {
-                    HeaderView()
                 }
             }
         }
-        .clipped()
+        .clipped()      // restrict the scroll view to not go beyond its bounderies
     }
     
     func HeaderView() -> some View {
