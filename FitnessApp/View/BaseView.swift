@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct BaseView: View {
+    @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var dateModel: DateModel
+    
     @State var currentTab: String = "home"
     
     // Hiding native bar
@@ -49,7 +52,7 @@ struct BaseView: View {
 
                 // Center Add Button
                 Button {
-                    
+                    workoutManager.add(workout: Workout(title: "Workout"), for: dateModel.currentDay)
                 } label: {
                      Image(systemName: "plus")
                         .font(.system(size: 25, weight: .semibold))
@@ -125,6 +128,8 @@ struct BGModifier: ViewModifier {
 
 struct TabView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        BaseView()
+            .environmentObject(WorkoutManager())
+            .environmentObject(DateModel())
     }
 }

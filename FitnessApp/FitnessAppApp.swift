@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct FitnessAppApp: App {
+    @StateObject var workoutManager = WorkoutManager()
+    @StateObject var dateModel = DateModel()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BaseView()
+                .environmentObject(workoutManager)
+                .environmentObject(dateModel)
         }
     }
 }

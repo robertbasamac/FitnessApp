@@ -9,7 +9,9 @@ import SwiftUI
 
 struct HomeView: View {
     @Namespace var animation
-    @StateObject var dateModel = DateModel()
+    
+    @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var dateModel: DateModel
     
     var body: some View {
         GeometryReader { geometry in
@@ -34,20 +36,20 @@ struct HomeView: View {
                                             .fontWeight(.semibold)
                                         
                                         // EEE will return day as MON, TUE ...
-                                        Text(dateModel.extractDate(date: day, format: "EEE"))
+                                        Text(dateModel.extractDate(date: day, format: "EE"))
                                             .font(.system(size: 14))
                                         
                                         Circle()
-                                            .fill(.white)
+                                            .fill(dateModel.isToday(date: day) ? .white : .black)
                                             .frame(width: 8, height: 8)
-                                            .opacity(dateModel.isToday(date: day) ? 1 : 0)
+                                            .opacity(workoutManager.hasWorkouts(for: day) ? 1 : 0)
                                     }
                                     // Foreground Style
                                     .foregroundStyle(dateModel.isToday(date: day) ? .primary : .tertiary)
                                     .foregroundColor(dateModel.isToday(date: day) ? .white : .black)
                                     
                                     // Capsule Shape
-                                    .frame(width: (geometry.size.width - 32) / 7, height: geometry.size.width / 7 * 1.7)
+                                    .frame(width: (geometry.size.width - 32) / 7, height: geometry.size.width / 7 * 1.5)
                                     .background (
                                         ZStack {
                                             // Matched Geometry Effect
@@ -87,37 +89,12 @@ struct HomeView: View {
         }
         .clipped()      // restrict the scroll view to not go beyond its bounderies
     }
-    
-    func HeaderView() -> some View {
-        HStack(spacing: 10) {
-            VStack(alignment: .leading, spacing: 15) {
-                Text(Date().formatted(date: .abbreviated, time: .omitted))
-                    .foregroundColor(.gray)
-                
-                Text(dateModel.extractDate(date: Date(), format: "EEEE"))
-                    .font(.largeTitle.bold())
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Button {
-                
-            } label: {
-                Image("Profile")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 45, height: 45)
-                    .clipShape(Circle())
-            }
-        }
-        .padding()
-        .background {
-            Color(UIColor.systemGray6)
-        }
-    }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        BaseView()
+            .environmentObject(WorkoutManager())
+            .environmentObject(DateModel())
     }
 }
