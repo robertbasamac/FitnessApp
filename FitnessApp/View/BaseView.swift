@@ -17,7 +17,7 @@ struct BaseView: View {
     
     var body: some View {
         
-        VStack(spacing: 0) {
+        VStack(alignment: .center, spacing: 0) {
             
             //MARK: - Tab View
             TabView(selection: $currentTab) {
@@ -38,9 +38,10 @@ struct BaseView: View {
                     .modifier(BGModifier())
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .edgesIgnoringSafeArea(.top)
             
             //MARK: - Custom Tab Bar
-            HStack(spacing: 40) {
+            HStack(alignment: .lastTextBaseline) {
                 
                 TabButton(tab: "home", image: "house")
                 
@@ -62,19 +63,29 @@ struct BaseView: View {
                     
                 }
                 // Moving Button little up
-                .offset(y: -20)
+                .offset(y: -30)
                 .padding(.horizontal, 5)
 
                 TabButton(tab: "calendar" ,image: "calendar")
                 
                 TabButton(tab: "profile", image: "person")
             }
-            .padding(.top, -8)
+//            .padding(.top, -8)
             .frame(maxWidth: .infinity)
             .background {
-                Color.mint.opacity(0.15)
+//                Color(UIColor.systemGray6)
+                Color.mint.opacity(0.35)
                     .ignoresSafeArea()
             }
+            // add top line
+            .background(
+                GeometryReader { parentGeometry in // 2
+                    Rectangle()
+                        .fill(Color(UIColor.systemGray2))
+                        .frame(width: parentGeometry.size.width, height: 0.5) // 3
+                        .position(x: parentGeometry.size.width / 2, y: 0) // 4
+                }
+            )
         }
     }
     
@@ -93,16 +104,11 @@ struct BaseView: View {
                 .renderingMode(.template)
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 25, height: 25)
+                .frame(maxWidth: .infinity)
                 .foregroundColor(
-                    currentTab == tab ? .black : .gray.opacity(0.8)
+                    currentTab == tab ? Color(UIColor.systemMint) : Color(UIColor.systemGray)
                 )
         }
-    }
-}
-
-struct TabView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
 
@@ -110,6 +116,15 @@ struct BGModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.mint.opacity(0.15))
+            .background(
+                Color.mint.opacity(0.15))
+//                Color(UIColor.systemMint)).opacity(0.15)
+//                Color(uiColor: .systemBackground))
+    }
+}
+
+struct TabView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }

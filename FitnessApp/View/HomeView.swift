@@ -70,6 +70,14 @@ struct HomeView: View {
 //                            .padding(.horizontal)
                             .frame(maxWidth: .infinity)
                             .frame(minWidth: geometry.size.width)      // make the scroll view content full-width
+                            .background(
+                                GeometryReader { parentGeometry in // 2
+                                    Rectangle()
+                                        .fill(Color(UIColor.systemGray2))
+                                        .frame(width: parentGeometry.size.width, height: 0.5) // 3
+                                        .position(x: parentGeometry.size.width / 2, y: parentGeometry.size.height) // 4
+                                }
+                            )
                         }
                     } header: {
                         HeaderView()
@@ -102,7 +110,9 @@ struct HomeView: View {
             }
         }
         .padding()
-        .background(Color.white)
+        .background {
+            Color(UIColor.systemGray6)
+        }
     }
 }
 
