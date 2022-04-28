@@ -42,7 +42,7 @@ struct HomeView: View {
                                         Circle()
                                             .fill(dateModel.isToday(date: day) ? .white : .black)
                                             .frame(width: 8, height: 8)
-                                            .opacity(workoutManager.hasWorkouts(for: day) ? 1 : 0)
+                                            .opacity(workoutManager.hasWorkouts(for: dateModel.extractDate(date: day, format: "dd/ee/yyy")) ? 1 : 0)
                                     }
                                     // Foreground Style
                                     .foregroundStyle(dateModel.isToday(date: day) ? .primary : .tertiary)
@@ -69,7 +69,7 @@ struct HomeView: View {
                                     }
                                 }
                             }
-//                            .padding(.horizontal)
+                            .padding(.vertical, 5)
                             .frame(maxWidth: .infinity)
                             .frame(minWidth: geometry.size.width)      // make the scroll view content full-width
                             .background(
@@ -81,6 +81,8 @@ struct HomeView: View {
                                 }
                             )
                         }
+                        
+                        WorkoutsView()
                     } header: {
                         HeaderView()
                     }

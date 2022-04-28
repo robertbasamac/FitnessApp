@@ -44,7 +44,7 @@ struct BaseView: View {
             .edgesIgnoringSafeArea(.top)
             
             //MARK: - Custom Tab Bar
-            HStack(alignment: .lastTextBaseline) {
+            HStack(alignment: .lastTextBaseline, spacing: 0) {
                 
                 TabButton(tab: "home", image: "house")
                 
@@ -52,7 +52,7 @@ struct BaseView: View {
 
                 // Center Add Button
                 Button {
-                    workoutManager.add(workout: Workout(title: "Workout"), for: dateModel.currentDay)
+                    workoutManager.addWorkout(Workout(title: "Workout"), for: dateModel.extractDate(date: dateModel.currentDay, format: "dd/ee/yyy"))
                 } label: {
                      Image(systemName: "plus")
                         .font(.system(size: 25, weight: .semibold))

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		09A1F869281976FA00ADD4FE /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1F868281976FA00ADD4FE /* WorkoutManager.swift */; };
 		09A1F86B28198BDB00ADD4FE /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1F86A28198BDB00ADD4FE /* HeaderView.swift */; };
+		09A1F86D2819B39B00ADD4FE /* WorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1F86C2819B39B00ADD4FE /* WorkoutsView.swift */; };
 		09B3986E2811CC040067ECE4 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B3986D2811CC040067ECE4 /* Schedule.swift */; };
 		09B398712811CC0E0067ECE4 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B398702811CC0E0067ECE4 /* Workout.swift */; };
 		09B398732811CC180067ECE4 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B398722811CC180067ECE4 /* Exercise.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		09A1F868281976FA00ADD4FE /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		09A1F86A28198BDB00ADD4FE /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		09A1F86C2819B39B00ADD4FE /* WorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsView.swift; sourceTree = "<group>"; };
 		09B3986D2811CC040067ECE4 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		09B398702811CC0E0067ECE4 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		09B398722811CC180067ECE4 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 				09B398702811CC0E0067ECE4 /* Workout.swift */,
 				09B398722811CC180067ECE4 /* Exercise.swift */,
 				09A1F868281976FA00ADD4FE /* WorkoutManager.swift */,
+				09FE5033280DDF4100DE4368 /* DateModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -99,6 +102,7 @@
 			children = (
 				09FE5035280DF50C00DE4368 /* BaseView.swift */,
 				09FE502E280DD9DF00DE4368 /* HomeView.swift */,
+				09A1F86C2819B39B00ADD4FE /* WorkoutsView.swift */,
 				09A1F86A28198BDB00ADD4FE /* HeaderView.swift */,
 			);
 			path = View;
@@ -107,7 +111,6 @@
 		09FE502D280DD9AE00DE4368 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
-				09FE5033280DDF4100DE4368 /* DateModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				09A1F869281976FA00ADD4FE /* WorkoutManager.swift in Sources */,
 				09FE5034280DDF4100DE4368 /* DateModel.swift in Sources */,
 				09B398712811CC0E0067ECE4 /* Workout.swift in Sources */,
+				09A1F86D2819B39B00ADD4FE /* WorkoutsView.swift in Sources */,
 				09FE502F280DD9DF00DE4368 /* HomeView.swift in Sources */,
 				09FE5036280DF50C00DE4368 /* BaseView.swift in Sources */,
 				09FE501F280DD95600DE4368 /* FitnessAppApp.swift in Sources */,
