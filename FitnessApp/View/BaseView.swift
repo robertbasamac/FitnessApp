@@ -78,7 +78,7 @@ struct BaseView: View {
             .background {
 //                Color(UIColor.systemGray6)
                 Color.mint.opacity(0.35)
-                    .ignoresSafeArea()
+                    .edgesIgnoringSafeArea(.bottom)
             }
             // add top line
             .background(

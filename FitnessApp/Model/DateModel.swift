@@ -29,7 +29,7 @@ class DateModel: ObservableObject {
             }
             
             (1...7).forEach { day in
-                if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
+                if let weekday = calendar.date(byAdding: .day, value: day - 1, to: firstWeekDay) {
                     currentWeek.append(weekday)
                 }
             }
@@ -48,5 +48,3 @@ class DateModel: ObservableObject {
         return calendar.isDate(currentDay, inSameDayAs: date)
     }
 }
-
-
