@@ -42,7 +42,7 @@ struct PopUpMenu: View {
                     .foregroundColor(.purple)
             }
             .onTapGesture {
-                workoutManager.addWorkout(Workout(title: "Workout"), for: dateModel.extractDate(date: dateModel.currentDay, format: "dd/ee/yyy"))
+                workoutManager.addWorkout(Workout(title: "Workout"), for: dateModel.extractDate(date: dateModel.currentDay, format: "dd/MM/yyy"))
             }
         }
         .frame(height: height)

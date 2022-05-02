@@ -28,7 +28,6 @@ class WorkoutManager: ObservableObject {
             schedule.updateValue(mergedWorkouts, forKey: day)
         } else {
             schedule.updateValue([workout], forKey: day)
-
         }
     }
     

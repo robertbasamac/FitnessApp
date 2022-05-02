@@ -13,7 +13,7 @@ struct WorkoutsView: View {
     
     var body: some View {
         LazyVStack {
-            if let workouts = workoutManager.getWorkouts(for: dateModel.extractDate(date: dateModel.currentDay, format: "dd/ee/yyy")) {
+            if let workouts = workoutManager.getWorkouts(for: dateModel.extractDate(date: dateModel.currentDay, format: "dd/MM/yyy")) {
                 ForEach(workouts) { workout in
                     Text("\(workout.title)")
                         .font(.system(size: 16))
