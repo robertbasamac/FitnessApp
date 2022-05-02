@@ -10,107 +10,113 @@ import SwiftUI
 struct BaseView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
+    @EnvironmentObject var viewRouter: ViewRouter
     
-    @State var currentTab: String = "home"
-    
-    // Hiding native bar
-    init() {
-        UITabBar.appearance().isHidden = true
-    }
+    @State var showPopUpMenu = false
     
     var body: some View {
-        
-        VStack(alignment: .center, spacing: 0) {
-            
-            //MARK: - Tab View
-            TabView(selection: $currentTab) {
-                HomeView()
-                    .tag("home")
-                    .modifier(BGModifier())
-                
-                Text("Workouts")
-                    .tag("workouts")
-                    .modifier(BGModifier())
-                
-                Text("Calendar")
-                    .tag("calendar")
-                    .modifier(BGModifier())
-                
-                Text("Profile")
-                    .tag("profile")
-                    .modifier(BGModifier())
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .edgesIgnoringSafeArea(.top)
-            
-            //MARK: - Custom Tab Bar
-            HStack(alignment: .lastTextBaseline, spacing: 0) {
-                
-                TabButton(tab: "home", image: "house")
-                
-                TabButton(tab: "workouts", image: "list.bullet")
+        GeometryReader { geometry in
+            VStack(spacing: 0) {
+                //MARK: - Tab View
+                TabView(selection: $viewRouter.currentTab) {
+                    HomeTabView()
+                        .tag(Page.home)
+                        .modifier(BGModifier())
 
-                // Center Add Button
-                Button {
-                    workoutManager.addWorkout(Workout(title: "Workout"), for: dateModel.extractDate(date: dateModel.currentDay, format: "dd/ee/yyy"))
-                } label: {
-                     Image(systemName: "plus")
-                        .font(.system(size: 25, weight: .semibold))
-                        .foregroundColor(.white)
-                        .padding()
-                        .background {
-                            Circle()
-                                .fill(Color.mint)
-                        }
-                        .shadow(color: Color.mint.opacity(0.8), radius: 12, x: 0, y: 8)
-                    
-                }
-                // Moving Button little up
-                .offset(y: -30)
-                .padding(.horizontal, 5)
+                    Text("Calendar")
+                        .tag(Page.calendar)
+                        .modifier(BGModifier())
 
-                TabButton(tab: "calendar" ,image: "calendar")
-                
-                TabButton(tab: "profile", image: "person")
-            }
-//            .padding(.top, -8)
-            .frame(maxWidth: .infinity)
-            .background {
-//                Color(UIColor.systemGray6)
-                Color.mint.opacity(0.35)
-                    .edgesIgnoringSafeArea(.bottom)
-            }
-            // add top line
-            .background(
-                GeometryReader { parentGeometry in // 2
-                    Rectangle()
-                        .fill(Color(UIColor.systemGray2))
-                        .frame(width: parentGeometry.size.width, height: 0.5) // 3
-                        .position(x: parentGeometry.size.width / 2, y: 0) // 4
+                    Text("Workouts")
+                        .tag(Page.workouts)
+                        .modifier(BGModifier())
+
+                    Text("Profile")
+                        .tag(Page.profile)
+                        .modifier(BGModifier())
                 }
-            )
+                .edgesIgnoringSafeArea(.top)
+                
+                //MARK: - Custom Tab Bar
+                ZStack {
+                    if showPopUpMenu {
+                        PopUpMenu(width: geometry.size.width/8, height: geometry.size.height/14)
+                            .offset(y: -geometry.size.height/9)
+                    }
+                    HStack(spacing: 0) {
+                        TabBarIcon (assignedPage: .home, width: geometry.size.width/15, height: geometry.size.height/32)
+                        
+                        TabBarIcon (assignedPage: .calendar, width: geometry.size.width/15, height: geometry.size.height/32)
+                        
+                        TabBarMenuIcon(showPopUpMenu: $showPopUpMenu, width: geometry.size.width/8, height: geometry.size.height/14/2)
+                        
+                        TabBarIcon (assignedPage: .workouts, width: geometry.size.width/15, height: geometry.size.height/32)
+                        
+                        TabBarIcon (assignedPage: .profile, width: geometry.size.width/15, height: geometry.size.height/32)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(width: geometry.size.width, height: geometry.size.height/14)
+                    .background {
+                        Color(UIColor.systemGray6)
+                            .edgesIgnoringSafeArea(.bottom)
+                    }
+                    .shadow(radius: 2)
+                }
+            }
         }
     }
+}
+
+struct TabBarIcon: View {
+    @EnvironmentObject var viewRouter: ViewRouter
     
-    //MARK: - Tab Button
-    @ViewBuilder
-    func TabButton(tab: String, image: String) -> some View {
-        
-        Button {
-            withAnimation {
-                currentTab = tab
-            }
-            
-        } label: {
-            Image(systemName: image)
+    let assignedPage: Page
+    
+    let width, height: CGFloat
+    
+    var body: some View {
+        VStack(spacing: 2) {
+            Image(systemName: assignedPage.systemImageName)
                 .resizable()
-                .renderingMode(.template)
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 25, height: 25)
-                .frame(maxWidth: .infinity)
-                .foregroundColor(
-                    currentTab == tab ? Color(UIColor.systemMint) : Color(UIColor.systemGray)
-                )
+                .frame(width: width, height: height)
+            Text(assignedPage.title)
+                .font(.footnote)
+        }
+        .padding(.top, 5)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .foregroundColor(
+            viewRouter.currentTab == assignedPage ? Color(UIColor.systemPurple) : Color(UIColor.systemGray)
+        )
+        .onTapGesture {
+            viewRouter.currentTab = assignedPage
+        }
+    }
+}
+
+struct TabBarMenuIcon: View {
+    @Binding var showPopUpMenu: Bool
+    
+    let width, height: CGFloat
+    
+    var body: some View {
+        ZStack {
+            Circle()
+                .foregroundColor(.white)
+                .frame(width: width, height: width)
+                .shadow(color: .purple, radius: 10, x: 0, y: 0)
+            Image(systemName: "plus.circle.fill")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: width-6, height: width-6)
+                .foregroundColor(.purple)
+                .rotationEffect(Angle(degrees: showPopUpMenu ? 45 : 0))
+        }
+        .offset(y: -height)
+        .onTapGesture {
+            withAnimation {
+                showPopUpMenu.toggle()
+            }
         }
     }
 }
@@ -119,10 +125,7 @@ struct BGModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(
-                Color.mint.opacity(0.15))
-//                Color(UIColor.systemMint)).opacity(0.15)
-//                Color(uiColor: .systemBackground))
+            .background(Color(UIColor.systemGray5))
     }
 }
 
@@ -131,5 +134,6 @@ struct TabView_Previews: PreviewProvider {
         BaseView()
             .environmentObject(WorkoutManager())
             .environmentObject(DateModel())
+            .environmentObject(ViewRouter())
     }
 }

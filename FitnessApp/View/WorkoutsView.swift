@@ -28,8 +28,9 @@ struct WorkoutsView: View {
 
 struct WorkoutsView_Previews: PreviewProvider {
     static var previews: some View {
-        WorkoutsView()
+        BaseView()
             .environmentObject(WorkoutManager())
             .environmentObject(DateModel())
+            .environmentObject(ViewRouter())
     }
 }
