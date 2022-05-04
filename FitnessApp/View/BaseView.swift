@@ -14,55 +14,89 @@ struct BaseView: View {
     
     @State var showPopUpMenu = false
     
+    init() {
+//        UITabBar.appearance().backgroundColor = .systemGray6
+//        UITabBar.appearance().isTranslucent = false
+        
+//        UITabBar.appearance().barStyle = .black
+//        UITabBar.appearance().unselectedItemTintColor = .systemGray
+//        UITabBar.appearance().barTintColor = .white
+
+        
+//        UITabBar.appearance().tintColor = .red
+
+        
+//        UITabBar.appearance().isHidden = true
+    }
+    
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 0) {
+//            VStack(spacing: 0) {
                 //MARK: - Tab View
                 TabView(selection: $viewRouter.currentTab) {
                     HomeTabView()
+                        .tabItem {
+                            Image(systemName: "house")
+                            Text("Home")
+                        }
                         .tag(Page.home)
-                        .modifier(BGModifier())
+//                        .modifier(BGModifier())
 
                     Text("Calendar")
+                        .tabItem {
+                            Image(systemName: "calendar")
+                            Text("Calendar")
+                        }
                         .tag(Page.calendar)
                         .modifier(BGModifier())
 
+                    
                     Text("Workouts")
+                        .tabItem {
+                            Image(systemName: "list.bullet.rectangle")
+                            Text("Workouts")
+                        }
                         .tag(Page.workouts)
                         .modifier(BGModifier())
 
                     Text("Profile")
+                        .tabItem {
+                            Image(systemName: "person")
+                            Text("Profile")
+                        }
                         .tag(Page.profile)
                         .modifier(BGModifier())
                 }
-                .edgesIgnoringSafeArea(.top)
+                .accentColor(.orange)
+                .shadow(radius: 5)
+//                .edgesIgnoringSafeArea(.top)
                 
                 //MARK: - Custom Tab Bar
-                ZStack {
-                    if showPopUpMenu {
-                        PopUpMenu(width: geometry.size.width/8, height: geometry.size.height/14)
-                            .offset(y: -geometry.size.height/9)
-                    }
-                    HStack(spacing: 0) {
-                        TabBarIcon (assignedPage: .home, width: geometry.size.width/15, height: geometry.size.height/32)
-                        
-                        TabBarIcon (assignedPage: .calendar, width: geometry.size.width/15, height: geometry.size.height/32)
-                        
-                        TabBarMenuIcon(showPopUpMenu: $showPopUpMenu, width: geometry.size.width/8, height: geometry.size.height/14/2)
-                        
-                        TabBarIcon (assignedPage: .workouts, width: geometry.size.width/15, height: geometry.size.height/32)
-                        
-                        TabBarIcon (assignedPage: .profile, width: geometry.size.width/15, height: geometry.size.height/32)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .frame(width: geometry.size.width, height: geometry.size.height/14)
-                    .background {
-                        Color(UIColor.systemGray6)
-                            .edgesIgnoringSafeArea(.bottom)
-                    }
-                    .shadow(radius: 2)
-                }
-            }
+//                ZStack {
+//                    if showPopUpMenu {
+//                        PopUpMenu(width: geometry.size.width/7, height: geometry.size.height/17)
+//                            .offset(y: -geometry.size.height/9)
+//                    }
+//                    HStack(spacing: 0) {
+//                        TabBarIcon (assignedPage: .home, width: geometry.size.width/15, height: geometry.size.height/32)
+//
+//                        TabBarIcon (assignedPage: .calendar, width: geometry.size.width/15, height: geometry.size.height/32)
+//
+//                        TabBarMenuIcon(showPopUpMenu: $showPopUpMenu, width: geometry.size.width/7, height: geometry.size.height/17/2)
+//
+//                        TabBarIcon (assignedPage: .workouts, width: geometry.size.width/15, height: geometry.size.height/32)
+//
+//                        TabBarIcon (assignedPage: .profile, width: geometry.size.width/15, height: geometry.size.height/32)
+//                    }
+//                    .frame(maxWidth: .infinity)
+//                    .frame(width: geometry.size.width, height: geometry.size.height/17)
+//                    .background {
+//                        Color(UIColor.systemGray6)
+//                            .edgesIgnoringSafeArea(.bottom)
+//                    }
+//                    .shadow(radius: 2)
+//                }
+//            }
         }
     }
 }
@@ -125,7 +159,7 @@ struct BGModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(UIColor.systemGray5))
+            .background(Color(uiColor: .systemGray6))
     }
 }
 

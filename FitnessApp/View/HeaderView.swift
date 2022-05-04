@@ -33,7 +33,7 @@ struct HeaderView: View {
         }
         .padding()
         .background {
-            Color(UIColor.systemGray6)
+            Color(UIColor.systemGray5)
         }
     }
 }

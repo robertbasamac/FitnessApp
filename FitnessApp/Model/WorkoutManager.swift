@@ -10,10 +10,8 @@ import Foundation
 class WorkoutManager: ObservableObject {
     @Published private var schedule: [String: [Workout]] = [
         "02/05/2022": [Workout(title: "Bench press"), Workout(title: "Leg press")],
-        "03/05/2022": [Workout(title: "Bench press"), Workout(title: "Leg press")],
-        "04/05/2022": [Workout(title: "Bench press"), Workout(title: "Leg press")],
+        "04/05/2022": [Workout(title: "Bench press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press"), Workout(title: "Leg press")],
         "05/05/2022": [Workout(title: "Bench press"), Workout(title: "Leg press")],
-        "06/05/2022": [Workout(title: "Bench press"), Workout(title: "Leg press")],
         "07/05/2022": [Workout(title: "Bench press"), Workout(title: "Leg press")],
         "08/05/2022": [Workout(title: "Shoulder press"), Workout(title: "Abs")]
         ]

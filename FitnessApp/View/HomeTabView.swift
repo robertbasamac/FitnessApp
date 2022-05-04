@@ -13,10 +13,6 @@ struct HomeTabView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
     
-    init() {
-            UITabBar.appearance().isHidden = true
-    }
-    
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical, showsIndicators: false) {
@@ -27,12 +23,9 @@ struct HomeTabView: View {
                             HStack(spacing: 4) {
                                 ForEach(dateModel.currentWeek, id: \.self) { day in
                                     VStack() {
-                                        // EEE will return day number
                                         Text(dateModel.extractDate(date: day, format: "dd"))
                                             .font(.system(size: 15))
                                             .fontWeight(.semibold)
-                                        
-                                        // EEE will return day as MON, TUE ...
                                         Text(dateModel.extractDate(date: day, format: "EE"))
                                             .font(.system(size: 14))
                                         Circle()
@@ -62,7 +55,7 @@ struct HomeTabView: View {
                             }
                             .padding(.vertical, 5)
                             .frame(maxWidth: .infinity)
-                            .frame(minWidth: geometry.size.width)      // make the scroll view content full-width
+                            .frame(minWidth: geometry.size.width)
                             .background(
                                 GeometryReader { parentGeometry in
                                     Rectangle()

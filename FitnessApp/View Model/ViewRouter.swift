@@ -16,6 +16,9 @@ enum Page: String, CaseIterable, Identifiable {
     
     case home
     case calendar
+    
+    case popup
+    
     case workouts
     case profile
     
@@ -25,6 +28,10 @@ enum Page: String, CaseIterable, Identifiable {
             return "house"
         case .calendar:
             return "calendar"
+            
+        case .popup:
+            return "popup"
+            
         case .workouts:
             return "list.bullet.rectangle"
         case .profile:
@@ -38,6 +45,10 @@ enum Page: String, CaseIterable, Identifiable {
             return "Home"
         case .calendar:
             return "Calendar"
+            
+        case .popup:
+            return "Popup"
+            
         case .workouts:
             return "Workouts"
         case .profile:
