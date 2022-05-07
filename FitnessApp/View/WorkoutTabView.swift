@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct WorkoutTabView: View {
+    @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var dateModel: DateModel
+    
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(alignment: .center){
-                Text("Workouts")
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-        .clipped()
+        Text("Workouts")
+//        ScrollView(.vertical, showsIndicators: false) {
+//            VStack(alignment: .center){
+//                Text("Workouts")
+//            }
+//            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//        }
+//        .clipped()
     }
 }
 

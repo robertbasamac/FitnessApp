@@ -11,8 +11,7 @@ struct Exercise: Identifiable {
     var id: String = UUID().uuidString
     var title: String
     var type: ExerciseType
-    var numberOfSets: Int
-    var weight: Int
+    var sets: [Set]
 }
 
 enum ExerciseType {

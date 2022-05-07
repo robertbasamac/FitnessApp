@@ -17,7 +17,6 @@ struct WorkoutsView: View {
                 ForEach(workouts) { workout in
                     Text("\(workout.title)")
                         .font(.system(size: 16))
-                        .foregroundColor(.red)
                 }
             } else {
                 Text("No workouts assigned.")

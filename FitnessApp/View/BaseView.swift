@@ -12,63 +12,54 @@ struct BaseView: View {
     @EnvironmentObject var dateModel: DateModel
     @EnvironmentObject var viewRouter: ViewRouter
     
-    @State var showPopUpMenu = false
-    
-    init() {
-//        UITabBar.appearance().backgroundColor = .systemGray6
-//        UITabBar.appearance().isTranslucent = false
-        
-//        UITabBar.appearance().barStyle = .black
-//        UITabBar.appearance().unselectedItemTintColor = .systemGray
-//        UITabBar.appearance().barTintColor = .white
-
-        
-//        UITabBar.appearance().tintColor = .red
-
-        
-//        UITabBar.appearance().isHidden = true
-    }
+    @State private var isShowingAddWorkoutSheet = false
     
     var body: some View {
-        GeometryReader { geometry in
-            //MARK: - Tab View
-            TabView(selection: $viewRouter.currentTab) {
-                HomeTabView()
-                    .tabItem {
-                        Image(systemName: "house")
-                        Text("Home")
-                    }
-                    .tag(Page.home)
-//                    .modifier(BGModifier())
+        TabView(selection: $viewRouter.currentTab) {
+            HomeTabView()
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
+                .tag(Page.home)
 
-                Text("Calendar")
-                    .tabItem {
-                        Image(systemName: "calendar")
-                        Text("Calendar")
-                    }
-                    .tag(Page.calendar)
-//                    .modifier(BGModifier())
+            Text("Calendar")
+                .tabItem {
+                    Image(systemName: "calendar")
+                    Text("Calendar")
+                }
+                .tag(Page.calendar)
 
-                Text("Workouts")
-                    .tabItem {
-                        Image(systemName: "list.bullet.rectangle")
-                        Text("Workouts")
+            NavigationView {
+                WorkoutTabView()
+                .navigationTitle("Workouts")
+                .toolbar {
+                    Button {
+                        isShowingAddWorkoutSheet.toggle()
+                    } label: {
+                        Image(systemName: "plus")
                     }
-                    .tag(Page.workouts)
-//                    .modifier(BGModifier())
-
-                Text("Profile")
-                    .tabItem {
-                        Image(systemName: "person")
-                        Text("Profile")
+                    .accessibilityLabel("Add new Workout")
+                    .sheet(isPresented: $isShowingAddWorkoutSheet) {
+//                        AddWorkoutView()
                     }
-                    .tag(Page.profile)
-//                    .modifier(BGModifier())
+                }
             }
-            .accentColor(.orange)
-            .shadow(radius: 5)
-//            .edgesIgnoringSafeArea(.top)
+            .tabItem {
+                Image(systemName: "list.bullet.rectangle")
+                Text("Workouts")
+            }
+            .tag(Page.workouts)
+
+            Text("Profile")
+                .tabItem {
+                    Image(systemName: "person")
+                    Text("Profile")
+                }
+                .tag(Page.profile)
         }
+//        .accentColor(.orange)
+//        .edgesIgnoringSafeArea(.top)
     }
 }
 
