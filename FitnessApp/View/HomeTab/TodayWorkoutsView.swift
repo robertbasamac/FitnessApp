@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WorkoutsView: View {
+struct TodayWorkoutsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
     

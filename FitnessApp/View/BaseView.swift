@@ -23,7 +23,7 @@ struct BaseView: View {
                 }
                 .tag(Page.home)
 
-            Text("Calendar")
+            CalendarTabView()
                 .tabItem {
                     Image(systemName: "calendar")
                     Text("Calendar")
@@ -51,7 +51,7 @@ struct BaseView: View {
             }
             .tag(Page.workouts)
 
-            Text("Profile")
+            ProfileTabView()
                 .tabItem {
                     Image(systemName: "person")
                     Text("Profile")

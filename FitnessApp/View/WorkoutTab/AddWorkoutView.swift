@@ -13,10 +13,14 @@ struct AddWorkoutView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
+    @State var newWorkout: Workout = Workout(title: "", description: "", exercises: [Exercise(title: "", type: .repBased, sets: [Set(weight: 0, reps: 0)])])
+    
     var body: some View {
         NavigationView {
             Form {
-                WorkoutEditorView(title: "Title", placeholderText: "Add new title", addText: "Add new exercise", list: $workoutManager.workouts)
+                TextField("Title", text: $newWorkout.title)
+                TextField("Description", text: $newWorkout.description)
+
             }
             .navigationTitle("Create new Workout")
             .toolbar {

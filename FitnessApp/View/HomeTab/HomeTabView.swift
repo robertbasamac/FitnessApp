@@ -65,7 +65,7 @@ struct HomeTabView: View {
                                 }
                             )
                         }
-                        WorkoutsView()
+                        TodayWorkoutsView()
                     } header: {
                         HeaderView()
                     }
