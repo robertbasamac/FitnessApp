@@ -30,27 +30,13 @@ struct BaseView: View {
                 }
                 .tag(Page.calendar)
 
-            NavigationView {
-                WorkoutTabView()
-                .navigationTitle("Workouts")
-                .toolbar {
-                    Button {
-                        isShowingAddWorkoutSheet.toggle()
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                    .accessibilityLabel("Add new Workout")
-                    .sheet(isPresented: $isShowingAddWorkoutSheet) {
-//                        AddWorkoutView()
-                    }
+            WorkoutTabView()
+                .tabItem {
+                    Image(systemName: "list.bullet.rectangle")
+                    Text("Workouts")
                 }
-            }
-            .tabItem {
-                Image(systemName: "list.bullet.rectangle")
-                Text("Workouts")
-            }
-            .tag(Page.workouts)
-
+                .tag(Page.workouts)
+            
             ProfileTabView()
                 .tabItem {
                     Image(systemName: "person")

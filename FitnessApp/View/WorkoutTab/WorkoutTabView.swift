@@ -11,15 +11,25 @@ struct WorkoutTabView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
     
+    @State private var isShowingAddWorkoutSheet = true
+    
     var body: some View {
-        Text("Workouts")
-//        ScrollView(.vertical, showsIndicators: false) {
-//            VStack(alignment: .center){
-//                Text("Workouts")
-//            }
-//            .frame(maxWidth: .infinity, maxHeight: .infinity)
-//        }
-//        .clipped()
+        NavigationView {
+            Text("Workouts")
+                .navigationTitle("Workouts")
+                .navigationViewStyle(StackNavigationViewStyle())
+                .toolbar {
+                    Button {
+                        isShowingAddWorkoutSheet.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .accessibilityLabel("Add new Workout")
+                    .sheet(isPresented: $isShowingAddWorkoutSheet) {
+                        AddWorkoutView()
+                    }
+                }
+        }
     }
 }
 
