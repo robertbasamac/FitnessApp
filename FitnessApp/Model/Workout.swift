@@ -9,7 +9,8 @@ import Foundation
 
 struct Workout: Identifiable {
     var id: String = UUID().uuidString
-    var title: String
-    var description: String
-    var exercises: [Exercise]
+    var title: String = ""
+    var description: String = ""
+//    var pauseBetweenExercises: Int = 0
+    var exercises: [Exercise] = []
 }

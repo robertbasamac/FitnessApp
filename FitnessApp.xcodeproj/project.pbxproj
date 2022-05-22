@@ -13,6 +13,9 @@
 		09A4F4AF28266C9500E73DE2 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A4F4AE28266C9500E73DE2 /* Set.swift */; };
 		09B398712811CC0E0067ECE4 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B398702811CC0E0067ECE4 /* Workout.swift */; };
 		09B398732811CC180067ECE4 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B398722811CC180067ECE4 /* Exercise.swift */; };
+		09BE808A282BFF5D001FA068 /* AWTitleSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BE8089282BFF5D001FA068 /* AWTitleSectionView.swift */; };
+		09BE8094282C0641001FA068 /* AWExerciseSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BE8093282C0641001FA068 /* AWExerciseSectionView.swift */; };
+		09BE8096282C41F6001FA068 /* AWSetSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BE8095282C41F6001FA068 /* AWSetSectionView.swift */; };
 		09C23955281ED6100077D8AD /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C23954281ED6100077D8AD /* ViewRouter.swift */; };
 		09C23957281EE0390077D8AD /* CalendarTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C23956281EE0390077D8AD /* CalendarTabView.swift */; };
 		09C23959281EE0480077D8AD /* WorkoutTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C23958281EE0480077D8AD /* WorkoutTabView.swift */; };
@@ -23,7 +26,7 @@
 		09FE502F280DD9DF00DE4368 /* HomeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE502E280DD9DF00DE4368 /* HomeTabView.swift */; };
 		09FE5034280DDF4100DE4368 /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE5033280DDF4100DE4368 /* DateModel.swift */; };
 		09FE5036280DF50C00DE4368 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE5035280DF50C00DE4368 /* BaseView.swift */; };
-		09FE542A2825C89F0088D91D /* AddWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE54292825C89F0088D91D /* AddWorkoutView.swift */; };
+		09FE542A2825C89F0088D91D /* AddWorkoutSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE54292825C89F0088D91D /* AddWorkoutSheetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,9 @@
 		09A4F4AE28266C9500E73DE2 /* Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
 		09B398702811CC0E0067ECE4 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		09B398722811CC180067ECE4 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		09BE8089282BFF5D001FA068 /* AWTitleSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWTitleSectionView.swift; sourceTree = "<group>"; };
+		09BE8093282C0641001FA068 /* AWExerciseSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWExerciseSectionView.swift; sourceTree = "<group>"; };
+		09BE8095282C41F6001FA068 /* AWSetSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSetSectionView.swift; sourceTree = "<group>"; };
 		09C23954281ED6100077D8AD /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		09C23956281EE0390077D8AD /* CalendarTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTabView.swift; sourceTree = "<group>"; };
 		09C23958281EE0480077D8AD /* WorkoutTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTabView.swift; sourceTree = "<group>"; };
@@ -44,7 +50,7 @@
 		09FE502E280DD9DF00DE4368 /* HomeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabView.swift; sourceTree = "<group>"; };
 		09FE5033280DDF4100DE4368 /* DateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
 		09FE5035280DF50C00DE4368 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
-		09FE54292825C89F0088D91D /* AddWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutView.swift; sourceTree = "<group>"; };
+		09FE54292825C89F0088D91D /* AddWorkoutSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +94,8 @@
 			isa = PBXGroup;
 			children = (
 				09C23958281EE0480077D8AD /* WorkoutTabView.swift */,
-				09FE54292825C89F0088D91D /* AddWorkoutView.swift */,
+				09FE54292825C89F0088D91D /* AddWorkoutSheetView.swift */,
+				09BE8088282BFF2A001FA068 /* AddWorkoutViewComponents */,
 			);
 			path = WorkoutTab;
 			sourceTree = "<group>";
@@ -109,6 +116,16 @@
 				09A4F4AE28266C9500E73DE2 /* Set.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		09BE8088282BFF2A001FA068 /* AddWorkoutViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				09BE8089282BFF5D001FA068 /* AWTitleSectionView.swift */,
+				09BE8093282C0641001FA068 /* AWExerciseSectionView.swift */,
+				09BE8095282C41F6001FA068 /* AWSetSectionView.swift */,
+			);
+			path = AddWorkoutViewComponents;
 			sourceTree = "<group>";
 		};
 		09FE5012280DD95600DE4368 = {
@@ -133,8 +150,9 @@
 				09B3986C2811CBE10067ECE4 /* Model */,
 				09FE502D280DD9AE00DE4368 /* View Model */,
 				09FE502C280DD9A700DE4368 /* View */,
-				09FE501E280DD95600DE4368 /* FitnessAppApp.swift */,
+				09A4F4B028266CA700E73DE2 /* Controller */,
 				09FE5022280DD95700DE4368 /* Assets.xcassets */,
+				09FE501E280DD95600DE4368 /* FitnessAppApp.swift */,
 				09FE5024280DD95700DE4368 /* Preview Content */,
 			);
 			path = FitnessApp;
@@ -156,7 +174,6 @@
 				09A4F4B52826748300E73DE2 /* CalendarTab */,
 				09A4F4B62826748E00E73DE2 /* WorkoutTab */,
 				09A4F4B7282674A600E73DE2 /* ProfileTab */,
-				09A4F4B028266CA700E73DE2 /* Controller */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -247,13 +264,16 @@
 				09A1F869281976FA00ADD4FE /* WorkoutManager.swift in Sources */,
 				09FE5034280DDF4100DE4368 /* DateModel.swift in Sources */,
 				09A4F4AF28266C9500E73DE2 /* Set.swift in Sources */,
+				09BE808A282BFF5D001FA068 /* AWTitleSectionView.swift in Sources */,
 				09B398712811CC0E0067ECE4 /* Workout.swift in Sources */,
 				09C23959281EE0480077D8AD /* WorkoutTabView.swift in Sources */,
+				09BE8094282C0641001FA068 /* AWExerciseSectionView.swift in Sources */,
 				09A1F86D2819B39B00ADD4FE /* TodayWorkoutsView.swift in Sources */,
 				09C23955281ED6100077D8AD /* ViewRouter.swift in Sources */,
 				09FE502F280DD9DF00DE4368 /* HomeTabView.swift in Sources */,
 				09FE5036280DF50C00DE4368 /* BaseView.swift in Sources */,
-				09FE542A2825C89F0088D91D /* AddWorkoutView.swift in Sources */,
+				09BE8096282C41F6001FA068 /* AWSetSectionView.swift in Sources */,
+				09FE542A2825C89F0088D91D /* AddWorkoutSheetView.swift in Sources */,
 				09FE501F280DD95600DE4368 /* FitnessAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

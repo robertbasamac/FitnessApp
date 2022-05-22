@@ -11,9 +11,7 @@ struct BaseView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
     @EnvironmentObject var viewRouter: ViewRouter
-    
-    @State private var isShowingAddWorkoutSheet = false
-    
+        
     var body: some View {
         TabView(selection: $viewRouter.currentTab) {
             HomeTabView()

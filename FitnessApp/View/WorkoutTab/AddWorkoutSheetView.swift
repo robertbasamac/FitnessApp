@@ -6,23 +6,30 @@
 //
 
 import SwiftUI
+import Combine
 
-struct AddWorkoutView: View {
+struct AddWorkoutSheetView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
     
     @Environment(\.presentationMode) var presentationMode
     
-    @State var newWorkout: Workout = Workout(title: "", description: "", exercises: [Exercise(title: "", type: .repBased, sets: [Set(weight: 0, reps: 0)])])
-    
+    @State var workout: Workout = Workout()
+        
     var body: some View {
         NavigationView {
-            Form {
-                TextField("Title", text: $newWorkout.title)
-                TextField("Description", text: $newWorkout.description)
-
+            ScrollView {
+                VStack(spacing: 0) {
+                    AWTitleSectionView(workout: $workout)
+                    
+                    AWExerciseSectionView(workout: $workout)
+                    
+                    AddExerciseButton(workout: $workout)
+                }
+                .padding(.vertical, 40)
             }
             .navigationTitle("Create new Workout")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
@@ -34,13 +41,16 @@ struct AddWorkoutView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        
+                        workoutManager.addWorkout(workout)
+                        presentationMode.wrappedValue.dismiss()
                     } label: {
                         Text("Done")
                     }
                     .accessibilityLabel("Confirm adding the new Workout")
                 }
             }
+            .background(Color(uiColor: .systemGray6))
+            .edgesIgnoringSafeArea(.bottom)
         }
     }
 }

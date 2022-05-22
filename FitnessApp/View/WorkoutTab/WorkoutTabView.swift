@@ -11,24 +11,26 @@ struct WorkoutTabView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
     
-    @State private var isShowingAddWorkoutSheet = true
+    @State private var isShowingAddWorkoutSheet = false
     
     var body: some View {
         NavigationView {
-            Text("Workouts")
-                .navigationTitle("Workouts")
-                .navigationViewStyle(StackNavigationViewStyle())
-                .toolbar {
-                    Button {
-                        isShowingAddWorkoutSheet.toggle()
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                    .accessibilityLabel("Add new Workout")
-                    .sheet(isPresented: $isShowingAddWorkoutSheet) {
-                        AddWorkoutView()
-                    }
+            ScrollView {
+                Text("Workouts")
+            }
+            .navigationTitle("Workouts")
+            .navigationViewStyle(StackNavigationViewStyle())
+            .toolbar {
+                Button {
+                    isShowingAddWorkoutSheet.toggle()
+                } label: {
+                    Image(systemName: "plus")
                 }
+                .accessibilityLabel("Add new Workout")
+            }
+            .sheet(isPresented: $isShowingAddWorkoutSheet) {
+                AddWorkoutSheetView()
+            }
         }
     }
 }

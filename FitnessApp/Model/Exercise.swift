@@ -9,12 +9,12 @@ import Foundation
 
 struct Exercise: Identifiable {
     var id: String = UUID().uuidString
-    var title: String
-    var type: ExerciseType
-    var sets: [Set]
+    var title: String = ""
+    var type: ExerciseType = .repBased
+    var sets: [Set] = []
 }
 
-enum ExerciseType {
-    case timeBased
-    case repBased
+enum ExerciseType: String, Equatable, CaseIterable {
+    case repBased = "Rep based"
+    case timeBased = "Time based"
 }
