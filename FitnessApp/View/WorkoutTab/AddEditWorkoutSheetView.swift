@@ -29,7 +29,7 @@ struct AddEditWorkoutSheetView: View {
                 }
                 .padding(.vertical, 40)
             }
-            .navigationTitle("Create new Workout")
+            .navigationTitle(editWorkout ? "Edit Workout" : "Create new Workout")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
