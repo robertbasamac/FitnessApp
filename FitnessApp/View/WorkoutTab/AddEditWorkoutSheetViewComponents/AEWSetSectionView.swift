@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AWSetSectionView: View {
+struct AEWSetSectionView: View {
     @Binding var exercise: Exercise
     
     var body: some View {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AWExerciseSectionView: View {
+struct AEWExerciseSectionView: View {
     @Binding var workout: Workout
     
     var body: some View {
@@ -46,7 +46,7 @@ struct AWExerciseSectionView: View {
                     Divider()
                         .background(Color(uiColor: .systemGray))
                     
-                    AWSetSectionView(exercise: $workout.exercises[exerciseIndex])
+                    AEWSetSectionView(exercise: $workout.exercises[exerciseIndex])
                                         
                     AddSetButton(exercise: $workout.exercises[exerciseIndex])
                 }

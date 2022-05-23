@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AWTitleSectionView: View {
+struct AEWTitleSectionView: View {
     @Binding var workout: Workout
     
     var body: some View {

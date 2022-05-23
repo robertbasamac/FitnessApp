@@ -8,21 +8,22 @@
 import SwiftUI
 import Combine
 
-struct AddWorkoutSheetView: View {
+struct AddEditWorkoutSheetView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
     
     @Environment(\.presentationMode) var presentationMode
     
     @State var workout: Workout = Workout()
+    var editWorkout: Bool = false
         
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 0) {
-                    AWTitleSectionView(workout: $workout)
+                    AEWTitleSectionView(workout: $workout)
                     
-                    AWExerciseSectionView(workout: $workout)
+                    AEWExerciseSectionView(workout: $workout)
                     
                     AddExerciseButton(workout: $workout)
                 }
@@ -41,7 +42,11 @@ struct AddWorkoutSheetView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        workoutManager.addWorkout(workout)
+                        if editWorkout {
+                            workoutManager.updateWorkout(workout)
+                        } else {
+                            workoutManager.addWorkoutToCollection(workout)
+                        }
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Text("Done")
