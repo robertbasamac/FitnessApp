@@ -24,6 +24,8 @@ struct AEWTitleSectionView: View {
                 
                 TextField("Description", text: $workout.description)
                     .frame(height: 40)
+                    .font(.system(size: 16))
+                    .foregroundStyle(.secondary)
             }
             .padding(.leading, 20)
             .background(Color(uiColor: .tertiarySystemBackground))
