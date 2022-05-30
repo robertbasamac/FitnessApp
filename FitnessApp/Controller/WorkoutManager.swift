@@ -9,11 +9,12 @@ import Foundation
 
 class WorkoutManager: ObservableObject {
     @Published var schedule: [String: [Workout]] = [
-        "23/05/2022": [Workout(title: "Upper body", description: "Workout the entire upper body", exercises: [Exercise(title: "Bench press", type: .repBased, sets: [Set(weight: 5, reps: 10)])])]
+        "30/05/2022": [Workout(title: "Upper body", description: "Workout the entire upper body", exercises: [Exercise(title: "Bench press", type: .repBased, sets: [Set(weight: 5, reps: 10)])])]
         ]
     
     @Published var workouts: [Workout] = [Workout(title: "Upper body", description: "Workout the entire upper body", exercises: [Exercise(title: "Bench press", type: .repBased, sets: [Set(weight: 5, reps: 10)])])]
     
+    //MARK: - Handle Workout Schedule
     func hasWorkouts(for day: String) -> Bool {
         return schedule.keys.contains(day)
     }
@@ -27,16 +28,23 @@ class WorkoutManager: ObservableObject {
         }
     }
     
-    func addWorkoutToCollection(_ workout: Workout) {
-        workouts.append(workout)
-    }
-    
     func getWorkouts(for day: String) -> [Workout]? {
         return schedule[day]
     }
     
-    func getAllWorkoutsFromCollection() -> [Workout] {
-        return workouts
+    //MARK: - Handle Workout Collection
+    func addWorkoutToCollection(_ workout: Workout) {
+        workouts.append(workout)
+    }
+    
+    func removeWorkoutFromCollection(_ workout: Workout) {
+        workouts.removeAll(where: { $0.id == workout.id } )
+    }
+    
+    func updateWorkout(_ workout: Workout) {
+        if let index = workouts.firstIndex(where: { $0.id == workout.id } ) {
+            workouts[index] = workout
+        }
     }
     
     func getAllWorkouts() -> [Workout?] {
@@ -48,13 +56,7 @@ class WorkoutManager: ObservableObject {
         }
     }
     
-    func removeWorkoutFromCollection(_ workout: Workout) {
-        workouts.removeAll(where: { $0.id == workout.id } )
-    }
-    
-    func updateWorkout(_ workout: Workout) {
-        if let index = workouts.firstIndex(where: { $0.id == workout.id } ) {
-            workouts[index] = workout
-        }
+    func getAllWorkoutsFromCollection() -> [Workout] {
+        return workouts
     }
 }

@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct WorkoutCardView: View {
-    @State var workout: Workout
+    @Binding var workout: Workout
     
     var body: some View {
-        Text(workout.title)
+        VStack {
+            Text(workout.title)
+            Divider()
+        }
     }
 }
 

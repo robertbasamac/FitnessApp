@@ -6,38 +6,35 @@
 //
 
 import SwiftUI
+import SheeKit
 
 struct WorkoutTabView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
     
-    @State private var isShowingAddWorkoutSheet = false
-    
     @State private var selectedWorkout: Workout? = nil
+    @State private var editWorkout: Bool = false
     
     var body: some View {
         NavigationView {
             ScrollView {
-                let workouts = workoutManager.getAllWorkoutsFromCollection()
-                if workouts.count > 0 {
-                    ForEach(workouts) { workout in
+                if workoutManager.workouts.count > 0 {
+                    ForEach($workoutManager.workouts) { workout in
                         WorkoutCardView(workout: workout)
                             .contextMenu {
                                 Button {
-                                    selectedWorkout = workout
+                                    editWorkout = true
+                                    selectedWorkout = workout.wrappedValue
                                 } label: {
                                     Label("Edit Workout", systemImage: "square.and.pencil")
                                 }
                                 
                                 Button(role: .destructive) {
-                                    workoutManager.removeWorkoutFromCollection(workout)
+                                    workoutManager.removeWorkoutFromCollection(workout.wrappedValue)
                                 } label: {
                                     Label("Delete Workout", systemImage: "trash")
                                 }
                             }
-                    }
-                    .sheet(item: self.$selectedWorkout) { selectedWorkout in
-                        AddEditWorkoutSheetView(workout: selectedWorkout, editWorkout: true)
                     }
                 } else {
                     Text("No workouts found.")
@@ -49,14 +46,15 @@ struct WorkoutTabView: View {
             .navigationViewStyle(StackNavigationViewStyle())
             .toolbar {
                 Button {
-                    isShowingAddWorkoutSheet.toggle()
+                    editWorkout = false
+                    selectedWorkout = Workout()
                 } label: {
                     Image(systemName: "plus")
                 }
                 .accessibilityLabel("Add new Workout")
             }
-            .sheet(isPresented: $isShowingAddWorkoutSheet) {
-                AddEditWorkoutSheetView()
+            .sheet(item: $selectedWorkout) { selectedWorkout in
+                AddEditWorkoutSheetView(workout: selectedWorkout, editWorkout: editWorkout)
             }
         }
     }
