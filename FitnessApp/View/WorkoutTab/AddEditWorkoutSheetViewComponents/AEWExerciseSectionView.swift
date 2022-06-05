@@ -30,7 +30,7 @@ struct AEWExerciseSectionView: View {
                             HStack(spacing: 20){
                                 Text("Type")
                                     .frame(height: 40)
-                                                                    
+                                
                                 Picker("Type", selection: $workout.exercises[exerciseIndex].type) {
                                     ForEach(ExerciseType.allCases, id: \.self) { value in
                                         Text(value.rawValue)
@@ -47,12 +47,12 @@ struct AEWExerciseSectionView: View {
                         .background(Color(uiColor: .systemGray))
                     
                     AEWSetSectionView(exercise: $workout.exercises[exerciseIndex])
-                                        
+                    
                     AddSetButton(exercise: $workout.exercises[exerciseIndex])
                 }
                 .padding(.leading, 20)
                 .background(Color(uiColor: .tertiarySystemBackground))
-
+                
                 Divider()
                     .background(Color(uiColor: .systemGray))
             }

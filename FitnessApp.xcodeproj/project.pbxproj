@@ -154,8 +154,8 @@
 				09FE502D280DD9AE00DE4368 /* View Model */,
 				09FE502C280DD9A700DE4368 /* View */,
 				09A4F4B028266CA700E73DE2 /* Controller */,
-				09FE5022280DD95700DE4368 /* Assets.xcassets */,
 				09FE501E280DD95600DE4368 /* FitnessAppApp.swift */,
+				09FE5022280DD95700DE4368 /* Assets.xcassets */,
 				09FE5024280DD95700DE4368 /* Preview Content */,
 			);
 			path = FitnessApp;
@@ -206,6 +206,8 @@
 			dependencies = (
 			);
 			name = FitnessApp;
+			packageProductDependencies = (
+			);
 			productName = FitnessApp;
 			productReference = 09FE501B280DD95600DE4368 /* FitnessApp.app */;
 			productType = "com.apple.product-type.application";
@@ -234,6 +236,8 @@
 				Base,
 			);
 			mainGroup = 09FE5012280DD95600DE4368;
+			packageReferences = (
+			);
 			productRefGroup = 09FE501C280DD95600DE4368 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

@@ -12,14 +12,14 @@ struct AddEditWorkoutSheetView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
-    @State var workout: Workout = Workout()
-    var editWorkout: Bool = false
-        
+    @State var workout: Workout
+    @Binding var editWorkout: Bool
+                          
     var body: some View {
         NavigationView {
-            ScrollView {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 0) {
                     AEWTitleSectionView(workout: $workout)
                     
@@ -33,12 +33,12 @@ struct AddEditWorkoutSheetView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        presentationMode.wrappedValue.dismiss()
+                    Button(role: .cancel) {
+                        dismiss()
                     } label: {
                         Text("Cancel")
                     }
-                    .accessibilityLabel("Cancel adding Workout")
+                    .accessibilityLabel("Cancel adding/editing the Workout.")
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
@@ -47,11 +47,11 @@ struct AddEditWorkoutSheetView: View {
                         } else {
                             workoutManager.addWorkoutToCollection(workout)
                         }
-                        presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     } label: {
                         Text("Done")
                     }
-                    .accessibilityLabel("Confirm adding the new Workout")
+                    .accessibilityLabel("Confirm adding/editing the Workout.")
                 }
             }
             .background(Color(uiColor: .systemGray6))

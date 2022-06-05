@@ -17,10 +17,10 @@ struct WorkoutTabView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
+            ScrollView(.vertical, showsIndicators: false) {
                 if workoutManager.workouts.count > 0 {
                     ForEach($workoutManager.workouts) { workout in
-                        WorkoutCardView(workout: workout)
+                        WorkoutCardView(workout: workout.wrappedValue)
                             .contextMenu {
                                 Button {
                                     editWorkout = true
@@ -54,7 +54,7 @@ struct WorkoutTabView: View {
                 .accessibilityLabel("Add new Workout")
             }
             .sheet(item: $selectedWorkout) { selectedWorkout in
-                AddEditWorkoutSheetView(workout: selectedWorkout, editWorkout: editWorkout)
+                AddEditWorkoutSheetView(workout: selectedWorkout, editWorkout: $editWorkout)
             }
         }
     }
