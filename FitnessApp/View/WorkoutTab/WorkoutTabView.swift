@@ -15,6 +15,9 @@ struct WorkoutTabView: View {
     @State private var selectedWorkout: Workout? = nil
     @State private var editWorkout: Bool = false
     
+    @State private var isDeletingWorkout: Bool = false
+    @State private var workoutToBeDeleted: Workout? = nil
+    
     var body: some View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
@@ -30,7 +33,8 @@ struct WorkoutTabView: View {
                                 }
                                 
                                 Button(role: .destructive) {
-                                    workoutManager.removeWorkoutFromCollection(workout.wrappedValue)
+                                    isDeletingWorkout = true
+                                    workoutToBeDeleted = workout.wrappedValue
                                 } label: {
                                     Label("Delete Workout", systemImage: "trash")
                                 }
@@ -56,6 +60,21 @@ struct WorkoutTabView: View {
             .sheet(item: $selectedWorkout) { selectedWorkout in
                 AddEditWorkoutSheetView(workout: selectedWorkout, editWorkout: $editWorkout)
             }
+            .confirmationDialog(
+                Text("Pernanently erase the workout from your workout collection?"),
+                isPresented: $isDeletingWorkout,
+                presenting: workoutToBeDeleted) { workout in
+                    Button(role: .destructive) {
+                        workoutManager.removeWorkoutFromCollection(workout)
+                    } label: {
+                        Text("Delete")
+                    }
+                    Button("Cancel", role: .cancel) {
+                        workoutToBeDeleted = nil
+                    }
+                }  message: { workout in
+                    Text("This will permanently delete the \"\(workout.title)\" workout from your collection.")
+                }
         }
     }
 }
