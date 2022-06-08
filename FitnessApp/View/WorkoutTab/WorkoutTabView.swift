@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SheeKit
 
 struct WorkoutTabView: View {
     @EnvironmentObject var workoutManager: WorkoutManager

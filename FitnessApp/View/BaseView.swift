@@ -30,7 +30,7 @@ struct BaseView: View {
 
             WorkoutTabView()
                 .tabItem {
-                    Image(systemName: "list.bullet.rectangle")
+                    Image(systemName: "list.bullet.below.rectangle")
                     Text("Workouts")
                 }
                 .tag(Page.workouts)

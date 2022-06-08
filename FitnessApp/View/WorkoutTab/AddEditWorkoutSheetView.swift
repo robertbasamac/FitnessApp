@@ -16,7 +16,7 @@ struct AddEditWorkoutSheetView: View {
     
     @State var workout: Workout
     @Binding var editWorkout: Bool
-                          
+    
     var body: some View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
