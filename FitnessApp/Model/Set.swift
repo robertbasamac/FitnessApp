@@ -8,7 +8,7 @@
 import Foundation
 
 struct Set: Identifiable {
-    var id: String = UUID().uuidString
+    var id: UUID = UUID()
     var weight: Float = 0
     var duration: Int = 1
     var reps: Int = 1

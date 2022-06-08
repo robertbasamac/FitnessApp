@@ -8,9 +8,7 @@
 import Foundation
 
 class WorkoutManager: ObservableObject {
-    @Published var schedule: [String: [Workout]] = [
-        "30/05/2022": [Workout(title: "Upper body", description: "Workout the entire upper body", exercises: [Exercise(title: "Bench press", type: .repBased, sets: [Set(weight: 5, reps: 10)])])]
-        ]
+    @Published var schedule: [String: [UUID]] = [:]
     
     @Published var workouts: [Workout] = [Workout(title: "Upper body", description: "Workout the entire upper body", exercises: [Exercise(title: "Bench press", type: .repBased, sets: [Set(weight: 5, reps: 10)])])]
     
@@ -21,15 +19,27 @@ class WorkoutManager: ObservableObject {
     
     func assignWorkout(_ workout: Workout, for day: String) {
         if var mergedWorkouts = schedule[day] {
-            mergedWorkouts.append(workout)
+            mergedWorkouts.append(workout.id)
             schedule.updateValue(mergedWorkouts, forKey: day)
         } else {
-            schedule.updateValue([workout], forKey: day)
+            schedule.updateValue([workout.id], forKey: day)
         }
     }
     
     func getWorkouts(for day: String) -> [Workout]? {
-        return schedule[day]
+        if let workoutIDs = schedule[day] {
+            var result: [Workout] = []
+            
+            for workout in self.workouts {
+                if workoutIDs.contains(workout.id) {
+                    result.append(workout)
+                }
+            }
+            
+            return result
+        }
+        
+        return nil
     }
     
     //MARK: - Handle Workout Collection
@@ -38,6 +48,19 @@ class WorkoutManager: ObservableObject {
     }
     
     func removeWorkoutFromCollection(_ workout: Workout) {
+        for key in schedule.keys {
+            print(key)
+            if var values = schedule[key] {
+                print(values)
+                values.removeAll(where: { $0 == workout.id } )
+                schedule.updateValue(values, forKey: key)
+                
+                if values.count == 0 {
+                    schedule.removeValue(forKey: key)
+                }
+            }
+        }
+        
         workouts.removeAll(where: { $0.id == workout.id } )
     }
     
