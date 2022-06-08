@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09981B2D2850DB8200EB909B /* AssignWorkoutDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09981B2C2850DB8200EB909B /* AssignWorkoutDatePickerView.swift */; };
 		09A1F869281976FA00ADD4FE /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1F868281976FA00ADD4FE /* WorkoutManager.swift */; };
 		09A1F86B28198BDB00ADD4FE /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1F86A28198BDB00ADD4FE /* HeaderView.swift */; };
 		09A1F86D2819B39B00ADD4FE /* TodayWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1F86C2819B39B00ADD4FE /* TodayWorkoutsView.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09981B2C2850DB8200EB909B /* AssignWorkoutDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignWorkoutDatePickerView.swift; sourceTree = "<group>"; };
 		09A1F868281976FA00ADD4FE /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		09A1F86A28198BDB00ADD4FE /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		09A1F86C2819B39B00ADD4FE /* TodayWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWorkoutsView.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				09F0AD2E283BD5C200A7E1AE /* WorkoutCardView.swift */,
 				09FE54292825C89F0088D91D /* AddEditWorkoutSheetView.swift */,
 				09BE8088282BFF2A001FA068 /* AddEditWorkoutSheetViewComponents */,
+				09981B2C2850DB8200EB909B /* AssignWorkoutDatePickerView.swift */,
 			);
 			path = WorkoutTab;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				09BE8096282C41F6001FA068 /* AEWSetSectionView.swift in Sources */,
 				09FE542A2825C89F0088D91D /* AddEditWorkoutSheetView.swift in Sources */,
 				09FE501F280DD95600DE4368 /* FitnessAppApp.swift in Sources */,
+				09981B2D2850DB8200EB909B /* AssignWorkoutDatePickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

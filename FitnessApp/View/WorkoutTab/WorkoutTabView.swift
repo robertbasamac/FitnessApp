@@ -14,6 +14,8 @@ struct WorkoutTabView: View {
     @State private var selectedWorkout: Workout? = nil
     @State private var editWorkout: Bool = false
     
+    @State private var assignWorkout: Workout? = nil
+    
     @State private var isDeletingWorkout: Bool = false
     @State private var workoutToBeDeleted: Workout? = nil
     
@@ -29,6 +31,12 @@ struct WorkoutTabView: View {
                                     selectedWorkout = workout.wrappedValue
                                 } label: {
                                     Label("Edit Workout", systemImage: "square.and.pencil")
+                                }
+                                
+                                Button {
+                                    assignWorkout = workout.wrappedValue
+                                } label: {
+                                    Label("Assign Workout", systemImage: "calendar")
                                 }
                                 
                                 Button(role: .destructive) {
@@ -58,6 +66,10 @@ struct WorkoutTabView: View {
             }
             .sheet(item: $selectedWorkout) { selectedWorkout in
                 AddEditWorkoutSheetView(workout: selectedWorkout, editWorkout: $editWorkout)
+            }
+            .sheet(item: $assignWorkout) { selectedWorkout in
+                AssignWorkoutDatePickerView(workout: selectedWorkout)
+                    .presentationDetents([.fraction(0.6)])
             }
             .confirmationDialog(
                 Text("Pernanently erase the workout from your workout collection?"),
