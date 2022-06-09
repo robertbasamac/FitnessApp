@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Exercise: Identifiable {
+struct Exercise: Identifiable, Equatable {
     var id: UUID = UUID()
     var title: String = ""
     var type: ExerciseType = .repBased

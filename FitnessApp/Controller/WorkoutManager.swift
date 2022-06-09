@@ -10,7 +10,35 @@ import Foundation
 class WorkoutManager: ObservableObject {
     @Published var schedule: [String: [UUID]] = [:]
     
-    @Published var workouts: [Workout] = [Workout(title: "Upper body", description: "Workout the entire upper body", exercises: [Exercise(title: "Bench press", type: .repBased, sets: [Set(weight: 5, reps: 10)])])]
+    @Published var workouts: [Workout] = [
+        Workout(title: "Upper body",
+                description: "Workout the entire upper body",
+                exercises: [
+                    Exercise(title: "Bench press",
+                             type: .repBased,
+                             sets: [
+                                Set(weight: 5, reps: 10)
+                             ])
+                ]),
+        Workout(title: "Legs day",
+                description: "Workout legs like hell. Multiple exercises with multiple sets.",
+                exercises: [
+                    Exercise(title: "Leg press",
+                             type: .repBased,
+                             sets: [
+                                Set(weight: 5, reps: 10),
+                                Set(weight: 10, reps: 8),
+                                Set(weight: 15, reps: 5)
+                             ]),
+                    Exercise(title: "Lunges",
+                             type: .repBased,
+                             sets: [
+                                Set(weight: 10, reps: 10),
+                                Set(weight: 10, reps: 10),
+                                Set(weight: 10, reps: 10)
+                             ])
+                ])
+    ]
     
     //MARK: - Handle Workout Schedule
     func hasWorkouts(for day: String) -> Bool {

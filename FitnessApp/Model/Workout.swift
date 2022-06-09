@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Workout: Identifiable {
+struct Workout: Identifiable, Equatable {
     var id: UUID = UUID()
     var title: String = ""
     var description: String = ""

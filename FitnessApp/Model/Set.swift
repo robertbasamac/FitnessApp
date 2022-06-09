@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Set: Identifiable {
+struct Set: Identifiable, Equatable {
     var id: UUID = UUID()
     var weight: Float = 0
     var duration: Int = 1
