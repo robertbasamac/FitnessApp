@@ -18,7 +18,7 @@ struct AddEditWorkoutSheetView: View {
     @Binding var editWorkout: Bool
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 0) {
                     AEWTitleSectionView(workout: $workout)
@@ -57,6 +57,7 @@ struct AddEditWorkoutSheetView: View {
             .background(Color(uiColor: .systemGray6))
             .edgesIgnoringSafeArea(.bottom)
         }
+//        .tint(Color(uiColor: .systemOrange))
     }
 }
 

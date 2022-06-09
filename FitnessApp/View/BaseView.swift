@@ -12,6 +12,10 @@ struct BaseView: View {
     @EnvironmentObject var dateModel: DateModel
     @EnvironmentObject var viewRouter: ViewRouter
         
+//    init() {
+//        UITabBar.appearance().tintColor = .systemOrange
+//    }
+//
     var body: some View {
         TabView(selection: $viewRouter.currentTab) {
             HomeTabView()
@@ -42,8 +46,7 @@ struct BaseView: View {
                 }
                 .tag(Page.profile)
         }
-//        .accentColor(.orange)
-//        .edgesIgnoringSafeArea(.top)
+//        .tint(Color(uiColor: .systemOrange))
     }
 }
 

@@ -16,15 +16,15 @@ struct WorkoutTabView: View {
     
     @State private var assignWorkout: Workout? = nil
     
-    @State private var isDeletingWorkout: Bool = false
     @State private var workoutToBeDeleted: Workout? = nil
+    @State private var isDeletingWorkout: Bool = false
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
                 if workoutManager.workouts.count > 0 {
                     ForEach($workoutManager.workouts) { workout in
-                        WorkoutCardView(workout: workout.wrappedValue)
+                        WorkoutCardView(workout: workout)
                             .contextMenu {
                                 Button {
                                     editWorkout = true
@@ -45,6 +45,10 @@ struct WorkoutTabView: View {
                                 } label: {
                                     Label("Delete Workout", systemImage: "trash")
                                 }
+                            } preview: {
+                                Text("\(workout.wrappedValue.title)")
+                                    .font(.title)
+                                    .padding(.all)
                             }
                     }
                 } else {
