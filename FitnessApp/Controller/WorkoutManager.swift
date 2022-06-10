@@ -77,9 +77,7 @@ class WorkoutManager: ObservableObject {
     
     func removeWorkoutFromCollection(_ workout: Workout) {
         for key in schedule.keys {
-            print(key)
             if var values = schedule[key] {
-                print(values)
                 values.removeAll(where: { $0 == workout.id } )
                 schedule.updateValue(values, forKey: key)
                 
