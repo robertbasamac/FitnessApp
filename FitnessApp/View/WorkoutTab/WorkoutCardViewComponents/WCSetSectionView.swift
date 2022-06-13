@@ -51,6 +51,17 @@ struct WCSetSectionView: View {
                     Text("\(exercise.sets[setIndex].weight, specifier: "%.1f")")
                         .font(.footnote)
                 }
+                
+                Spacer()
+                
+                VStack {
+                    Text("rest (s)")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+
+                    Text("\(exercise.sets[setIndex].rest)")
+                        .font(.footnote)
+                }
             }
             .padding(.horizontal, 15)
             .padding(.vertical, 2)
@@ -58,7 +69,8 @@ struct WCSetSectionView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(Color(uiColor: .systemBackground))
             }
-        }    }
+        }
+    }
 }
 
 struct WCSetSectionView_Previews: PreviewProvider {

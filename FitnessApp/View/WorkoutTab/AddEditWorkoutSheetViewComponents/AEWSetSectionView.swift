@@ -23,12 +23,12 @@ struct AEWSetSectionView: View {
                 VStack(spacing: 0) {
                     if exercise.type == .repBased {
                         Stepper(value: $exercise.sets[setIndex].reps, in: 1...Int.max, step: 1) {
-                            Text("\(exercise.sets[setIndex].reps) reps")
+                            Text("\(exercise.sets[setIndex].reps) rep(s)")
                                 .frame(height: 40)
                         }
                     } else {
                         Stepper(value: $exercise.sets[setIndex].duration, in: 1...Int.max, step: 1) {
-                            Text("\(exercise.sets[setIndex].duration) sec")
+                            Text("\(exercise.sets[setIndex].duration) second(s)")
                                 .frame(height: 40)
                         }
                     }
@@ -37,6 +37,14 @@ struct AEWSetSectionView: View {
                         .background(Color(uiColor: .systemGray))
                     
                     AdjustWeightView(set: $exercise.sets[setIndex])
+                    
+                    Divider()
+                        .background(Color(uiColor: .systemGray))
+                    
+                    Stepper(value: $exercise.sets[setIndex].rest, in: 0...Int.max, step: 1) {
+                        Text("\(exercise.sets[setIndex].rest) second(s)")
+                            .frame(height: 40)
+                    }
                 }
                 .padding(.horizontal, 20)
             }

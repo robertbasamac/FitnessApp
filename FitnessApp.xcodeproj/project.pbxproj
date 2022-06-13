@@ -77,6 +77,7 @@
 		0947014B28567179001124F9 /* WorkoutCardViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				09F0AD2E283BD5C200A7E1AE /* WorkoutCardView.swift */,
 				0947014C285671B3001124F9 /* WCTitleSectionView.swift */,
 				0947014E28567352001124F9 /* WCExerciseSectionView.swift */,
 				094701502856750C001124F9 /* WCSetSectionView.swift */,
@@ -114,9 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				09C23958281EE0480077D8AD /* WorkoutTabView.swift */,
-				09F0AD2E283BD5C200A7E1AE /* WorkoutCardView.swift */,
 				0947014B28567179001124F9 /* WorkoutCardViewComponents */,
-				09FE54292825C89F0088D91D /* AddEditWorkoutSheetView.swift */,
 				09BE8088282BFF2A001FA068 /* AddEditWorkoutSheetViewComponents */,
 				09981B2C2850DB8200EB909B /* AssignWorkoutDatePickerView.swift */,
 			);
@@ -144,6 +143,7 @@
 		09BE8088282BFF2A001FA068 /* AddEditWorkoutSheetViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				09FE54292825C89F0088D91D /* AddEditWorkoutSheetView.swift */,
 				09BE8089282BFF5D001FA068 /* AEWTitleSectionView.swift */,
 				09BE8093282C0641001FA068 /* AEWExerciseSectionView.swift */,
 				09BE8095282C41F6001FA068 /* AEWSetSectionView.swift */,

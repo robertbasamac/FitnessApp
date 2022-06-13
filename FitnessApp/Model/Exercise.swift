@@ -11,7 +11,7 @@ struct Exercise: Identifiable, Equatable {
     var id: UUID = UUID()
     var title: String = ""
     var type: ExerciseType = .repBased
-    var sets: [Set] = []
+    var sets: [Set] = [Set()]
 }
 
 enum ExerciseType: String, Equatable, CaseIterable {
