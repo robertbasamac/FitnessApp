@@ -49,6 +49,9 @@ struct WorkoutTabView: View {
                                 Text("\(workout.wrappedValue.title)")
                                     .font(.title)
                                     .padding(.all)
+                                    .background {
+                                        Color(uiColor: .secondarySystemBackground)
+                                    }
                             }
                     }
                 } else {
