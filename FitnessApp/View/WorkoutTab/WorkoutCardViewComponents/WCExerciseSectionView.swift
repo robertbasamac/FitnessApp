@@ -12,7 +12,7 @@ struct WCExerciseSectionView: View {
     
     var body: some View {
         ForEach($workout.exercises) { exercise in
-            VStack(alignment: .center, spacing: 8) {
+            VStack(alignment: .center) {
                 Text(exercise.title.wrappedValue)
                     .font(.title3)
                 

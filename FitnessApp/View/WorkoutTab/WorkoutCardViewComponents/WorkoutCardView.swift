@@ -12,7 +12,7 @@ struct WorkoutCardView: View {
     @State var expandWorkout: Bool = false
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading) {
             WCTitleSectionView(workout: $workout)
             
             if expandWorkout {

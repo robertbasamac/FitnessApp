@@ -11,7 +11,7 @@ struct WCTitleSectionView: View {
     @Binding var workout: Workout
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading) {
             HStack {
                 Text(workout.title)
                     .font(.title)

@@ -36,7 +36,7 @@ struct WorkoutTabView: View {
                                 Button {
                                     assignWorkout = workout.wrappedValue
                                 } label: {
-                                    Label("Assign Workout", systemImage: "calendar")
+                                    Label("Assign Workout", systemImage: "calendar.badge.plus")
                                 }
                                 
                                 Button(role: .destructive) {
