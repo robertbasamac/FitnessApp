@@ -13,6 +13,8 @@ struct HomeTabView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical, showsIndicators: false) {
@@ -29,18 +31,22 @@ struct HomeTabView: View {
                                         Text(dateModel.extractDate(date: day, format: "EE"))
                                             .font(.system(size: 14))
                                         Circle()
-                                            .fill(dateModel.isToday(date: day) ? .white : .black)
+                                            .fill(dateModel.isToday(date: day) ?
+                                                  (colorScheme == .light ? Color.white : Color.black) :
+                                                     (colorScheme == .light ? Color.black : Color.white))
                                             .frame(width: 8, height: 8)
                                             .opacity(workoutManager.hasWorkouts(for: dateModel.extractDate(date: day, format: "dd/MM/yyy")) ? 1 : 0)
                                     }
                                     .foregroundStyle(dateModel.isToday(date: day) ? .primary : .tertiary)
-                                    .foregroundColor(dateModel.isToday(date: day) ? .white : .black)
+                                    .foregroundColor(dateModel.isToday(date: day) ?
+                                                     (colorScheme == .light ? Color.white : Color.black) :
+                                                        (colorScheme == .light ? Color.black : Color.white))
                                     .frame(width: (geometry.size.width - 32) / 7, height: geometry.size.width / 7 * 1.5)
                                     .background (
                                         ZStack {
                                             if dateModel.isToday(date: day) {
                                                 Capsule()
-                                                    .fill(.black)
+                                                    .fill(colorScheme == .light ? Color.black : Color.white)
                                                     .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
                                             }
                                         }

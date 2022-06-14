@@ -15,7 +15,7 @@ struct BaseView: View {
 //    init() {
 //        UITabBar.appearance().tintColor = .systemOrange
 //    }
-//
+    
     var body: some View {
         TabView(selection: $viewRouter.currentTab) {
             HomeTabView()
@@ -24,14 +24,14 @@ struct BaseView: View {
                     Text("Home")
                 }
                 .tag(Page.home)
-
+            
             CalendarTabView()
                 .tabItem {
                     Image(systemName: "calendar")
                     Text("Calendar")
                 }
                 .tag(Page.calendar)
-
+            
             WorkoutTabView()
                 .tabItem {
                     Image(systemName: "list.bullet.below.rectangle")
