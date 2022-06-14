@@ -65,6 +65,11 @@ struct AddSetButton: View {
             HStack(spacing: 20) {
                 Image(systemName: "plus.circle.fill")
                     .foregroundColor(.green)
+                    .background {
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 10, height: 10)
+                    }
                 Text("add set")
             }
             .frame(maxWidth: .infinity, minHeight: 40, alignment: .leading)
@@ -84,6 +89,11 @@ struct RemoveSetButton: View {
             HStack(spacing: 0) {
                 Image(systemName: "minus.circle.fill")
                     .foregroundColor(.red)
+                    .background {
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 10, height: 10)
+                    }
             }
         }
     }

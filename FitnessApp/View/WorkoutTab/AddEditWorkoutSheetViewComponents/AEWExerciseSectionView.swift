@@ -75,6 +75,11 @@ struct AddExerciseButton: View {
                 HStack(spacing: 20) {
                     Image(systemName: "plus.circle.fill")
                         .foregroundColor(.green)
+                        .background {
+                            Circle()
+                                .fill(Color.white)
+                                .frame(width: 10, height: 10)
+                        }
                     Text("add exercise")
                 }
                 .padding(.horizontal, 20)
@@ -100,6 +105,11 @@ struct RemoveExerciseButton: View {
         } label: {
             Image(systemName: "minus.circle.fill")
                 .foregroundColor(.red)
+                .background {
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: 10, height: 10)
+                }
         }
     }
 }
