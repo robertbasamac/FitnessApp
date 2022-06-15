@@ -10,18 +10,38 @@ import SwiftUI
 struct WCExerciseSectionView: View {
     @Binding var workout: Workout
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
-        ForEach($workout.exercises) { exercise in
-            VStack(alignment: .center) {
-                Text(exercise.title.wrappedValue)
-                    .font(.title3)
+        ForEach(workout.exercises.indices, id: \.self) { exerciseIndex in
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(spacing: 20) {
+                    Text("\(exerciseIndex + 1)")
+                        .font(.headline)
+                        .foregroundColor(colorScheme == .light ? Color.white: Color.black)
+                        .padding(.horizontal)
+                        .padding(.vertical, 2)
+                        .background {
+                            Circle()
+                                .foregroundColor(colorScheme == .light ? Color.black: Color.white)
+                        }
+                    
+                    Text(workout.exercises[exerciseIndex].title)
+                        .font(.title3)
+                }
+                .padding(.horizontal)
                 
-                VStack(spacing: 8) {
-                    WCSetSectionView(exercise: exercise)
+                VStack {
+                    WCSetSectionView(exercise: $workout.exercises[exerciseIndex])
                 }
             }
             .padding(.all, 8)
             .background {
+//                Color(uiColor: .secondarySystemFill)
+//                    .cornerRadius(10)
+//                    .shadow(color: Color(uiColor: .white).opacity(0.3),
+//                            radius: 10,
+//                            x: 0, y: 0)
                 RoundedRectangle(cornerRadius: 10)
                     .fill(Color(uiColor: .secondarySystemFill))
             }

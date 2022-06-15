@@ -11,8 +11,7 @@ struct WCSetSectionView: View {
     @Binding var exercise: Exercise
 
     var body: some View {
-        ForEach(0..<exercise.sets.count, id: \.self) { setIndex in
-            
+        ForEach(exercise.sets.indices, id: \.self) { setIndex in
             HStack {
                 Text("Set \(setIndex + 1)")
                     .font(.callout)

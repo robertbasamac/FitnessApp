@@ -37,7 +37,7 @@ struct HomeTabView: View {
                                             .frame(width: 8, height: 8)
                                             .opacity(workoutManager.hasWorkouts(for: dateModel.extractDate(date: day, format: "dd/MM/yyy")) ? 1 : 0)
                                     }
-                                    .foregroundStyle(dateModel.isToday(date: day) ? .primary : .tertiary)
+                                    .foregroundStyle(dateModel.isToday(date: day) ? .primary : .secondary)
                                     .foregroundColor(dateModel.isToday(date: day) ?
                                                      (colorScheme == .light ? Color.white : Color.black) :
                                                         (colorScheme == .light ? Color.black : Color.white))

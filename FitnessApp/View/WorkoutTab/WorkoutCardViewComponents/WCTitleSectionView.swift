@@ -15,7 +15,7 @@ struct WCTitleSectionView: View {
             HStack {
                 Text(workout.title)
                     .font(.title)
-                    .multilineTextAlignment(.leading)
+                    .fontWeight(.semibold)
                 
                 Spacer()
             }
@@ -24,9 +24,9 @@ struct WCTitleSectionView: View {
                 Text(workout.description)
                     .font(.caption)
                     .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.leading)
             }
         }
+        .padding(.horizontal, 8)
     }
 }
 
