@@ -36,6 +36,48 @@ class WorkoutManager: ObservableObject {
                                 Set(weight: 10, reps: 10),
                                 Set(weight: 10, reps: 10),
                                 Set(weight: 10, reps: 10)
+                             ]),
+                    Exercise(title: "Leg press",
+                             type: .repBased,
+                             sets: [
+                                Set(weight: 5, reps: 10),
+                                Set(weight: 10, reps: 8),
+                                Set(weight: 15, reps: 5)
+                             ]),
+                    Exercise(title: "Lunges",
+                             type: .repBased,
+                             sets: [
+                                Set(weight: 10, reps: 10),
+                                Set(weight: 10, reps: 10),
+                                Set(weight: 10, reps: 10)
+                             ]),
+                    Exercise(title: "Leg press",
+                             type: .repBased,
+                             sets: [
+                                Set(weight: 5, reps: 10),
+                                Set(weight: 10, reps: 8),
+                                Set(weight: 15, reps: 5)
+                             ]),
+                    Exercise(title: "Lunges",
+                             type: .repBased,
+                             sets: [
+                                Set(weight: 10, reps: 10),
+                                Set(weight: 10, reps: 10),
+                                Set(weight: 10, reps: 10)
+                             ]),
+                    Exercise(title: "Leg press",
+                             type: .repBased,
+                             sets: [
+                                Set(weight: 5, reps: 10),
+                                Set(weight: 10, reps: 8),
+                                Set(weight: 15, reps: 5)
+                             ]),
+                    Exercise(title: "Lunges",
+                             type: .repBased,
+                             sets: [
+                                Set(weight: 10, reps: 10),
+                                Set(weight: 10, reps: 10),
+                                Set(weight: 10, reps: 10)
                              ])
                 ])
     ]
