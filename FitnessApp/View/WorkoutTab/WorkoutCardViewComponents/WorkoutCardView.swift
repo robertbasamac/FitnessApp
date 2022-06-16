@@ -11,12 +11,16 @@ struct WorkoutCardView: View {
     @Binding var workout: Workout
     @State var expandWorkout: Bool = false
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            WCTitleSectionView(workout: $workout)
-            
-            if expandWorkout {
-                WCExerciseSectionView(workout: $workout)
+        LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
+            Section {
+                if expandWorkout {
+                    WCExerciseSectionView(workout: $workout)
+                }
+            } header: {
+                WCTitleSectionView(workout: $workout, expandWorkout: expandWorkout)
             }
         }
         .padding(.all, 8)
@@ -24,7 +28,7 @@ struct WorkoutCardView: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color(uiColor: .systemFill))
         }
-        .padding(.all, 8)
+        .padding(.horizontal, 8)
         .onTapGesture {
             withAnimation {
                 expandWorkout.toggle()

@@ -21,7 +21,7 @@ struct WorkoutTabView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
+            ScrollView(.vertical, showsIndicators: true) {
                 if workoutManager.workouts.count > 0 {
                     ForEach($workoutManager.workouts) { workout in
                         WorkoutCardView(workout: workout)
