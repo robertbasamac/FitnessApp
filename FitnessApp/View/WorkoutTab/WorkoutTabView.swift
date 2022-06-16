@@ -23,36 +23,38 @@ struct WorkoutTabView: View {
         NavigationStack {
             ScrollView(.vertical, showsIndicators: true) {
                 if workoutManager.workouts.count > 0 {
-                    ForEach($workoutManager.workouts) { workout in
-                        WorkoutCardView(workout: workout)
-                            .contextMenu {
-                                Button {
-                                    editWorkout = true
-                                    selectedWorkout = workout.wrappedValue
-                                } label: {
-                                    Label("Edit Workout", systemImage: "square.and.pencil")
-                                }
-                                
-                                Button {
-                                    assignWorkout = workout.wrappedValue
-                                } label: {
-                                    Label("Assign Workout", systemImage: "calendar.badge.plus")
-                                }
-                                
-                                Button(role: .destructive) {
-                                    isDeletingWorkout = true
-                                    workoutToBeDeleted = workout.wrappedValue
-                                } label: {
-                                    Label("Delete Workout", systemImage: "trash")
-                                }
-                            } preview: {
-                                Text("\(workout.wrappedValue.title)")
-                                    .font(.title)
-                                    .padding(.all)
-                                    .background {
-                                        Color(uiColor: .secondarySystemBackground)
+                    LazyVStack {
+                        ForEach($workoutManager.workouts) { workout in
+                            WorkoutCardView(workout: workout)
+                                .contextMenu {
+                                    Button {
+                                        editWorkout = true
+                                        selectedWorkout = workout.wrappedValue
+                                    } label: {
+                                        Label("Edit Workout", systemImage: "square.and.pencil")
                                     }
-                            }
+                                    
+                                    Button {
+                                        assignWorkout = workout.wrappedValue
+                                    } label: {
+                                        Label("Assign Workout", systemImage: "calendar.badge.plus")
+                                    }
+                                    
+                                    Button(role: .destructive) {
+                                        isDeletingWorkout = true
+                                        workoutToBeDeleted = workout.wrappedValue
+                                    } label: {
+                                        Label("Delete Workout", systemImage: "trash")
+                                    }
+                                } preview: {
+                                    Text("\(workout.wrappedValue.title)")
+                                        .font(.title)
+                                        .padding(.all)
+                                        .background {
+                                            Color(uiColor: .secondarySystemBackground)
+                                        }
+                                }
+                        }
                     }
                 } else {
                     Text("No workouts found.")
