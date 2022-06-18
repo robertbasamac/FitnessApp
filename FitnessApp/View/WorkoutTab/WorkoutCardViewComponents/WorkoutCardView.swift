@@ -23,7 +23,9 @@ struct WorkoutCardView: View {
                 WCTitleSectionView(workout: $workout, expandWorkout: expandWorkout)
             }
         }
-        .padding(.all, 8)
+        .padding(.horizontal, 8)
+        .padding(.bottom, 8)
+        .padding(.top, 6)
         .background {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color(uiColor: .systemFill))

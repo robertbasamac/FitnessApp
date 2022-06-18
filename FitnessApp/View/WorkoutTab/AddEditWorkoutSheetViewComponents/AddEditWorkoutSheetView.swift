@@ -55,7 +55,6 @@ struct AddEditWorkoutSheetView: View {
                 }
             }
             .background(Color(uiColor: .systemGray6))
-            .edgesIgnoringSafeArea(.bottom)
         }
 //        .tint(Color(uiColor: .systemOrange))
     }
