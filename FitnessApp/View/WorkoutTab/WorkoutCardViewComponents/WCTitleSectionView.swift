@@ -47,7 +47,7 @@ struct WCTitleSectionView: View {
                     Color.white.opacity(expandWorkout ? 0.6 : 0),
                 radius: 10,
                 x: 0, y: 0)
-        .padding(.vertical, 2)
+        .padding(.top, 2)
     }
 }
 

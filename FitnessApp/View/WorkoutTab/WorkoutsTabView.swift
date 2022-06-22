@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WorkoutTabView: View {
+struct WorkoutsTabView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
     
@@ -23,7 +23,7 @@ struct WorkoutTabView: View {
         NavigationStack {
             ScrollView(.vertical, showsIndicators: true) {
                 if workoutManager.workouts.count > 0 {
-                    LazyVStack {
+                    VStack {
                         ForEach($workoutManager.workouts) { workout in
                             WorkoutCardView(workout: workout)
                                 .contextMenu {
@@ -65,13 +65,15 @@ struct WorkoutTabView: View {
             .navigationTitle("Workouts")
             .navigationViewStyle(StackNavigationViewStyle())
             .toolbar {
-                Button {
-                    editWorkout = false
-                    selectedWorkout = Workout()
-                } label: {
-                    Image(systemName: "plus")
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        editWorkout = false
+                        selectedWorkout = Workout()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .accessibilityLabel("Add new Workout")
                 }
-                .accessibilityLabel("Add new Workout")
             }
             .sheet(item: $selectedWorkout) { selectedWorkout in
                 AddEditWorkoutSheetView(workout: selectedWorkout, editWorkout: $editWorkout)
@@ -79,6 +81,7 @@ struct WorkoutTabView: View {
             .sheet(item: $assignWorkout) { selectedWorkout in
                 AssignWorkoutDatePickerView(workout: selectedWorkout)
                     .presentationDetents([.fraction(0.6)])
+                    .presentationDragIndicator(.visible)
             }
             .confirmationDialog(
                 Text("Pernanently erase the workout from your workout collection?"),

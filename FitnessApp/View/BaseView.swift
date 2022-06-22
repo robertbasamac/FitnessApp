@@ -12,9 +12,18 @@ struct BaseView: View {
     @EnvironmentObject var dateModel: DateModel
     @EnvironmentObject var viewRouter: ViewRouter
         
-//    init() {
+    init() {
+        let tabBarScrollEdgeAppearance = UITabBarAppearance()
+        tabBarScrollEdgeAppearance.configureWithOpaqueBackground()
+        tabBarScrollEdgeAppearance.shadowColor = nil
+
+        UITabBar.appearance().scrollEdgeAppearance = tabBarScrollEdgeAppearance
 //        UITabBar.appearance().tintColor = .systemOrange
-//    }
+        
+//        let navigationBarAppearance = UINavigationBarAppearance()
+//        navigationBarAppearance.configureWithDefaultBackground()
+//        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+    }
     
     var body: some View {
         TabView(selection: $viewRouter.currentTab) {
@@ -32,7 +41,7 @@ struct BaseView: View {
                 }
                 .tag(Page.calendar)
             
-            WorkoutTabView()
+            WorkoutsTabView()
                 .tabItem {
                     Image(systemName: "list.bullet.below.rectangle")
                     Text("Workouts")

@@ -14,7 +14,7 @@ struct WCExerciseSectionView: View {
     
     var body: some View {
         ForEach(workout.exercises.indices, id: \.self) { exerciseIndex in
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 20) {
                     Text("\(exerciseIndex + 1)")
                         .font(.headline)

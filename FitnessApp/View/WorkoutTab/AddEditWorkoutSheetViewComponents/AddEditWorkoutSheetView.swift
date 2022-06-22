@@ -20,7 +20,7 @@ struct AddEditWorkoutSheetView: View {
     var body: some View {
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 0) {
+                LazyVStack(spacing: 0) {
                     AEWTitleSectionView(workout: $workout)
                     
                     AEWExerciseSectionView(workout: $workout)
