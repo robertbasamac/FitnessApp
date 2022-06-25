@@ -11,7 +11,7 @@ struct AEWExerciseSectionView: View {
     @Binding var workout: Workout
     
     var body: some View {
-        ForEach(0..<workout.exercises.count, id: \.self) { exerciseIndex in
+        ForEach(workout.exercises.indices, id: \.self) { exerciseIndex in
             VStack(spacing: 0) {
                 Divider()
                     .background(Color(uiColor: .systemGray))

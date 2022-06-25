@@ -11,7 +11,7 @@ struct AEWSetSectionView: View {
     @Binding var exercise: Exercise
     
     var body: some View {
-        ForEach(0..<exercise.sets.count, id: \.self) { setIndex in
+        ForEach(exercise.sets.indices, id: \.self) { setIndex in
             HStack(spacing: 0) {
                 HStack(spacing: 20) {
                     RemoveSetButton(exercise: $exercise, index: setIndex)
@@ -146,7 +146,6 @@ struct AdjustWeightView: View {
         .padding(.vertical, 5)
     }
 }
-
 
 struct SetView_Previews: PreviewProvider {
     static var previews: some View {

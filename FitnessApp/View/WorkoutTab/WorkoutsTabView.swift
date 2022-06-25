@@ -56,6 +56,7 @@ struct WorkoutsTabView: View {
                                 }
                         }
                     }
+                    .padding(.horizontal, 8)
                 } else {
                     Text("No workouts found.")
                         .font(.system(size: 16))
@@ -76,28 +77,30 @@ struct WorkoutsTabView: View {
                 }
             }
             .sheet(item: $selectedWorkout) { selectedWorkout in
-                AddEditWorkoutSheetView(workout: selectedWorkout, editWorkout: $editWorkout)
+                AddEditWorkoutSheetView(workout: selectedWorkout, editWorkout: $editWorkout, workoutToCompare: selectedWorkout)
             }
             .sheet(item: $assignWorkout) { selectedWorkout in
                 AssignWorkoutDatePickerView(workout: selectedWorkout)
                     .presentationDetents([.fraction(0.6)])
                     .presentationDragIndicator(.visible)
             }
-            .confirmationDialog(
-                Text("Pernanently erase the workout from your workout collection?"),
-                isPresented: $isDeletingWorkout,
-                presenting: workoutToBeDeleted) { workout in
-                    Button(role: .destructive) {
-                        workoutManager.removeWorkoutFromCollection(workout)
-                    } label: {
-                        Text("Delete")
-                    }
-                    Button("Cancel", role: .cancel) {
-                        workoutToBeDeleted = nil
-                    }
-                }  message: { workout in
-                    Text("This will permanently delete the \"\(workout.title)\" workout from your collection.")
+            .confirmationDialog("Erase Workout from collection.",
+                                isPresented: $isDeletingWorkout,
+                                presenting: workoutToBeDeleted) { workout in
+                Button(role: .destructive) {
+                    workoutManager.removeWorkoutFromCollection(workout)
+                } label: {
+                    Text("Delete")
                 }
+                
+                Button(role: .cancel) {
+                    workoutToBeDeleted = nil
+                } label: {
+                    Text("Cancel")
+                }
+            }  message: { workout in
+                Text("This will permanently delete the \"\(workout.title)\" workout from your collection.")
+            }
         }
     }
 }

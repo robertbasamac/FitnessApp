@@ -150,4 +150,52 @@ class WorkoutManager: ObservableObject {
     func getAllWorkoutsFromCollection() -> [Workout] {
         return workouts
     }
+    
+    //MARK: - Compare Workouts/Exercises/Sets
+    func workoutsAreEqual(workout1 w1: Workout, workout2 w2: Workout) -> Bool {
+        var result = false
+
+        if w1.title == w2.title && w1.description == w2.description {
+            if w1.exercises.count == w2.exercises.count {
+                (0...w1.exercises.count - 1).forEach { index in
+                    result = self.exercisesAreEqual(exercise1: w1.exercises[index],
+                                                    exercise2: w2.exercises[index])
+                }
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+
+        return result
+    }
+    
+    func exercisesAreEqual(exercise1 ex1: Exercise, exercise2 ex2: Exercise) -> Bool {
+        var result = false
+
+        if ex1.title == ex2.title {
+            if ex1.sets.count == ex2.sets.count  && ex1.type == ex2.type {
+                (0...ex1.sets.count - 1).forEach { index in
+                    result = self.setsAreEqual(set1: ex1.sets[index], set2: ex2.sets[index])
+                }
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+
+        return result
+    }
+    
+    func setsAreEqual(set1 s1: Set, set2 s2: Set) -> Bool {
+        var result = false
+
+        if s1.reps == s2.reps && s1.duration == s2.duration && s1.weight == s2.weight && s1.rest == s2.rest {
+            result = true
+        }
+
+        return result
+    }
 }

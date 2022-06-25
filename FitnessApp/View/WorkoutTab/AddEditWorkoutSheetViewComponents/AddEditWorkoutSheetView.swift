@@ -16,6 +16,8 @@ struct AddEditWorkoutSheetView: View {
     
     @State var workout: Workout
     @Binding var editWorkout: Bool
+       
+    var workoutToCompare: Workout
     
     var body: some View {
         NavigationStack {
@@ -40,6 +42,7 @@ struct AddEditWorkoutSheetView: View {
                     }
                     .accessibilityLabel("Cancel adding/editing the Workout.")
                 }
+                
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
                         if editWorkout {
@@ -49,14 +52,44 @@ struct AddEditWorkoutSheetView: View {
                         }
                         dismiss()
                     } label: {
-                        Text("Done")
+                        Text(editWorkout ? "Save" : "Add")
                     }
                     .accessibilityLabel("Confirm adding/editing the Workout.")
+                    .disabled(isDoneButtonDisabled())
                 }
             }
             .background(Color(uiColor: .systemGray6))
         }
 //        .tint(Color(uiColor: .systemOrange))
+    }
+    
+    private func isDoneButtonDisabled() -> Bool {
+        var disableDoneButton = true
+        
+        if self.editWorkout {
+            disableDoneButton = self.workoutManager.workoutsAreEqual(workout1: self.workout, workout2: Workout(workout: self.workoutToCompare)) || isWorkoutEmpty()
+
+        } else {
+            disableDoneButton = isWorkoutEmpty()
+        }
+        
+        return disableDoneButton
+    }
+    
+    private func isWorkoutEmpty() -> Bool {
+        var isEmpty = self.workout.title.isEmpty
+        
+        if self.workout.exercises.count > 0 {
+            self.workout.exercises.forEach { exercise in
+                if exercise.title.isEmpty {
+                    isEmpty = true
+                }
+            }
+        } else {
+            isEmpty = true
+        }
+        
+        return isEmpty
     }
 }
 
