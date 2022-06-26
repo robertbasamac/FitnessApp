@@ -30,11 +30,13 @@ struct WorkoutCardView: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color(uiColor: .systemFill))
         }
-//        .padding(.horizontal, 8)
         .onTapGesture {
             withAnimation {
                 expandWorkout.toggle()
             }
+        }
+        .onDisappear {
+            self.expandWorkout = false
         }
     }
 }
