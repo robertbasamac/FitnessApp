@@ -50,6 +50,7 @@ struct AddEditWorkoutSheetView: View {
                         } else {
                             workoutManager.addWorkoutToCollection(workout)
                         }
+                        
                         dismiss()
                     } label: {
                         Text(editWorkout ? "Save" : "Add")

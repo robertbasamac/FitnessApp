@@ -84,6 +84,8 @@ struct RemoveSetButton: View {
     
     var body: some View {
         Button {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            
             exercise.sets.remove(at: index)
         } label: {
             HStack(spacing: 0) {
