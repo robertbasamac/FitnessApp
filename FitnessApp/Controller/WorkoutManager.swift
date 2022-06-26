@@ -37,42 +37,28 @@ class WorkoutManager: ObservableObject {
                                 Set(weight: 10, reps: 10),
                                 Set(weight: 10, reps: 10)
                              ]),
-                    Exercise(title: "Leg press",
+                    Exercise(title: "Single Leg Squats",
                              type: .repBased,
                              sets: [
                                 Set(weight: 5, reps: 10),
                                 Set(weight: 10, reps: 8),
-                                Set(weight: 15, reps: 5)
+                                Set(weight: 20, reps: 5)
                              ]),
-                    Exercise(title: "Lunges",
+                    Exercise(title: "Bulgarian Deadlifts",
                              type: .repBased,
                              sets: [
                                 Set(weight: 10, reps: 10),
-                                Set(weight: 10, reps: 10),
-                                Set(weight: 10, reps: 10)
+                                Set(weight: 30, reps: 10),
+                                Set(weight: 50, reps: 10)
                              ]),
-                    Exercise(title: "Leg press",
-                             type: .repBased,
-                             sets: [
-                                Set(weight: 5, reps: 10),
-                                Set(weight: 10, reps: 8),
-                                Set(weight: 15, reps: 5)
-                             ]),
-                    Exercise(title: "Lunges",
+                    Exercise(title: "Deadlift",
                              type: .repBased,
                              sets: [
                                 Set(weight: 10, reps: 10),
-                                Set(weight: 10, reps: 10),
-                                Set(weight: 10, reps: 10)
+                                Set(weight: 20, reps: 8),
+                                Set(weight: 35, reps: 5)
                              ]),
-                    Exercise(title: "Leg press",
-                             type: .repBased,
-                             sets: [
-                                Set(weight: 5, reps: 10),
-                                Set(weight: 10, reps: 8),
-                                Set(weight: 15, reps: 5)
-                             ]),
-                    Exercise(title: "Lunges",
+                    Exercise(title: "Reverse Lunges",
                              type: .repBased,
                              sets: [
                                 Set(weight: 10, reps: 10),
@@ -157,7 +143,7 @@ class WorkoutManager: ObservableObject {
 
         if w1.title == w2.title && w1.description == w2.description {
             if w1.exercises.count == w2.exercises.count {
-                (0...w1.exercises.count - 1).forEach { index in
+                w1.exercises.indices.forEach { index in
                     result = self.exercisesAreEqual(exercise1: w1.exercises[index],
                                                     exercise2: w2.exercises[index])
                 }
@@ -176,7 +162,7 @@ class WorkoutManager: ObservableObject {
 
         if ex1.title == ex2.title {
             if ex1.sets.count == ex2.sets.count  && ex1.type == ex2.type {
-                (0...ex1.sets.count - 1).forEach { index in
+                ex1.sets.indices.forEach { index in
                     result = self.setsAreEqual(set1: ex1.sets[index], set2: ex2.sets[index])
                 }
             } else {
