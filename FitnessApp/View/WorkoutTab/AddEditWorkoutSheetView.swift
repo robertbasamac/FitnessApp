@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 struct AddEditWorkoutSheetView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
@@ -19,24 +18,35 @@ struct AddEditWorkoutSheetView: View {
        
     var workoutToCompare: Workout
     
+    @State var scrollToIndex: Int = 0
+    
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack(spacing: 0) {
-                    Spacer()
-                        .frame(height: 40)
-                    
-                    titleSection
-                    
-                    Spacer()
-                        .frame(height: 40)
-                    
-                    exercisesAndSetsSection
-                    
-                    addExerciseButton
-                    
-                    Spacer()
-                        .frame(height: 40)
+            ScrollViewReader { proxy in
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        Spacer()
+                            .frame(height: 40)
+                        
+                        titleSection
+                        
+                        exercisesAndSetsSection
+                        
+                        Spacer()
+                            .frame(height: 40)
+                        
+                        addExerciseButton
+                        
+                        Spacer()
+                            .frame(height: 40)
+                    }
+                    .onChange(of: scrollToIndex) { newValue in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation {
+                                proxy.scrollTo(newValue)
+                            }
+                        }
+                    }
                 }
             }
             .navigationTitle(editWorkout ? "Edit Workout" : "Create new Workout")
@@ -103,11 +113,25 @@ extension AddEditWorkoutSheetView {
             Divider()
                 .background(Color(uiColor: .systemGray))
         }
+        .id(-10)
     }
     
     private var exercisesAndSetsSection: some View {
         
         ForEach(workout.exercises.indices, id: \.self) { exerciseIndex in
+            ZStack(alignment: .bottom) {
+                Spacer()
+                    .frame(height: 40)
+                
+                Text("Exercise \(exerciseIndex + 1)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 6)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+            }
+            
             VStack(spacing: 0) {
                 Divider()
                     .background(Color(uiColor: .systemGray))
@@ -152,9 +176,7 @@ extension AddEditWorkoutSheetView {
                 Divider()
                     .background(Color(uiColor: .systemGray))
             }
-            
-            Spacer()
-                .frame(height: 40)
+            .id(exerciseIndex * 10)
         }
     }
     
@@ -197,6 +219,7 @@ extension AddEditWorkoutSheetView {
                 }
                 .padding(.horizontal, 20)
             }
+            .id(index * 10 + setIndex + 1)
             
             Divider()
                 .background(Color(uiColor: .systemGray))
@@ -263,6 +286,9 @@ extension AddEditWorkoutSheetView {
                 withAnimation {
                     workout.exercises.append(Exercise())
                 }
+                
+                let exerciseCount = workout.exercises.count
+                self.scrollToIndex = (exerciseCount - 1) * 10 + workout.exercises[exerciseCount - 1].sets.count
             } label: {
                 HStack(spacing: 20) {
                     Image(systemName: "plus.circle.fill")
@@ -307,6 +333,8 @@ extension AddEditWorkoutSheetView {
             withAnimation {
                 workout.exercises[index].sets.append(Set())
             }
+            
+            self.scrollToIndex = index * 10 + workout.exercises[index].sets.count
         } label: {
             HStack(spacing: 20) {
                 Image(systemName: "plus.circle.fill")
