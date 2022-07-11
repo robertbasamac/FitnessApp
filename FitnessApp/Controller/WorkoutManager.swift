@@ -161,7 +161,7 @@ class WorkoutManager: ObservableObject {
         var result = false
 
         if ex1.title == ex2.title {
-            if ex1.sets.count == ex2.sets.count  && ex1.type == ex2.type {
+            if ex1.sets.count == ex2.sets.count && ex1.type == ex2.type {
                 ex1.sets.indices.forEach { index in
                     result = self.setsAreEqual(set1: ex1.sets[index], set2: ex2.sets[index])
                 }
