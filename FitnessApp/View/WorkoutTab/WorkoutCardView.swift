@@ -16,11 +16,11 @@ struct WorkoutCardView: View {
     var body: some View {
         LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
             Section {
-                if self.expandWorkout {
-                    self.exercisesAndSetsSection()
+                if expandWorkout {
+                    exercisesAndSetsSection
                 }
             } header: {
-                self.titleSection()
+                titleSection
             }
         }
         .padding(.horizontal, 8)
@@ -32,19 +32,20 @@ struct WorkoutCardView: View {
         }
         .onTapGesture {
             withAnimation {
-                self.expandWorkout.toggle()
+                expandWorkout.toggle()
             }
         }
         .onDisappear {
-            self.expandWorkout = false
+            expandWorkout = false
         }
     }
 }
 
-//MARK: - Extension to create WorkoutCardView content
+//MARK: - WorkoutCardView content views
+
 extension WorkoutCardView {
     
-    private func titleSection() ->  some View {
+    private var titleSection:  some View {
         VStack(alignment: .leading) {
             Text(workout.title)
                 .font(.title)
@@ -79,9 +80,9 @@ extension WorkoutCardView {
         .padding(.top, 2)
     }
     
-    private func exercisesAndSetsSection() -> some View {
+    private var exercisesAndSetsSection: some View {
         
-        ForEach(workout.exercises.indices, id: \.self) { exerciseIndex in
+        ForEach(self.workout.exercises.indices, id: \.self) { exerciseIndex in
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 20) {
                     Text("\(exerciseIndex + 1)")

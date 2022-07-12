@@ -288,7 +288,7 @@ extension AddEditWorkoutSheetView {
                 }
                 
                 let exerciseCount = workout.exercises.count
-                self.scrollToIndex = (exerciseCount - 1) * 10 + workout.exercises[exerciseCount - 1].sets.count
+                scrollToIndex = (exerciseCount - 1) * 10 + workout.exercises[exerciseCount - 1].sets.count
             } label: {
                 HStack(spacing: 20) {
                     Image(systemName: "plus.circle.fill")
@@ -334,7 +334,7 @@ extension AddEditWorkoutSheetView {
                 workout.exercises[index].sets.append(Set())
             }
             
-            self.scrollToIndex = index * 10 + workout.exercises[index].sets.count
+            scrollToIndex = index * 10 + workout.exercises[index].sets.count
         } label: {
             HStack(spacing: 20) {
                 Image(systemName: "plus.circle.fill")
@@ -370,7 +370,7 @@ extension AddEditWorkoutSheetView {
     }
 }
 
-//MARK: - Add/Save disabled or not
+//MARK: - Helper functions
 
 extension AddEditWorkoutSheetView {
     
@@ -378,8 +378,8 @@ extension AddEditWorkoutSheetView {
         
         var disableDoneButton = true
         
-        if self.editWorkout {
-            disableDoneButton = self.workoutManager.workoutsAreEqual(workout1: self.workout, workout2: Workout(workout: self.workoutToCompare)) || isWorkoutEmpty()
+        if editWorkout {
+            disableDoneButton = workoutManager.workoutsAreEqual(workout1: workout, workout2: Workout(workout: workoutToCompare)) || isWorkoutEmpty()
 
         } else {
             disableDoneButton = isWorkoutEmpty()
@@ -390,10 +390,10 @@ extension AddEditWorkoutSheetView {
     
     private func isWorkoutEmpty() -> Bool {
         
-        var isEmpty = self.workout.title.isEmpty
+        var isEmpty = workout.title.isEmpty
         
-        if self.workout.exercises.count > 0 {
-            self.workout.exercises.forEach { exercise in
+        if workout.exercises.count > 0 {
+            workout.exercises.forEach { exercise in
                 if exercise.title.isEmpty {
                     isEmpty = true
                 }
@@ -405,6 +405,8 @@ extension AddEditWorkoutSheetView {
         return isEmpty
     }
 }
+
+//MARK: - <#Section Heading#>
 
 struct AddWorkoutView_Previews: PreviewProvider {
     static var previews: some View {
