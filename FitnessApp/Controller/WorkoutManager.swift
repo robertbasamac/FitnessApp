@@ -138,50 +138,70 @@ class WorkoutManager: ObservableObject {
     }
     
     //MARK: - Compare Workouts/Exercises/Sets
+    
     func workoutsAreEqual(workout1 w1: Workout, workout2 w2: Workout) -> Bool {
         var result = false
-
+        
         if w1.title == w2.title && w1.description == w2.description {
             if w1.exercises.count == w2.exercises.count {
-                w1.exercises.indices.forEach { index in
+                var index = 0
+                
+                repeat {
                     result = self.exercisesAreEqual(exercise1: w1.exercises[index],
                                                     exercise2: w2.exercises[index])
-                }
+                    if !result {
+                        break
+                    }
+                    
+                    index += 1
+                } while index < w1.exercises.count
             } else {
                 return false
             }
         } else {
             return false
         }
-
+        
         return result
     }
     
     func exercisesAreEqual(exercise1 ex1: Exercise, exercise2 ex2: Exercise) -> Bool {
         var result = false
-
+        
         if ex1.title == ex2.title {
             if ex1.sets.count == ex2.sets.count && ex1.type == ex2.type {
-                ex1.sets.indices.forEach { index in
+                var index = 0
+                
+                repeat {
                     result = self.setsAreEqual(set1: ex1.sets[index], set2: ex2.sets[index])
-                }
+                    if !result {
+                        break
+                    }
+                    
+                    index += 1
+                } while index < ex1.sets.count
             } else {
                 return false
             }
         } else {
             return false
         }
-
+        
         return result
     }
     
     func setsAreEqual(set1 s1: Set, set2 s2: Set) -> Bool {
         var result = false
 
+        print("s1: reps(\(s1.reps)), duration(\(s1.duration)), weight(\(s1.weight)), rest(\(s1.rest))")
+        print("s2: reps(\(s2.reps)), duration(\(s2.duration)), weight(\(s2.weight)), rest(\(s2.rest))")
+
         if s1.reps == s2.reps && s1.duration == s2.duration && s1.weight == s2.weight && s1.rest == s2.rest {
+            print("Sets are equal -> TRUE")
             result = true
         }
 
+        print("setsAreEqual ended. Returning \(result)")
         return result
     }
 }
