@@ -12,6 +12,7 @@
 		09A1F86B28198BDB00ADD4FE /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1F86A28198BDB00ADD4FE /* HeaderView.swift */; };
 		09A1F86D2819B39B00ADD4FE /* TodayWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1F86C2819B39B00ADD4FE /* TodayWorkoutsView.swift */; };
 		09A4F4AF28266C9500E73DE2 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A4F4AE28266C9500E73DE2 /* Set.swift */; };
+		09ACE7052880482F001FDCFF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ACE7042880482F001FDCFF /* NotificationManager.swift */; };
 		09B398712811CC0E0067ECE4 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B398702811CC0E0067ECE4 /* Workout.swift */; };
 		09B398732811CC180067ECE4 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B398722811CC180067ECE4 /* Exercise.swift */; };
 		09BA3889287DEEAD00E88368 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BA3888287DEEAD00E88368 /* HapticManager.swift */; };
@@ -35,6 +36,7 @@
 		09A1F86A28198BDB00ADD4FE /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		09A1F86C2819B39B00ADD4FE /* TodayWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWorkoutsView.swift; sourceTree = "<group>"; };
 		09A4F4AE28266C9500E73DE2 /* Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
+		09ACE7042880482F001FDCFF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		09B398702811CC0E0067ECE4 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		09B398722811CC180067ECE4 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		09BA3888287DEEAD00E88368 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			children = (
 				09A1F868281976FA00ADD4FE /* WorkoutManager.swift */,
 				09BA3888287DEEAD00E88368 /* HapticManager.swift */,
+				09ACE7042880482F001FDCFF /* NotificationManager.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				09FE502F280DD9DF00DE4368 /* HomeTabView.swift in Sources */,
 				09FE5036280DF50C00DE4368 /* BaseView.swift in Sources */,
 				09FE542A2825C89F0088D91D /* AddEditWorkoutSheetView.swift in Sources */,
+				09ACE7052880482F001FDCFF /* NotificationManager.swift in Sources */,
 				09FE501F280DD95600DE4368 /* FitnessAppApp.swift in Sources */,
 				09BA3889287DEEAD00E88368 /* HapticManager.swift in Sources */,
 				09981B2D2850DB8200EB909B /* AssignWorkoutDatePickerView.swift in Sources */,

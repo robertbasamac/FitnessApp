@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Exercise: Identifiable, Equatable {
-    var id: UUID = UUID()
+struct Exercise: Identifiable {
+    var id: String = UUID().uuidString
     var title: String = ""
     var type: ExerciseType = .repBased
     var sets: [Set] = [Set()]

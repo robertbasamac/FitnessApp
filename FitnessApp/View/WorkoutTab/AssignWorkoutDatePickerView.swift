@@ -19,7 +19,7 @@ struct AssignWorkoutDatePickerView: View {
     var body: some View {
         NavigationView {
             VStack {
-                DatePicker(selection: $date, in: Date()... ,displayedComponents: [.date]) {
+                DatePicker(selection: $date, in: Date()..., displayedComponents: [.date]) {
                     Text("Select Date")
                 }
                 .datePickerStyle(GraphicalDatePickerStyle())

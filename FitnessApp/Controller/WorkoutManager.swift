@@ -8,7 +8,7 @@
 import Foundation
 
 class WorkoutManager: ObservableObject {
-    @Published var schedule: [String: [UUID]] = [:]
+    @Published var schedule: [String: [String]] = [:]
     
     @Published var workouts: [Workout] = [
         Workout(title: "Upper body",

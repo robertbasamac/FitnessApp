@@ -7,10 +7,13 @@
 
 import Foundation
 
-struct Set: Identifiable, Equatable {
-    var id: UUID = UUID()
+struct Set: Hashable {
     var weight: Float = 0
     var duration: Int = 1
     var rest: Int = 0
     var reps: Int = 1
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(weight + Float(duration) + Float(rest) + Float(reps))
+    }
 }

@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Workout: Identifiable, Equatable {
-    var id: UUID = UUID()
+struct Workout: Identifiable {
+    var id: String = UUID().uuidString
     var title: String = ""
     var description: String = ""
     var exercises: [Exercise] = [Exercise()]
@@ -20,7 +20,7 @@ struct Workout: Identifiable, Equatable {
     }
     
     init(workout: Workout) {
-        self.id = UUID()
+        self.id = UUID().uuidString
         self.title = workout.title
         self.description = workout.description
         self.exercises = workout.exercises
