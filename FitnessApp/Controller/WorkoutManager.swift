@@ -68,7 +68,30 @@ class WorkoutManager: ObservableObject {
                 ])
     ]
     
+    @Published var exercises: [Exercise] = [
+        Exercise(title: "Bench press",
+                 type: .repBased,
+                 sets: [
+                    Set(weight: 5, reps: 10)
+                 ]),
+        Exercise(title: "Reverse Lunges",
+                 type: .repBased,
+                 sets: [
+                    Set(weight: 10, reps: 10),
+                    Set(weight: 10, reps: 10),
+                    Set(weight: 10, reps: 10)
+                 ]),
+        Exercise(title: "Deadlift",
+                 type: .repBased,
+                 sets: [
+                    Set(weight: 10, reps: 10),
+                    Set(weight: 20, reps: 8),
+                    Set(weight: 35, reps: 5)
+                 ])
+    ]
+    
     //MARK: - Handle Workout Schedule
+    
     func hasWorkouts(for day: String) -> Bool {
         return schedule.keys.contains(day)
     }
@@ -99,6 +122,7 @@ class WorkoutManager: ObservableObject {
     }
     
     //MARK: - Handle Workout Collection
+    
     func addWorkoutToCollection(_ workout: Workout) {
         workouts.append(workout)
     }
@@ -124,17 +148,33 @@ class WorkoutManager: ObservableObject {
         }
     }
     
-    func getAllWorkouts() -> [Workout?] {
-        if workouts.count > 0 {
-            return workouts
-        }
-        else {
-            return []
-        }
+//    func getAllWorkouts() -> [Workout?] {
+//        if workouts.count > 0 {
+//            return workouts
+//        }
+//        else {
+//            return []
+//        }
+//    }
+//
+//    func getAllWorkoutsFromCollection() -> [Workout] {
+//        return workouts
+//    }
+    
+    //MARK: - Handle Exercise Collection
+    
+    func addExerciseToCollection(_ exercise: Exercise) {
+        exercises.append(exercise)
     }
     
-    func getAllWorkoutsFromCollection() -> [Workout] {
-        return workouts
+    func removeExerciseFromCollection(_ exercise: Exercise) {
+        exercises.removeAll(where: { $0.id == exercise.id } )
+    }
+    
+    func updateExercise(_ exercise: Exercise) {
+        if let index = exercises.firstIndex(where: { $0.id == exercise.id } ) {
+            exercises[index] = exercise
+        }
     }
     
     //MARK: - Compare Workouts/Exercises/Sets
@@ -192,16 +232,11 @@ class WorkoutManager: ObservableObject {
     
     func setsAreEqual(set1 s1: Set, set2 s2: Set) -> Bool {
         var result = false
-
-        print("s1: reps(\(s1.reps)), duration(\(s1.duration)), weight(\(s1.weight)), rest(\(s1.rest))")
-        print("s2: reps(\(s2.reps)), duration(\(s2.duration)), weight(\(s2.weight)), rest(\(s2.rest))")
-
+        
         if s1.reps == s2.reps && s1.duration == s2.duration && s1.weight == s2.weight && s1.rest == s2.rest {
-            print("Sets are equal -> TRUE")
             result = true
         }
-
-        print("setsAreEqual ended. Returning \(result)")
+        
         return result
     }
 }

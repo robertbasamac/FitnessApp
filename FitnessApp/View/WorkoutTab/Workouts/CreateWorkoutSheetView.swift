@@ -7,16 +7,18 @@
 
 import SwiftUI
 
-struct AddEditWorkoutSheetView: View {
+struct CreateWorkoutSheetView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
     
     @Environment(\.dismiss) private var dismiss
     
-    @State var workout: Workout
+    @State var workout: Workout = Workout()
+    @State var exercisesToBeAdded: [Exercise] = []
+    
+    var workoutToCompare: Workout = Workout()
+    
     @Binding var editWorkout: Bool
-       
-    var workoutToCompare: Workout
     
     @State var scrollToIndex: Int = 0
     
@@ -34,8 +36,8 @@ struct AddEditWorkoutSheetView: View {
                         
                         Spacer()
                             .frame(height: 40)
-                        
-                        addExerciseButton
+
+                        addExerciseButton()
                         
                         Spacer()
                             .frame(height: 40)
@@ -43,7 +45,7 @@ struct AddEditWorkoutSheetView: View {
                     .onChange(of: scrollToIndex) { newValue in
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             withAnimation {
-                                proxy.scrollTo(newValue)
+                                proxy.scrollTo(newValue, anchor: .top)
                             }
                         }
                     }
@@ -77,15 +79,14 @@ struct AddEditWorkoutSheetView: View {
                     .disabled(isDoneButtonDisabled())
                 }
             }
-            .background(Color(uiColor: .systemGray6))
+            .background(Color(uiColor: .secondarySystemBackground))
         }
-//        .tint(Color(uiColor: .systemOrange))
     }
 }
 
-//MARK: - AddEditWorkoutSheetView content views
+//MARK: - Content Views
 
-extension AddEditWorkoutSheetView {
+extension CreateWorkoutSheetView {
     
     private var titleSection: some View {
         
@@ -108,12 +109,12 @@ extension AddEditWorkoutSheetView {
                     .foregroundStyle(.secondary)
             }
             .padding(.leading, 20)
-            .background(Color(uiColor: .tertiarySystemBackground))
             
             Divider()
                 .background(Color(uiColor: .systemGray))
         }
         .id(-10)
+        .background(Color(uiColor: .tertiarySystemBackground))
     }
     
     private var exercisesAndSetsSection: some View {
@@ -171,12 +172,12 @@ extension AddEditWorkoutSheetView {
                     addSetButton(index: exerciseIndex)
                 }
                 .padding(.leading, 20)
-                .background(Color(uiColor: .tertiarySystemBackground))
                 
                 Divider()
                     .background(Color(uiColor: .systemGray))
             }
             .id(exerciseIndex * 10)
+            .background(Color(uiColor: .tertiarySystemBackground))
         }
     }
     
@@ -274,21 +275,32 @@ extension AddEditWorkoutSheetView {
 
 //MARK: - Add and Remove buttons
 
-extension AddEditWorkoutSheetView {
+extension CreateWorkoutSheetView {
     
-    private var addExerciseButton: some View {
-        
+    private func addExerciseButton() -> some View {
+                
         VStack(spacing: 0) {
             Divider()
                 .background(Color(uiColor: .systemGray))
             
-            Button {
-                withAnimation {
-                    workout.exercises.append(Exercise())
+            Menu {
+                NavigationLink {
+                    MultiSelectPickerView(workout: $workout)
+                } label: {
+                    Label("Add existing Exercise", systemImage: "chevron.right")
                 }
-                
-                let exerciseCount = workout.exercises.count
-                scrollToIndex = (exerciseCount - 1) * 10 + workout.exercises[exerciseCount - 1].sets.count
+                .disabled(isAddExistingExerciseButtonDisabled())
+
+                Button {
+                    withAnimation {
+                        workout.exercises.append(Exercise())
+                    }
+
+                    let exerciseCount = workout.exercises.count
+                    scrollToIndex = (exerciseCount - 1) * 10 + workout.exercises[exerciseCount - 1].sets.count
+                } label: {
+                    Text("Add new Exercise")
+                }
             } label: {
                 HStack(spacing: 20) {
                     Image(systemName: "plus.circle.fill")
@@ -370,16 +382,20 @@ extension AddEditWorkoutSheetView {
     }
 }
 
-//MARK: - Helper functions
+//MARK: - Helper methods
 
-extension AddEditWorkoutSheetView {
+extension CreateWorkoutSheetView {
+    
+    private func isAddExistingExerciseButtonDisabled() -> Bool {
+        return workoutManager.exercises.count == 0
+    }
     
     private func isDoneButtonDisabled() -> Bool {
         
         var disableDoneButton = true
         
         if editWorkout {
-            disableDoneButton = workoutManager.workoutsAreEqual(workout1: workout, workout2: Workout(workout: workoutToCompare)) || isWorkoutEmpty()
+            disableDoneButton = workoutManager.workoutsAreEqual(workout1: workout, workout2: workoutToCompare) || isWorkoutEmpty()
 
         } else {
             disableDoneButton = isWorkoutEmpty()
@@ -406,7 +422,7 @@ extension AddEditWorkoutSheetView {
     }
 }
 
-//MARK: - <#Section Heading#>
+//MARK: - Preview
 
 struct AddWorkoutView_Previews: PreviewProvider {
     static var previews: some View {

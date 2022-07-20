@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct BaseView: View {
-    @EnvironmentObject var workoutManager: WorkoutManager
-    @EnvironmentObject var dateModel: DateModel
+    
     @EnvironmentObject var viewRouter: ViewRouter
         
     init() {
@@ -18,7 +17,7 @@ struct BaseView: View {
         tabBarScrollEdgeAppearance.shadowColor = nil
 
         UITabBar.appearance().scrollEdgeAppearance = tabBarScrollEdgeAppearance
-//        UITabBar.appearance().tintColor = .systemOrange
+        UITabBar.appearance().tintColor = .systemBlue
         
 //        let navigationBarAppearance = UINavigationBarAppearance()
 //        navigationBarAppearance.configureWithDefaultBackground()
@@ -26,7 +25,7 @@ struct BaseView: View {
     }
     
     var body: some View {
-        TabView(selection: $viewRouter.currentTab) {
+        TabView {
             HomeTabView()
                 .tabItem {
                     Image(systemName: "house")
@@ -41,12 +40,12 @@ struct BaseView: View {
                 }
                 .tag(Page.calendar)
             
-            WorkoutsTabView()
+            CollectionTabView()
                 .tabItem {
                     Image(systemName: "list.bullet.below.rectangle")
-                    Text("Workouts")
+                    Text("Collection")
                 }
-                .tag(Page.workouts)
+                .tag(Page.collection)
             
             ProfileTabView()
                 .tabItem {
@@ -55,7 +54,6 @@ struct BaseView: View {
                 }
                 .tag(Page.profile)
         }
-//        .tint(Color(uiColor: .systemOrange))
     }
 }
 

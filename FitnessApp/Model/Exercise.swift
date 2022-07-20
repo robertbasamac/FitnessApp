@@ -7,11 +7,15 @@
 
 import Foundation
 
-struct Exercise: Identifiable {
+struct Exercise: Identifiable, Hashable {
     var id: String = UUID().uuidString
     var title: String = ""
     var type: ExerciseType = .repBased
     var sets: [Set] = [Set()]
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(title + type.rawValue + String(sets.count))
+    }
 }
 
 enum ExerciseType: String, Equatable, CaseIterable {

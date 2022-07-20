@@ -1,23 +1,24 @@
 //
-//  WorkoutCardView.swift
+//  ExerciseCardView.swift
 //  FitnessApp
 //
-//  Created by Robert Basamac on 23.05.2022.
+//  Created by Robert Basamac on 17.07.2022.
 //
 
 import SwiftUI
 
-struct WorkoutCardView: View {
-    @Binding var workout: Workout
-    @State var expandWorkout: Bool = false
+struct ExerciseCardView: View {
+    
+    @Binding var exercise: Exercise
+    @State var expandExercise: Bool = false
     
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
+        LazyVStack(alignment: .leading, spacing: 8, pinnedViews: .sectionHeaders) {
             Section {
-                if expandWorkout {
-                    exercisesAndSetsSection
+                if expandExercise {
+                    setsSection
                 }
             } header: {
                 titleSection
@@ -32,92 +33,55 @@ struct WorkoutCardView: View {
         }
         .onTapGesture {
             withAnimation {
-                expandWorkout.toggle()
+                expandExercise.toggle()
             }
         }
         .onDisappear {
-            expandWorkout = false
+            expandExercise = false
         }
     }
 }
 
-//MARK: - WorkoutCardView content views
+//MARK: - Content Views
 
-extension WorkoutCardView {
+extension ExerciseCardView {
     
     private var titleSection:  some View {
         VStack(alignment: .leading) {
-            Text(workout.title)
-                .font(.title)
+            Text(exercise.title)
+                .font(.title2)
                 .fontWeight(.semibold)
-                .foregroundColor(expandWorkout ?
+                .foregroundColor(expandExercise ?
                                  (colorScheme == .light ? Color.white : Color.black)
                                  : Color(uiColor: .label))
             
-            if workout.description.count > 0 {
-                Text(workout.description)
-                    .font(.caption)
-                    .foregroundColor(expandWorkout ?
-                                     (colorScheme == .light ? Color.white : Color.black)
-                                     : Color(uiColor: .label))
-                    .foregroundStyle(.secondary)
-            }
+//            if exercise.description.count > 0 {
+//                Text(workout.description)
+//                    .font(.caption)
+//                    .foregroundColor(expandWorkout ?
+//                                     (colorScheme == .light ? Color.white : Color.black)
+//                                     : Color(uiColor: .label))
+//                    .foregroundStyle(.secondary)
+//            }
         }
         .padding(.horizontal, 8)
-        .padding(.bottom, 4)
+        .padding(.vertical, 3)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background {
-            if expandWorkout {
+            if expandExercise {
                 Color(uiColor: colorScheme == .light ? .black : .white)
             }
         }
         .cornerRadius(10)
         .shadow(color: colorScheme == .light ?
-                    Color.black.opacity(expandWorkout ? 0.6 : 0) :
-                    Color.white.opacity(expandWorkout ? 0.6 : 0),
+                    Color.black.opacity(expandExercise ? 0.6 : 0) :
+                    Color.white.opacity(expandExercise ? 0.6 : 0),
                 radius: 10,
                 x: 0, y: 0)
         .padding(.top, 2)
     }
     
-    private var exercisesAndSetsSection: some View {
-        
-        ForEach(self.workout.exercises.indices, id: \.self) { exerciseIndex in
-            VStack(alignment: .leading, spacing: 8) {
-                HStack(spacing: 20) {
-                    Text("\(exerciseIndex + 1)")
-                        .font(.headline)
-                        .foregroundColor(colorScheme == .light ? Color.white: Color.black)
-                        .padding(.horizontal)
-                        .padding(.vertical, 2)
-                        .background {
-                            Circle()
-                                .foregroundColor(colorScheme == .light ? Color.black: Color.white)
-                        }
-                    
-                    Text(workout.exercises[exerciseIndex].title)
-                        .font(.title3)
-                }
-                .padding(.horizontal)
-                
-                VStack {
-                    setsSection(exercise: workout.exercises[exerciseIndex])
-                }
-            }
-            .padding(.all, 8)
-            .background {
-//                Color(uiColor: .secondarySystemFill)
-//                    .cornerRadius(10)
-//                    .shadow(color: Color(uiColor: .white).opacity(0.3),
-//                            radius: 10,
-//                            x: 0, y: 0)
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(uiColor: .secondarySystemFill))
-            }
-        }
-    }
-    
-    private func setsSection(exercise: Exercise) -> some View {
+    private var setsSection: some View {
         
         ForEach(exercise.sets.indices, id: \.self) { setIndex in
             HStack {
@@ -135,8 +99,6 @@ extension WorkoutCardView {
                         Text("\(exercise.sets[setIndex].reps)")
                             .font(.footnote)
                     }
-                    
-                    Spacer()
                 } else {
                     VStack {
                         Text("time (s)")
@@ -145,11 +107,11 @@ extension WorkoutCardView {
 
                         Text("\(exercise.sets[setIndex].duration)")
                             .font(.footnote)
-                        
-                        Spacer()
                     }
                 }
                 
+                Spacer()
+
                 VStack {
                     Text("weight (Kg)")
                         .font(.caption2)
@@ -180,7 +142,7 @@ extension WorkoutCardView {
     }
 }
 
-struct WorkoutCardView_Previews: PreviewProvider {
+struct ExerciseCardView_Previews: PreviewProvider {
     static var previews: some View {
         BaseView()
             .environmentObject(WorkoutManager())
