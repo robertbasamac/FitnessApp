@@ -387,6 +387,7 @@ extension CreateWorkoutSheetView {
 extension CreateWorkoutSheetView {
     
     private func isAddExistingExerciseButtonDisabled() -> Bool {
+        
         return workoutManager.exercises.count == 0
     }
     

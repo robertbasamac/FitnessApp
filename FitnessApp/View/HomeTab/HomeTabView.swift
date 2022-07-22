@@ -7,79 +7,121 @@
 
 import SwiftUI
 
-struct HomeTabView: View {
-    @Namespace var animation
-    
+struct HomeTabView: View {   
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var dateModel: DateModel
-    
+        
     @Environment(\.colorScheme) var colorScheme
+    
+    @State private var showPreviousWeek: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack(spacing: 10, pinnedViews: [.sectionHeaders]) {
+                LazyVStack(spacing: 0, pinnedViews: [.sectionHeaders]) {
                     Section {
-                        //MARK: - Week View
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 4) {
-                                ForEach(dateModel.currentWeek, id: \.self) { day in
-                                    VStack() {
-                                        Text(dateModel.extractDate(date: day, format: "dd"))
-                                            .font(.system(size: 15))
-                                            .fontWeight(.semibold)
-                                        Text(dateModel.extractDate(date: day, format: "EE"))
-                                            .font(.system(size: 14))
-                                        Circle()
-                                            .fill(dateModel.isToday(date: day) ?
-                                                  (colorScheme == .light ? Color.white : Color.black) :
-                                                     (colorScheme == .light ? Color.black : Color.white))
-                                            .frame(width: 8, height: 8)
-                                            .opacity(workoutManager.hasWorkouts(for: dateModel.extractDate(date: day, format: "dd/MM/yyy")) ? 1 : 0)
-                                    }
-                                    .foregroundStyle(dateModel.isToday(date: day) ? .primary : .secondary)
-                                    .foregroundColor(dateModel.isToday(date: day) ?
-                                                     (colorScheme == .light ? Color.white : Color.black) :
-                                                        (colorScheme == .light ? Color.black : Color.white))
-                                    .frame(width: (geometry.size.width - 32) / 7, height: geometry.size.width / 7 * 1.5)
-                                    .background (
-                                        ZStack {
-                                            if dateModel.isToday(date: day) {
-                                                Capsule()
-                                                    .fill(colorScheme == .light ? Color.black : Color.white)
-                                                    .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
-                                            }
-                                        }
-                                    )
-                                    .contentShape(Capsule())
-                                    .onTapGesture {
-                                        withAnimation {
-                                            dateModel.currentDay = day
-                                        }
-                                    }
+                        updateWeekSection
+                        
+                        ZStack {
+                            ForEach(dateModel.displayedWeeks, id: \.self) { week in
+                                if week == dateModel.currentWeek {
+                                    WeekView(week: week)
+                                        .transition(.asymmetric(
+                                            insertion: .move(edge: showPreviousWeek ? .leading : .trailing),
+                                            removal: .move(edge: showPreviousWeek ? .trailing : .leading)))
                                 }
+                                
                             }
-                            .padding(.vertical, 5)
-                            .frame(maxWidth: .infinity)
-                            .frame(minWidth: geometry.size.width)
-                            .background(
-                                GeometryReader { parentGeometry in
-                                    Rectangle()
-                                        .fill(Color(UIColor.systemGray2))
-                                        .frame(width: parentGeometry.size.width, height: 0.5)
-                                        .position(x: parentGeometry.size.width / 2, y: parentGeometry.size.height)
-                                }
-                            )
                         }
-                        TodayWorkoutsView()
+                        
+                        todayWorkoutsSection
                     } header: {
-                        HeaderView()
+                        headerSection
                     }
                 }
             }
             .frame(maxHeight: .infinity)
         }
         .clipped()
+    }
+}
+
+//MARK: - Content Views
+
+extension HomeTabView {
+    
+    private var headerSection: some View {
+        
+        HStack(spacing: 10) {
+            VStack(alignment: .leading, spacing: 15) {
+                Text(Date().formatted(date: .abbreviated, time: .omitted))
+                    .foregroundColor(.gray)
+                
+                Text(dateModel.extractDate(date: Date(), format: "EEEE"))
+                    .font(.largeTitle.bold())
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Button {
+                
+            } label: {
+                Image("Profile")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 45, height: 45)
+                    .clipShape(Circle())
+            }
+        }
+        .padding()
+        .background {
+            Color(uiColor: .systemBackground)
+        }
+    }
+    
+    private var updateWeekSection: some View {
+        
+        HStack {
+            Button {
+                showPreviousWeek = true
+                dateModel.showPreviousWeek()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .padding(.horizontal)
+            }
+            
+            Button {
+                dateModel.showCurrentWeek()
+            } label: {
+                Text("Today")
+                    .padding(.horizontal)
+            }
+            
+            Button {
+                showPreviousWeek = false
+                dateModel.showNextWeek()
+            } label: {
+                Image(systemName: "chevron.right")
+                    .padding(.horizontal)
+            }
+        }
+        .foregroundColor(colorScheme == .light ? Color.black : Color.white)
+        .frame(maxWidth: .infinity)
+    }
+    
+    private var todayWorkoutsSection: some View {
+        
+        LazyVStack {
+            if let workouts = workoutManager.getWorkouts(for: dateModel.extractDate(date: dateModel.selectedDay, format: "dd/MM/yyy")) {
+                ForEach(workouts) { workout in
+                    Text("\(workout.title)")
+                        .font(.system(size: 16))
+                }
+            } else {
+                Text("No workouts assigned.")
+                    .font(.system(size: 16))
+                    .foregroundColor(.red)
+            }
+        }
     }
 }
 

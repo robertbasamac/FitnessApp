@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CollectionTabView: View {
     
-    @State private var selectedPage: CollectionPage = .exercises
+    @State private var selectedPage: CollectionPage = .workouts
     
     @State private var showCreateExercise: Bool = false
     @State private var showCreateWorkout: Bool = false

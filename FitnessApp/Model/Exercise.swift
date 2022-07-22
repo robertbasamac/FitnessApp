@@ -10,6 +10,7 @@ import Foundation
 struct Exercise: Identifiable, Hashable {
     var id: String = UUID().uuidString
     var title: String = ""
+    var instruction: String = ""
     var type: ExerciseType = .repBased
     var sets: [Set] = [Set()]
     
