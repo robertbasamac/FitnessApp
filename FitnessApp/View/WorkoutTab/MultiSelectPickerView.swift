@@ -19,7 +19,7 @@ struct MultiSelectPickerView: View {
     var body: some View {
         List {
             ForEach(workoutManager.exercises) { exercise in
-                ListRowView(exercise: exercise, selectedExercises: $selectedExercises)
+                listRowView(exercise: exercise)
             }
         }
         .toolbar {
@@ -31,6 +31,30 @@ struct MultiSelectPickerView: View {
                     Text("Done")
                 }
                 .disabled(selectedExercises.isEmpty)
+            }
+        }
+    }
+}
+
+extension MultiSelectPickerView {
+    
+    private func listRowView(exercise: Exercise) -> some View {
+        
+        HStack {
+            Image(systemName: selectedExercises.contains(exercise) ? "checkmark.circle" : "circle")
+                .foregroundColor(Color(uiColor: .systemBlue))
+            
+            Text(exercise.title)
+            
+        }
+        .frame(alignment: .leading)
+        .onTapGesture {
+            withAnimation(.linear) {
+                if selectedExercises.contains(exercise) {
+                    selectedExercises.removeAll(where: { $0 == exercise })
+                } else {
+                    selectedExercises.append(exercise)
+                }
             }
         }
     }

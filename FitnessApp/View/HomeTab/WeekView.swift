@@ -12,20 +12,18 @@ struct WeekView: View {
     @EnvironmentObject private var dateModel: DateModel
     
     @Environment(\.colorScheme) var colorScheme
-    
-    @Namespace var animation
-    
+        
     let week: [Date]
     
     var body: some View {
         HStack {
             ForEach(week, id: \.self) { day in
-                VStack() {
+                VStack(spacing: 2) {
                     Text(dateModel.extractDate(date: day, format: "dd"))
-                        .font(.system(size: 15))
+                        .font(.headline)
                         .fontWeight(.semibold)
                     Text(dateModel.extractDate(date: day, format: "EE"))
-                        .font(.system(size: 14))
+                        .font(.callout)
                     Circle()
                         .fill(dateModel.isSelectedDay(date: day) ?
                               (colorScheme == .light ? Color.white : Color.black) :
@@ -38,18 +36,16 @@ struct WeekView: View {
                                  : (dateModel.isSelectedDay(date: day) ?
                                     (colorScheme == .light ? Color.white : Color.black) :
                                         (colorScheme == .light ? Color.black : Color.white)))
-                .frame(height: 80)
+                .frame(height: 75)
                 .frame(maxWidth: .infinity)
                 .background (
                     ZStack {
                         if dateModel.isSelectedDay(date: day) {
                             Capsule()
                                 .fill(colorScheme == .light ? Color.black : Color.white)
-                                .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
                         }
                     }
                 )
-                .contentShape(Capsule())
                 .onTapGesture {
                     withAnimation {
                         dateModel.selectedDay = day
@@ -57,14 +53,15 @@ struct WeekView: View {
                 }
             }
         }
-        .padding(.vertical, 5)
         .frame(maxWidth: .infinity)
-        
     }
 }
 
 struct WeekPreviewView_Previews: PreviewProvider {
     static var previews: some View {
-        WeekView(week: Array(repeating: Date(), count: 7))
+        BaseView()
+            .environmentObject(WorkoutManager())
+            .environmentObject(DateModel())
+            .environmentObject(ViewRouter())
     }
 }

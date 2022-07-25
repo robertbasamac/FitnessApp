@@ -10,7 +10,6 @@
 		09981B2D2850DB8200EB909B /* AssignWorkoutDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09981B2C2850DB8200EB909B /* AssignWorkoutDatePickerView.swift */; };
 		09A1F869281976FA00ADD4FE /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1F868281976FA00ADD4FE /* WorkoutManager.swift */; };
 		09A408382885595D0026632C /* MultiSelectPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A408372885595D0026632C /* MultiSelectPickerView.swift */; };
-		09A4083A28856F4E0026632C /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A4083928856F4E0026632C /* ListRowView.swift */; };
 		09A4F4AF28266C9500E73DE2 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A4F4AE28266C9500E73DE2 /* Set.swift */; };
 		09A75F802881925A001CF5B9 /* CollectionTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A75F7F2881925A001CF5B9 /* CollectionTabView.swift */; };
 		09A75F822881ABAB001CF5B9 /* ExercisesTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A75F812881ABAB001CF5B9 /* ExercisesTabView.swift */; };
@@ -40,7 +39,6 @@
 		09981B2C2850DB8200EB909B /* AssignWorkoutDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignWorkoutDatePickerView.swift; sourceTree = "<group>"; };
 		09A1F868281976FA00ADD4FE /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		09A408372885595D0026632C /* MultiSelectPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectPickerView.swift; sourceTree = "<group>"; };
-		09A4083928856F4E0026632C /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
 		09A4F4AE28266C9500E73DE2 /* Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
 		09A75F7F2881925A001CF5B9 /* CollectionTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTabView.swift; sourceTree = "<group>"; };
 		09A75F812881ABAB001CF5B9 /* ExercisesTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesTabView.swift; sourceTree = "<group>"; };
@@ -110,7 +108,6 @@
 			children = (
 				09A75F7F2881925A001CF5B9 /* CollectionTabView.swift */,
 				09A408372885595D0026632C /* MultiSelectPickerView.swift */,
-				09A4083928856F4E0026632C /* ListRowView.swift */,
 				09A760772884967F00381E05 /* Workouts */,
 				09A760782884969200381E05 /* Exercises */,
 			);
@@ -304,7 +301,6 @@
 				09C23957281EE0390077D8AD /* CalendarTabView.swift in Sources */,
 				09B398732811CC180067ECE4 /* Exercise.swift in Sources */,
 				09A1F869281976FA00ADD4FE /* WorkoutManager.swift in Sources */,
-				09A4083A28856F4E0026632C /* ListRowView.swift in Sources */,
 				09FE5034280DDF4100DE4368 /* DateModel.swift in Sources */,
 				09A4F4AF28266C9500E73DE2 /* Set.swift in Sources */,
 				09B398712811CC0E0067ECE4 /* Workout.swift in Sources */,

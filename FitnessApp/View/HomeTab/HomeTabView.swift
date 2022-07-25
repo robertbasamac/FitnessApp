@@ -13,7 +13,14 @@ struct HomeTabView: View {
         
     @Environment(\.colorScheme) var colorScheme
     
-    @State private var showPreviousWeek: Bool = false
+    @State private var weekViewTransitionDirection: WeekTransition = .previous
+    
+    enum WeekTransition: Identifiable, CaseIterable {
+        var id: Self { self }
+        
+        case previous
+        case next
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -22,22 +29,16 @@ struct HomeTabView: View {
                     Section {
                         updateWeekSection
                         
-                        ZStack {
-                            ForEach(dateModel.displayedWeeks, id: \.self) { week in
-                                if week == dateModel.currentWeek {
-                                    WeekView(week: week)
-                                        .transition(.asymmetric(
-                                            insertion: .move(edge: showPreviousWeek ? .leading : .trailing),
-                                            removal: .move(edge: showPreviousWeek ? .trailing : .leading)))
-                                }
-                                
-                            }
-                        }
+                        swipeableWeekView
                         
                         todayWorkoutsSection
                     } header: {
                         headerSection
                     }
+                }
+                .padding(.horizontal, 4)
+                .onAppear {
+                    dateModel.showCurrentWeek()
                 }
             }
             .frame(maxHeight: .infinity)
@@ -82,30 +83,50 @@ extension HomeTabView {
         
         HStack {
             Button {
-                showPreviousWeek = true
-                dateModel.showPreviousWeek()
+                weekViewTransitionDirection = .previous
+                
+                withAnimation {
+                    dateModel.showPreviousWeek()
+                }
             } label: {
                 Image(systemName: "chevron.left")
                     .padding(.horizontal)
             }
             
             Button {
-                dateModel.showCurrentWeek()
+                    dateModel.showCurrentWeek()
             } label: {
                 Text("Today")
                     .padding(.horizontal)
             }
-            
+                        
             Button {
-                showPreviousWeek = false
-                dateModel.showNextWeek()
+                weekViewTransitionDirection = .next
+                
+                withAnimation {
+                    dateModel.showNextWeek()
+                }
             } label: {
                 Image(systemName: "chevron.right")
                     .padding(.horizontal)
             }
         }
+        .padding(.vertical, 4)
+        .frame(maxWidth: .infinity, alignment: .trailing)
         .foregroundColor(colorScheme == .light ? Color.black : Color.white)
-        .frame(maxWidth: .infinity)
+    }
+    
+    private var swipeableWeekView: some View {
+        
+        ZStack {
+            ForEach(dateModel.displayedWeeks, id: \.self) { week in
+                if week == dateModel.currentWeek {
+                    WeekView(week: week)
+                        .padding(.horizontal, 4)
+                        .transition(getTransition())
+                }
+            }
+        }
     }
     
     private var todayWorkoutsSection: some View {
@@ -115,12 +136,28 @@ extension HomeTabView {
                 ForEach(workouts) { workout in
                     Text("\(workout.title)")
                         .font(.system(size: 16))
+                        .frame(maxWidth: .infinity)
                 }
             } else {
                 Text("No workouts assigned.")
                     .font(.system(size: 16))
                     .foregroundColor(.red)
+                    .frame(maxWidth: .infinity)
             }
+        }
+    }
+}
+
+//MARK: - Helper Methods
+
+extension HomeTabView {
+    
+    private func getTransition() -> AnyTransition {
+        switch weekViewTransitionDirection {
+        case .previous:
+            return AnyTransition.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing))
+        case .next:
+            return AnyTransition.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading))
         }
     }
 }
