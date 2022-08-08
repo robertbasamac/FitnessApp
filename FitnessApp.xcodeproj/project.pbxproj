@@ -197,10 +197,10 @@
 			children = (
 				09FE5033280DDF4100DE4368 /* DateModel.swift */,
 				09C23954281ED6100077D8AD /* ViewRouter.swift */,
-				098D3B38289AAB400003C06D /* CoreDataManager.swift */,
 				09A1F868281976FA00ADD4FE /* WorkoutManager.swift */,
 				09BA3888287DEEAD00E88368 /* HapticManager.swift */,
 				09ACE7042880482F001FDCFF /* NotificationManager.swift */,
+				098D3B38289AAB400003C06D /* CoreDataManager.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";

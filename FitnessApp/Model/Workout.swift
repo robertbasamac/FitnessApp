@@ -10,6 +10,6 @@ import Foundation
 struct Workout: Identifiable {
     var id: String = UUID().uuidString
     var title: String = ""
-    var description: String = ""
+    var details: String = ""
     var exercises: [Exercise] = [Exercise()]
 }

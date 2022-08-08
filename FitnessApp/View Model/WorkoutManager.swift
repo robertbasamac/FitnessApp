@@ -12,7 +12,7 @@ class WorkoutManager: ObservableObject {
     
     @Published var workouts: [Workout] = [
         Workout(title: "Upper body",
-                description: "Workout the entire upper body",
+                details: "Workout the entire upper body",
                 exercises: [
                     Exercise(title: "Bench press",
                              type: .repBased,
@@ -21,7 +21,7 @@ class WorkoutManager: ObservableObject {
                              ])
                 ]),
         Workout(title: "Legs day",
-                description: "Workout legs like hell. Multiple exercises with multiple sets.",
+                details: "Workout legs like hell. Multiple exercises with multiple sets.",
                 exercises: [
                     Exercise(title: "Leg press",
                              type: .repBased,
@@ -169,7 +169,7 @@ class WorkoutManager: ObservableObject {
     func workoutsAreEqual(workout1 w1: Workout, workout2 w2: Workout) -> Bool {
         var result = false
         
-        if w1.title == w2.title && w1.description == w2.description {
+        if w1.title == w2.title && w1.details == w2.details {
             if w1.exercises.count == w2.exercises.count {
                 var index = 0
                 

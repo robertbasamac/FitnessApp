@@ -10,7 +10,7 @@ import CoreData
 
 class CoreDataManager {
 
-    static let instance = CoreDataManager()
+    static let shared = CoreDataManager()
 
     let container: NSPersistentContainer
     let context: NSManagedObjectContext

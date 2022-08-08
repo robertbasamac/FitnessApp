@@ -102,7 +102,7 @@ extension CreateWorkoutSheetView {
                 Divider()
                     .background(Color(uiColor: .systemGray))
                 
-                TextField("Description", text: $workout.description)
+                TextField("Description", text: $workout.details)
                     .padding(.trailing, 20)
                     .frame(height: 40)
                     .font(.system(size: 16))

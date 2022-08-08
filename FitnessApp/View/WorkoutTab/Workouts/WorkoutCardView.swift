@@ -55,8 +55,8 @@ extension WorkoutCardView {
                                  (colorScheme == .light ? Color.white : Color.black)
                                  : Color(uiColor: .label))
             
-            if workout.description.count > 0 {
-                Text(workout.description)
+            if workout.details.count > 0 {
+                Text(workout.details)
                     .font(.caption)
                     .foregroundColor(expandWorkout ?
                                      (colorScheme == .light ? Color.white : Color.black)
