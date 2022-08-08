@@ -148,19 +148,6 @@ class WorkoutManager: ObservableObject {
         }
     }
     
-//    func getAllWorkouts() -> [Workout?] {
-//        if workouts.count > 0 {
-//            return workouts
-//        }
-//        else {
-//            return []
-//        }
-//    }
-//
-//    func getAllWorkoutsFromCollection() -> [Workout] {
-//        return workouts
-//    }
-    
     //MARK: - Handle Exercise Collection
     
     func addExerciseToCollection(_ exercise: Exercise) {

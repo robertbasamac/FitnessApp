@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21223.11" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ExerciseEntity" representedClassName=".ExerciseEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="instructions" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="type" attributeType="String"/>
+        <relationship name="sets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SetEntity" inverseName="exercises" inverseEntity="SetEntity"/>
+        <relationship name="workouts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkoutEntity" inverseName="exercises" inverseEntity="WorkoutEntity"/>
+    </entity>
+    <entity name="SetEntity" representedClassName=".SetEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="duration" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reps" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rest" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="weight" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="exercises" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExerciseEntity" inverseName="sets" inverseEntity="ExerciseEntity"/>
+    </entity>
+    <entity name="WorkoutEntity" representedClassName=".WorkoutEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="details" optional="YES" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExerciseEntity" inverseName="workouts" inverseEntity="ExerciseEntity"/>
+    </entity>
+    <elements>
+        <element name="ExerciseEntity" positionX="-63" positionY="9" width="128" height="104"/>
+        <element name="SetEntity" positionX="-54" positionY="18" width="128" height="104"/>
+        <element name="WorkoutEntity" positionX="-63" positionY="-18" width="128" height="74"/>
+    </elements>
+</model>

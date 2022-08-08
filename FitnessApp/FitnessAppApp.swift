@@ -12,6 +12,7 @@ struct FitnessAppApp: App {
     @StateObject var workoutManager = WorkoutManager()
     @StateObject var dateModel = DateModel()
     @StateObject var viewRouter = ViewRouter()
+//    @StateObject var coreData = CoreDataViewModel()
 
     var body: some Scene {
         WindowGroup {
