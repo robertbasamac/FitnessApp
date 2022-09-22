@@ -13,7 +13,7 @@ struct AssignWorkoutDatePickerView: View {
 
     @Environment(\.dismiss) private var dismiss
 
-    @State var workout: Workout
+    @State var workout: WorkoutModel
     @State private var date: Date = Date()
     
     var body: some View {

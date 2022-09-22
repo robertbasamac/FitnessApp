@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct CalendarTabView: View {
+
     var body: some View {
-        GeometryReader { geometry in
+        NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .center){
                     Text("Calendar")

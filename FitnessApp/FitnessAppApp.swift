@@ -19,7 +19,7 @@ struct FitnessAppApp: App {
             BaseView()
                 .environmentObject(workoutManager)
                 .environmentObject(dateModel)
-                .environmentObject(ViewRouter())
+                .environmentObject(viewRouter)
         }
     }
 }

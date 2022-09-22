@@ -13,9 +13,9 @@ struct CreateExerciseSheetView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    @State var exercise: Exercise = Exercise()
+    @State var exercise: ExerciseModel = ExerciseModel()
     
-    var exerciseToCompare: Exercise = Exercise()
+    var exerciseToCompare: ExerciseModel = ExerciseModel()
     
     @Binding var editExercise: Bool
     
@@ -67,7 +67,8 @@ struct CreateExerciseSheetView: View {
                         if editExercise {
                             workoutManager.updateExercise(exercise)
                         } else {
-                            workoutManager.addExerciseToCollection(exercise)
+                            workoutManager.addExerciseToCollection(exercise: exercise)
+//                            workoutManager.addExerciseToCollection(exercise)
                         }
                         
                         dismiss()
@@ -243,7 +244,7 @@ extension CreateExerciseSheetView {
             
             Button {
                 withAnimation {
-                    exercise.sets.append(Set())
+                    exercise.sets.append(SetModel())
                 }
                 
                 scrollToIndex = (exercise.sets.count - 1) * 10

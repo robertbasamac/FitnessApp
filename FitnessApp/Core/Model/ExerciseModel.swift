@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Exercise: Identifiable, Hashable {
+struct ExerciseModel: Identifiable, Hashable {
     var id: String = UUID().uuidString
     var title: String = ""
     var instructions: String = ""
     var type: ExerciseType = .repBased
-    var sets: [Set] = [Set()]
+    var sets: [SetModel] = []
 }
 
 enum ExerciseType: String, Equatable, CaseIterable {

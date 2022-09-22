@@ -13,8 +13,8 @@ struct MultiSelectPickerView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    @Binding var workout: Workout
-    @State var selectedExercises: [Exercise] = []
+    @Binding var workout: WorkoutModel
+    @State var selectedExercises: [ExerciseModel] = []
         
     var body: some View {
         List {
@@ -38,7 +38,7 @@ struct MultiSelectPickerView: View {
 
 extension MultiSelectPickerView {
     
-    private func listRowView(exercise: Exercise) -> some View {
+    private func listRowView(exercise: ExerciseModel) -> some View {
         
         HStack {
             Image(systemName: selectedExercises.contains(exercise) ? "checkmark.circle" : "circle")

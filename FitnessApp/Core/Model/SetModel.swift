@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Set: Hashable {
-    var weight: Float = 0
+struct SetModel: Hashable {
+    var weight: Double = 0
     var duration: Int = 1
     var rest: Int = 0
     var reps: Int = 1
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(weight + Float(duration) + Float(rest) + Float(reps))
+        hasher.combine(weight + Double(duration) + Double(rest) + Double(reps))
     }
 }

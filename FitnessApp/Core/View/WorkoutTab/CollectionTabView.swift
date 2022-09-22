@@ -40,14 +40,10 @@ struct CollectionTabView: View {
                 switch selectedPage {
                 case .workouts:
                     WorkoutsTabView()
-                        .transition(.asymmetric(
-                            insertion: .move(edge: .leading),
-                            removal: .move(edge: .trailing)))
+                        .transition(.move(edge: .leading))
                 case .exercises:
                     ExercisesTabView()
-                    .transition(.asymmetric(
-                        insertion: .move(edge: .trailing),
-                        removal: .move(edge: .leading)))
+                        .transition(.move(edge: .trailing))
                 }
             }
             .navigationTitle("Collection")

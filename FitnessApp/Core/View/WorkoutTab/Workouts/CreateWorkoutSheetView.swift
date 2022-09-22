@@ -13,10 +13,10 @@ struct CreateWorkoutSheetView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    @State var workout: Workout = Workout()
-    @State var exercisesToBeAdded: [Exercise] = []
+    @State var workout: WorkoutModel = WorkoutModel()
+    @State var exercisesToBeAdded: [ExerciseModel] = []
     
-    var workoutToCompare: Workout = Workout()
+    var workoutToCompare: WorkoutModel = WorkoutModel()
     
     @Binding var editWorkout: Bool
     
@@ -68,7 +68,7 @@ struct CreateWorkoutSheetView: View {
                         if editWorkout {
                             workoutManager.updateWorkout(workout)
                         } else {
-                            workoutManager.addWorkoutToCollection(workout)
+                            workoutManager.addWorkoutToCollection(workout: workout)
                         }
                         
                         dismiss()
@@ -293,7 +293,7 @@ extension CreateWorkoutSheetView {
 
                 Button {
                     withAnimation {
-                        workout.exercises.append(Exercise())
+                        workout.exercises.append(ExerciseModel())
                     }
 
                     let exerciseCount = workout.exercises.count
@@ -343,7 +343,7 @@ extension CreateWorkoutSheetView {
         
         Button {
             withAnimation {
-                workout.exercises[index].sets.append(Set())
+                workout.exercises[index].sets.append(SetModel())
             }
             
             scrollToIndex = index * 10 + workout.exercises[index].sets.count

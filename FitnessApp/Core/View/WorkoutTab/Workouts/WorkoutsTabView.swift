@@ -11,9 +11,9 @@ struct WorkoutsTabView: View {
     
     @EnvironmentObject var workoutManager: WorkoutManager
     
-    @State private var selectedWorkout: Workout? = nil
-    @State private var assignWorkout: Workout? = nil
-    @State private var selectedWorkoutForDeletion: Workout? = nil
+    @State private var selectedWorkout: WorkoutModel? = nil
+    @State private var assignWorkout: WorkoutModel? = nil
+    @State private var selectedWorkoutForDeletion: WorkoutModel? = nil
     
     @State private var editWorkout: Bool = false
     @State private var deleteWorkout: Bool = false
@@ -75,7 +75,7 @@ struct WorkoutsTabView: View {
                             isPresented: $deleteWorkout,
                             presenting: selectedWorkoutForDeletion) { workout in
             Button(role: .destructive) {
-                workoutManager.removeWorkoutFromCollection(workout)
+                workoutManager.deleteWorkoutFromCollection(workout)
             } label: {
                 Text("Delete")
             }
