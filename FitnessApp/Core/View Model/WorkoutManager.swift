@@ -448,7 +448,7 @@ extension WorkoutManager {
     func exercisesAreEqual(exercise1 ex1: ExerciseModel, exercise2 ex2: ExerciseModel) -> Bool {
         var result = false
         
-        if ex1.title == ex2.title {
+        if ex1.title == ex2.title && ex1.instructions == ex2.instructions {
             if ex1.sets.count == ex2.sets.count && ex1.type == ex2.type  && ex1.sets.count > 0 {
                 var index = 0
                 

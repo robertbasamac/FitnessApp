@@ -68,7 +68,6 @@ struct CreateExerciseSheetView: View {
                             workoutManager.updateExercise(exercise)
                         } else {
                             workoutManager.addExerciseToCollection(exercise: exercise)
-//                            workoutManager.addExerciseToCollection(exercise)
                         }
                         
                         dismiss()
@@ -85,7 +84,6 @@ struct CreateExerciseSheetView: View {
 }
 
 //MARK: - Content Views
-
 extension CreateExerciseSheetView {
     
     private var titleSection: some View {
@@ -97,6 +95,15 @@ extension CreateExerciseSheetView {
             VStack(spacing: 0) {
                 TextField("Title", text: $exercise.title)
                     .frame(height: 40)
+                
+                Divider()
+                    .background(Color(uiColor: .systemGray))
+                
+                TextField("Instructions", text: $exercise.instructions)
+                    .padding(.trailing, 20)
+                    .frame(height: 40)
+                    .font(.system(size: 16))
+                    .foregroundStyle(.secondary)
                 
                 Divider()
                     .background(Color(uiColor: .systemGray))
@@ -233,7 +240,6 @@ extension CreateExerciseSheetView {
 }
 
 //MARK: - Add and Remove buttons
-
 extension CreateExerciseSheetView {
     
     private var addSetButton: some View {
@@ -290,7 +296,6 @@ extension CreateExerciseSheetView {
 }
 
 //MARK: - Helper methods
-
 extension CreateExerciseSheetView {
     
     private func isDoneButtonDisabled() -> Bool {
@@ -312,7 +317,6 @@ extension CreateExerciseSheetView {
 }
 
 //MARK: - Preview
-
 struct CreateExerciseSheetView_Previews: PreviewProvider {
     static var previews: some View {
         BaseView()

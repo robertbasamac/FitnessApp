@@ -101,6 +101,9 @@ extension WorkoutCardView {
                 }
                 .padding(.horizontal)
                 
+                Text(workout.exercises[exerciseIndex].instructions)
+                    .font(.caption)
+                
                 VStack {
                     setsSection(exercise: workout.exercises[exerciseIndex])
                 }
