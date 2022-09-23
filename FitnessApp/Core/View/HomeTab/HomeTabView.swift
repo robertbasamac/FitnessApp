@@ -132,7 +132,7 @@ extension HomeTabView {
     private var todayWorkoutsSection: some View {
         
         LazyVStack {
-            if let workouts = workoutManager.getWorkouts(for: dateModel.extractDate(date: dateModel.selectedDay, format: "dd/MM/yyy")) {
+            if let workouts = workoutManager.getWorkouts(forDate: dateModel.extractDate(date: dateModel.selectedDay, format: "dd/MM/yyy")) {
                 ForEach(workouts) { workout in
                     Text("\(workout.title)")
                         .font(.system(size: 16))

@@ -2,7 +2,7 @@
 //  WorkoutEntity+CoreDataProperties.swift
 //  FitnessApp
 //
-//  Created by Robert Basamac on 21.09.2022.
+//  Created by Robert Basamac on 22.09.2022.
 //
 //
 
@@ -16,10 +16,11 @@ extension WorkoutEntity {
         return NSFetchRequest<WorkoutEntity>(entityName: "WorkoutEntity")
     }
 
+    @NSManaged public var details: String
     @NSManaged public var id: String
     @NSManaged public var title: String
-    @NSManaged public var details: String
     @NSManaged public var exercises: NSSet?
+    @NSManaged public var schedules: NSSet?
 
 }
 
@@ -37,6 +38,23 @@ extension WorkoutEntity {
 
     @objc(removeExercises:)
     @NSManaged public func removeFromExercises(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for schedules
+extension WorkoutEntity {
+
+    @objc(addSchedulesObject:)
+    @NSManaged public func addToSchedules(_ value: ScheduleEntity)
+
+    @objc(removeSchedulesObject:)
+    @NSManaged public func removeFromSchedules(_ value: ScheduleEntity)
+
+    @objc(addSchedules:)
+    @NSManaged public func addToSchedules(_ values: NSSet)
+
+    @objc(removeSchedules:)
+    @NSManaged public func removeFromSchedules(_ values: NSSet)
 
 }
 

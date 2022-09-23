@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="ExerciseEntity" representedClassName="ExerciseEntity" syncable="YES">
+    <entity name="ExerciseEntity" representedClassName=".ExerciseEntity" syncable="YES">
         <attribute name="id" attributeType="String"/>
         <attribute name="instructions" attributeType="String"/>
         <attribute name="number" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -9,7 +9,11 @@
         <relationship name="sets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SetEntity" inverseName="exercise" inverseEntity="SetEntity"/>
         <relationship name="workouts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkoutEntity" inverseName="exercises" inverseEntity="WorkoutEntity"/>
     </entity>
-    <entity name="SetEntity" representedClassName="SetEntity" syncable="YES">
+    <entity name="ScheduleEntity" representedClassName=".ScheduleEntity" syncable="YES">
+        <attribute name="date" attributeType="String"/>
+        <relationship name="workouts" toMany="YES" deletionRule="Nullify" destinationEntity="WorkoutEntity" inverseName="schedules" inverseEntity="WorkoutEntity"/>
+    </entity>
+    <entity name="SetEntity" representedClassName=".SetEntity" syncable="YES">
         <attribute name="duration" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="number" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="reps" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -17,14 +21,14 @@
         <attribute name="weight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExerciseEntity" inverseName="sets" inverseEntity="ExerciseEntity"/>
     </entity>
-    <entity name="StoreExerciseEntity" representedClassName="StoreExerciseEntity" syncable="YES">
+    <entity name="StoreExerciseEntity" representedClassName=".StoreExerciseEntity" syncable="YES">
         <attribute name="id" attributeType="String"/>
         <attribute name="instructions" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <attribute name="type" attributeType="Boolean" usesScalarValueType="YES"/>
         <relationship name="sets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="StoreSetEntity" inverseName="exercise" inverseEntity="StoreSetEntity"/>
     </entity>
-    <entity name="StoreSetEntity" representedClassName="StoreSetEntity" syncable="YES">
+    <entity name="StoreSetEntity" representedClassName=".StoreSetEntity" syncable="YES">
         <attribute name="duration" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="number" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="reps" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -32,10 +36,11 @@
         <attribute name="weight" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreExerciseEntity" inverseName="sets" inverseEntity="StoreExerciseEntity"/>
     </entity>
-    <entity name="WorkoutEntity" representedClassName="WorkoutEntity" syncable="YES">
+    <entity name="WorkoutEntity" representedClassName=".WorkoutEntity" syncable="YES">
         <attribute name="details" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ExerciseEntity" inverseName="workouts" inverseEntity="ExerciseEntity"/>
+        <relationship name="schedules" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ScheduleEntity" inverseName="workouts" inverseEntity="ScheduleEntity"/>
     </entity>
 </model>

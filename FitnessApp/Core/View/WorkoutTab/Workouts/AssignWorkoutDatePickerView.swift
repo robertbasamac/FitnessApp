@@ -40,7 +40,7 @@ struct AssignWorkoutDatePickerView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        workoutManager.assignWorkout(workout, for: dateModel.extractDate(date: date, format: "dd/MM/yyy"))
+                        workoutManager.assignWorkout(workout, toDate: dateModel.extractDate(date: date, format: "dd/MM/yyy"))
                         dismiss()
                     } label: {
                         Text("Assign")

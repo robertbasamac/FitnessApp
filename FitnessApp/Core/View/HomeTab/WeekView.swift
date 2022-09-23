@@ -29,7 +29,7 @@ struct WeekView: View {
                               (colorScheme == .light ? Color.white : Color.black) :
                                 (colorScheme == .light ? Color.black : Color.white))
                         .frame(width: 8, height: 8)
-                        .opacity(workoutManager.hasWorkouts(for: dateModel.extractDate(date: day, format: "dd/MM/yyy")) ? 1 : 0)
+                        .opacity(workoutManager.hasWorkouts(forDate: dateModel.extractDate(date: day, format: "dd/MM/yyy")) ? 1 : 0)
                 }
                 .foregroundStyle(dateModel.isToday(date: day) ? .primary : .secondary)
                 .foregroundColor(dateModel.isToday(date: day) ? .red

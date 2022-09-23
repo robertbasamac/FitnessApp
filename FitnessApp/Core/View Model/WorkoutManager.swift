@@ -13,10 +13,11 @@ class WorkoutManager: ObservableObject {
     
     let coreDataManager = CoreDataManager.shared
     
+    @Published var CDschedule: [ScheduleEntity] = []
     @Published var CDworkouts: [WorkoutEntity] = []
     @Published var CDexercises: [StoreExerciseEntity] = []
         
-    @Published var schedule: [String: [String]] = [:]
+    @Published var schedule: [ScheduleModel] = []
     @Published var workouts: [WorkoutModel] = []
     @Published var exercises: [ExerciseModel] = []
     
@@ -26,17 +27,14 @@ class WorkoutManager: ObservableObject {
         addSubscribers()
         getWorkoutsFromCollection()
         getExercisesFromCollection()
+        getScheduleFromCollection()
     }
-
-
-//MARK: - Public
     
     //MARK: - Create Entities
     func addWorkoutToCollection(workout: WorkoutModel) {
         var entity = WorkoutEntity(context: coreDataManager.context)
         
         updateWorkoutEntity(entity: &entity, workout: workout)
-        
         save()
     }
     
@@ -44,24 +42,12 @@ class WorkoutManager: ObservableObject {
         var entity = StoreExerciseEntity(context: coreDataManager.context)
         
         updateExerciseEntity(entity: &entity, exercise: exercise)
-        
         save()
     }
     
     //MARK: - Update Entities
     func updateWorkout(_ workout: WorkoutModel) {
-        var entities: [WorkoutEntity] = []
-        
-        let request = NSFetchRequest<WorkoutEntity>(entityName: "WorkoutEntity")
-        
-        let filter = NSPredicate(format: "id == %@", workout.id)
-        request.predicate = filter
-        
-        do {
-            entities = try coreDataManager.context.fetch(request)
-        } catch let error {
-            print("Error fetching workout for update, \(error.localizedDescription)")
-        }
+        let entities: [WorkoutEntity] = fetchWorkoutEntities(forId: workout.id)
         
         guard !entities.isEmpty, var entity = entities.first else {
             print("No workout with id = \(workout.id) found.")
@@ -73,18 +59,7 @@ class WorkoutManager: ObservableObject {
     }
     
     func updateExercise(_ exercise: ExerciseModel) {
-        var entities: [StoreExerciseEntity] = []
-        
-        let request = NSFetchRequest<StoreExerciseEntity>(entityName: "StoreExerciseEntity")
-        
-        let filter = NSPredicate(format: "id == %@", exercise.id)
-        request.predicate = filter
-        
-        do {
-            entities = try coreDataManager.context.fetch(request)
-        } catch let error {
-            print("Error fetching exercise for update, \(error.localizedDescription)")
-        }
+        let entities: [StoreExerciseEntity] = fetchExerciseEntities(forId: exercise.id)
         
         guard !entities.isEmpty, var entity = entities.first else {
             print("No exercise with id = \(exercise.id) found.")
@@ -97,18 +72,7 @@ class WorkoutManager: ObservableObject {
     
     //MARK: - Delete Entities
     func deleteWorkoutFromCollection(_ workout: WorkoutModel) {
-        var entities: [WorkoutEntity] = []
-        
-        let request = NSFetchRequest<WorkoutEntity>(entityName: "WorkoutEntity")
-        
-        let filter = NSPredicate(format: "id == %@", workout.id)
-        request.predicate = filter
-        
-        do {
-            entities = try coreDataManager.context.fetch(request)
-        } catch let error {
-            print("Error fetching workout for deletion, \(error.localizedDescription)")
-        }
+        let entities: [WorkoutEntity] = fetchWorkoutEntities(forId: workout.id)
         
         guard !entities.isEmpty, let entity = entities.first else {
             print("No workout with id = \(workout.id) found.")
@@ -119,18 +83,7 @@ class WorkoutManager: ObservableObject {
     }
     
     func deleteExerciseFromCollection(_ exercise: ExerciseModel) {
-        var entities: [StoreExerciseEntity] = []
-        
-        let request = NSFetchRequest<StoreExerciseEntity>(entityName: "StoreExerciseEntity")
-        
-        let filter = NSPredicate(format: "id == %@", exercise.id)
-        request.predicate = filter
-        
-        do {
-            entities = try coreDataManager.context.fetch(request)
-        } catch let error {
-            print("Error fetching exercise for deletion, \(error.localizedDescription)")
-        }
+        let entities: [StoreExerciseEntity] = fetchExerciseEntities(forId: exercise.id)
         
         guard !entities.isEmpty, let entity = entities.first else {
             print("No exercise with id = \(exercise.id) found.")
@@ -140,6 +93,62 @@ class WorkoutManager: ObservableObject {
         deleteExerciseEntity(entity)
     }
 
+    //MARK: - Handle Workout Schedule
+    func assignWorkout(_ workout: WorkoutModel, toDate date: String) {
+        if schedule.contains(where: { $0.date == date }) {
+            let scheduleEntities: [ScheduleEntity] = fetchScheduleEntities(forDate: date)
+            guard !scheduleEntities.isEmpty, let scheduleEntity = scheduleEntities.first else {
+                print("No schedule for date = \(date) found.")
+                return
+            }
+            
+            let workoutEntities: [WorkoutEntity] = fetchWorkoutEntities(forId: workout.id)
+            guard !workoutEntities.isEmpty, let workoutEntity = workoutEntities.first else {
+                print("No workout with id = \(workout.id) found.")
+                return
+            }
+            
+            scheduleEntity.addToWorkouts(workoutEntity)
+        } else {
+            let scheduleEntity = ScheduleEntity(context: coreDataManager.context)
+            
+            let workoutEntities: [WorkoutEntity] = fetchWorkoutEntities(forId: workout.id)
+            guard !workoutEntities.isEmpty, let workoutEntity = workoutEntities.first else {
+                print("No workout with id = \(workout.id) found.")
+                return
+            }
+            
+            scheduleEntity.date = date
+            scheduleEntity.addToWorkouts(workoutEntity)
+        }
+        
+        save()
+    }
+    
+    func hasWorkouts(forDate date: String) -> Bool {
+        if schedule.contains(where: { $0.date == date }) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func getWorkouts(forDate date: String) -> [WorkoutModel]? {
+        if let scheduleForDate = schedule.first(where: { $0.date == date }) {
+            let workoutIDs = scheduleForDate.workoutIDs
+            var result: [WorkoutModel] = []
+            
+            for workout in self.workouts {
+                if workoutIDs.contains(workout.id) {
+                    result.append(workout)
+                }
+            }
+            
+            return result
+        }
+        
+        return nil
+    }
 
 //MARK: - Private
     
@@ -161,6 +170,37 @@ class WorkoutManager: ObservableObject {
                 self.exercises = returnedExercises
             }
             .store(in: &cancellables)
+        
+        $CDschedule
+            .map(mapScheduleEntitiesToScheduleModels)
+            .sink { [weak self] returnedSchedule in
+                guard let self = self else { return }
+                
+                self.schedule = returnedSchedule
+            }
+            .store(in: &cancellables)
+    }
+    
+    //MARK: - Map Core Data ScheduleEntities to ScheduleModels
+    private func mapScheduleEntitiesToScheduleModels(scheduleEntities: [ScheduleEntity]) -> [ScheduleModel] {
+        var schedule: [ScheduleModel] = []
+        
+        for scheduleEntity in scheduleEntities {
+            var scheduleModel: ScheduleModel = ScheduleModel()
+            var workoutIDs: [String] = []
+            
+            let workoutEntities = scheduleEntity.workouts.allObjects as! [WorkoutEntity]
+            for entity in workoutEntities {
+                workoutIDs.append(entity.id)
+            }
+            
+            scheduleModel.date = scheduleEntity.date
+            scheduleModel.workoutIDs = workoutIDs
+            
+            schedule.append(scheduleModel)
+        }
+        
+        return schedule
     }
     
     //MARK: - Map Core Data WorkoutEntities to WorkoutModels
@@ -380,42 +420,72 @@ class WorkoutManager: ObservableObject {
         }
     }
     
+    private func getScheduleFromCollection() {
+        let request = NSFetchRequest<ScheduleEntity>(entityName: "ScheduleEntity")
+        
+        do {
+            CDschedule = try coreDataManager.context.fetch(request)
+        } catch let error {
+            print("Error fetching Schedule, \(error.localizedDescription)")
+        }
+    }
+    
+    private func fetchScheduleEntities(forDate date: String) -> [ScheduleEntity] {
+        var entities: [ScheduleEntity] = []
+        
+        let request = NSFetchRequest<ScheduleEntity>(entityName: "ScheduleEntity")
+        
+        let filter = NSPredicate(format: "date == %@", date)
+        request.predicate = filter
+        
+        do {
+            entities = try coreDataManager.context.fetch(request)
+        } catch let error {
+            print("Error fetching Schedule for date = \(date), \(error.localizedDescription)")
+        }
+        
+        return entities
+    }
+    
+    private func fetchWorkoutEntities(forId id: String) -> [WorkoutEntity] {
+        var entities: [WorkoutEntity] = []
+        
+        let request = NSFetchRequest<WorkoutEntity>(entityName: "WorkoutEntity")
+        
+        let filter = NSPredicate(format: "id == %@", id)
+        request.predicate = filter
+        
+        do {
+            entities = try coreDataManager.context.fetch(request)
+        } catch let error {
+            print("Error fetching Workout for id = \(id), \(error.localizedDescription)")
+        }
+        
+        return entities
+    }
+    
+    private func fetchExerciseEntities(forId id: String) -> [StoreExerciseEntity] {
+        var entities: [StoreExerciseEntity] = []
+        
+        let request = NSFetchRequest<StoreExerciseEntity>(entityName: "StoreExerciseEntity")
+        
+        let filter = NSPredicate(format: "id == %@", id)
+        request.predicate = filter
+        
+        do {
+            entities = try coreDataManager.context.fetch(request)
+        } catch let error {
+            print("Error fetching Exercise for update, \(error.localizedDescription)")
+        }
+        
+        return entities
+    }
+    
     private func save() {
         coreDataManager.save()
         getWorkoutsFromCollection()
         getExercisesFromCollection()
-    }
-}
-
-//MARK: - Handle Workout Schedule
-extension WorkoutManager {
-    func hasWorkouts(for day: String) -> Bool {
-        return schedule.keys.contains(day)
-    }
-    
-    func assignWorkout(_ workout: WorkoutModel, for day: String) {
-        if var mergedWorkouts = schedule[day] {
-            mergedWorkouts.append(workout.id)
-            schedule.updateValue(mergedWorkouts, forKey: day)
-        } else {
-            schedule.updateValue([workout.id], forKey: day)
-        }
-    }
-    
-    func getWorkouts(for day: String) -> [WorkoutModel]? {
-        if let workoutIDs = schedule[day] {
-            var result: [WorkoutModel] = []
-            
-            for workout in self.workouts {
-                if workoutIDs.contains(workout.id) {
-                    result.append(workout)
-                }
-            }
-            
-            return result
-        }
-        
-        return nil
+        getScheduleFromCollection()
     }
     
     //MARK: - Compare Workouts/Exercises/Sets
