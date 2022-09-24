@@ -30,22 +30,22 @@ class WorkoutManager: ObservableObject {
         getScheduleFromCollection()
     }
     
-    //MARK: - Create Entities
+    // MARK: Create Entities
     func addWorkoutToCollection(workout: WorkoutModel) {
         var entity = WorkoutEntity(context: coreDataManager.context)
         
-        updateWorkoutEntity(entity: &entity, workout: workout)
+        updateWorkoutEntityFromModel(workoutEntity: &entity, workoutModel: workout)
         save()
     }
     
     func addExerciseToCollection(exercise: ExerciseModel) {
         var entity = StoreExerciseEntity(context: coreDataManager.context)
         
-        updateExerciseEntity(entity: &entity, exercise: exercise)
+        updateExerciseEntityFromModel(exerciseEntity: &entity, exerciseModel: exercise)
         save()
     }
     
-    //MARK: - Update Entities
+    // MARK: Update Entities
     func updateWorkout(_ workout: WorkoutModel) {
         let entities: [WorkoutEntity] = fetchWorkoutEntities(forId: workout.id)
         
@@ -54,7 +54,7 @@ class WorkoutManager: ObservableObject {
             return
         }
         
-        updateWorkoutEntity(entity: &entity, workout: workout)
+        updateWorkoutEntityFromModel(workoutEntity: &entity, workoutModel: workout)
         save()
     }
     
@@ -66,11 +66,11 @@ class WorkoutManager: ObservableObject {
             return
         }
         
-        updateExerciseEntity(entity: &entity, exercise: exercise)
+        updateExerciseEntityFromModel(exerciseEntity: &entity, exerciseModel: exercise)
         save()
     }
     
-    //MARK: - Delete Entities
+    // MARK: Delete Entities
     func deleteWorkoutFromCollection(_ workout: WorkoutModel) {
         let entities: [WorkoutEntity] = fetchWorkoutEntities(forId: workout.id)
         
@@ -93,8 +93,8 @@ class WorkoutManager: ObservableObject {
         deleteExerciseEntity(entity)
     }
 
-    //MARK: - Handle Workout Schedule
-    func assignWorkout(_ workout: WorkoutModel, toDate date: String) {
+    // MARK: Handle Workout Schedule
+    func scheduleWorkout(_ workout: WorkoutModel, toDate date: String) {
         if schedule.contains(where: { $0.date == date }) {
             let scheduleEntities: [ScheduleEntity] = fetchScheduleEntities(forDate: date)
             guard !scheduleEntities.isEmpty, let scheduleEntity = scheduleEntities.first else {
@@ -149,8 +149,30 @@ class WorkoutManager: ObservableObject {
         
         return nil
     }
+    
+    func deleteWorkoutFromSchedule(_ workout: WorkoutModel, forDate date: String) {
+        let scheduleEntities: [ScheduleEntity] = fetchScheduleEntities(forDate: date)
+        guard !scheduleEntities.isEmpty, let scheduleEntity = scheduleEntities.first else {
+            print("No schedule for date = \(date) found.")
+            return
+        }
+        
+        let workoutEntities: [WorkoutEntity] = fetchWorkoutEntities(forId: workout.id)
+        guard !workoutEntities.isEmpty, let workoutEntity = workoutEntities.first else {
+            print("No workout with id = \(workout.id) found.")
+            return
+        }
+        
+        scheduleEntity.removeFromWorkouts(workoutEntity)
 
-//MARK: - Private
+        if scheduleEntity.workouts.count == 0 {
+            coreDataManager.context.delete(scheduleEntity)
+        }
+        
+        save()
+    }
+
+// MARK: Private
     
     private func addSubscribers() {
         $CDworkouts
@@ -181,7 +203,7 @@ class WorkoutManager: ObservableObject {
             .store(in: &cancellables)
     }
     
-    //MARK: - Map Core Data ScheduleEntities to ScheduleModels
+    // MARK: Map Core Data ScheduleEntities to ScheduleModels
     private func mapScheduleEntitiesToScheduleModels(scheduleEntities: [ScheduleEntity]) -> [ScheduleModel] {
         var schedule: [ScheduleModel] = []
         
@@ -203,7 +225,7 @@ class WorkoutManager: ObservableObject {
         return schedule
     }
     
-    //MARK: - Map Core Data WorkoutEntities to WorkoutModels
+    // MARK: Map Core Data WorkoutEntities to WorkoutModels
     private func mapWorkoutEntitiesToWorkoutModels(workoutEntities: [WorkoutEntity]) -> [WorkoutModel] {
         var workouts: [WorkoutModel] = []
         
@@ -262,7 +284,7 @@ class WorkoutManager: ObservableObject {
         return sets
     }
     
-    //MARK: - Map Core Data StoreExerciseEntities to ExerciseModels
+    // MARK: Map Core Data StoreExerciseEntities to ExerciseModels
     private func mapStoreExerciseEntitiesToExerciseModels(exerciseEntities: [StoreExerciseEntity]) -> [ExerciseModel] {
         var exercises: [ExerciseModel] = []
         
@@ -301,10 +323,10 @@ class WorkoutManager: ObservableObject {
         return sets
     }
     
-    //MARK: - Update Entities content based on a Model
-    private func updateWorkoutEntity(entity: inout WorkoutEntity, workout: WorkoutModel) {
+    // MARK: Update Entities content based on a Model
+    private func updateWorkoutEntityFromModel(workoutEntity: inout WorkoutEntity, workoutModel: WorkoutModel) {
         // delete old content
-        if let exercises = entity.exercises?.allObjects as? [ExerciseEntity] {
+        if let exercises = workoutEntity.exercises?.allObjects as? [ExerciseEntity] {
             for exercise in exercises {
                 coreDataManager.context.delete(exercise)
             }
@@ -313,14 +335,14 @@ class WorkoutManager: ObservableObject {
         // update the entity with the new content
         var exerciseEntities: [ExerciseEntity] = []
         
-        for index in workout.exercises.indices {
+        for index in workoutModel.exercises.indices {
             let exerciseEntity = ExerciseEntity(context: coreDataManager.context)
             var setEntities: [SetEntity] = []
             
-            for setIndex in workout.exercises[index].sets.indices {
+            for setIndex in workoutModel.exercises[index].sets.indices {
                 let setEntity = SetEntity(context: coreDataManager.context)
                 
-                let setToCopy = workout.exercises[index].sets[setIndex]
+                let setToCopy = workoutModel.exercises[index].sets[setIndex]
                 setEntity.weight = setToCopy.weight
                 setEntity.reps = Int64(setToCopy.reps)
                 setEntity.duration = Int64(setToCopy.duration)
@@ -330,7 +352,7 @@ class WorkoutManager: ObservableObject {
                 setEntities.append(setEntity)
             }
             
-            let exerciseToCopy = workout.exercises[index]
+            let exerciseToCopy = workoutModel.exercises[index]
             exerciseEntity.id = exerciseToCopy.id
             exerciseEntity.title = exerciseToCopy.title
             exerciseEntity.instructions = exerciseToCopy.instructions
@@ -341,15 +363,15 @@ class WorkoutManager: ObservableObject {
             exerciseEntities.append(exerciseEntity)
         }
         
-        entity.id = workout.id
-        entity.title = workout.title
-        entity.details = workout.details
-        entity.exercises = NSSet(array: exerciseEntities)
+        workoutEntity.id = workoutModel.id
+        workoutEntity.title = workoutModel.title
+        workoutEntity.details = workoutModel.details
+        workoutEntity.exercises = NSSet(array: exerciseEntities)
     }
     
-    private func updateExerciseEntity(entity: inout StoreExerciseEntity, exercise: ExerciseModel) {
+    private func updateExerciseEntityFromModel(exerciseEntity: inout StoreExerciseEntity, exerciseModel: ExerciseModel) {
         // delete old content
-        if let sets = entity.sets?.allObjects as? [StoreSetEntity] {
+        if let sets = exerciseEntity.sets?.allObjects as? [StoreSetEntity] {
             for set in sets {
                 coreDataManager.context.delete(set)
             }
@@ -358,10 +380,10 @@ class WorkoutManager: ObservableObject {
         // update the entity with the new content
         var setEntities: [StoreSetEntity] = []
         
-        for index in exercise.sets.indices {
+        for index in exerciseModel.sets.indices {
             let setEntity = StoreSetEntity(context: coreDataManager.context)
             
-            let setToCopy = exercise.sets[index]
+            let setToCopy = exerciseModel.sets[index]
             setEntity.weight = setToCopy.weight
             setEntity.reps = Int64(setToCopy.reps)
             setEntity.duration = Int64(setToCopy.duration)
@@ -371,24 +393,24 @@ class WorkoutManager: ObservableObject {
             setEntities.append(setEntity)
         }
         
-        entity.id = exercise.id
-        entity.title = exercise.title
-        entity.instructions = exercise.instructions
-        entity.type = exercise.type == .repBased ? true : false
-        entity.sets = NSSet(array: setEntities)
+        exerciseEntity.id = exerciseModel.id
+        exerciseEntity.title = exerciseModel.title
+        exerciseEntity.instructions = exerciseModel.instructions
+        exerciseEntity.type = exerciseModel.type == .repBased ? true : false
+        exerciseEntity.sets = NSSet(array: setEntities)
     }
     
-    //MARK: - Delete Entities from Collection
+    // MARK: Delete Entities from Collection
     private func deleteWorkoutEntity(_ workout: WorkoutEntity) {
-//        if let exercises = workout.exercises?.allObjects as? [ExerciseEntity] {
-//            for exercise in exercises {
-//                exercise.removeFromWorkouts(workout)
-//
-//                if exercise.workouts?.count == 0 {
-//                    coreDataManager.context.delete(exercise)
-//                }
-//            }
-//        }
+        if let scheduleEntities: [ScheduleEntity] = workout.schedules?.allObjects as? [ScheduleEntity] {
+            for scheduleEntity in scheduleEntities {
+                scheduleEntity.removeFromWorkouts(workout)
+
+                if scheduleEntity.workouts.count == 0 {
+                    coreDataManager.context.delete(scheduleEntity)
+                }
+            }
+        }
         
         coreDataManager.context.delete(workout)
         save()
@@ -399,7 +421,7 @@ class WorkoutManager: ObservableObject {
         save()
     }
     
-    //MARK: - Get Entities from Collection
+    // MARK: Get Entities from Collection
     private func getWorkoutsFromCollection() {
         let request = NSFetchRequest<WorkoutEntity>(entityName: "WorkoutEntity")
         
@@ -488,7 +510,7 @@ class WorkoutManager: ObservableObject {
         getScheduleFromCollection()
     }
     
-    //MARK: - Compare Workouts/Exercises/Sets
+    // MARK: Compare Workouts/Exercises/Sets
     func workoutsAreEqual(workout1 w1: WorkoutModel, workout2 w2: WorkoutModel) -> Bool {
         var result = false
         
