@@ -34,6 +34,7 @@
 		09B398712811CC0E0067ECE4 /* WorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B398702811CC0E0067ECE4 /* WorkoutModel.swift */; };
 		09B398732811CC180067ECE4 /* ExerciseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B398722811CC180067ECE4 /* ExerciseModel.swift */; };
 		09BA3889287DEEAD00E88368 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BA3888287DEEAD00E88368 /* HapticManager.swift */; };
+		09BCA62F28DF54C8006AC5F2 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCA62E28DF54C8006AC5F2 /* EmptyView.swift */; };
 		09C23955281ED6100077D8AD /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C23954281ED6100077D8AD /* ViewRouter.swift */; };
 		09C23957281EE0390077D8AD /* CalendarTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C23956281EE0390077D8AD /* CalendarTabView.swift */; };
 		09C23959281EE0480077D8AD /* WorkoutsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C23958281EE0480077D8AD /* WorkoutsTabView.swift */; };
@@ -77,6 +78,7 @@
 		09B398702811CC0E0067ECE4 /* WorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModel.swift; sourceTree = "<group>"; };
 		09B398722811CC180067ECE4 /* ExerciseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseModel.swift; sourceTree = "<group>"; };
 		09BA3888287DEEAD00E88368 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		09BCA62E28DF54C8006AC5F2 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		09C23954281ED6100077D8AD /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		09C23956281EE0390077D8AD /* CalendarTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTabView.swift; sourceTree = "<group>"; };
 		09C23958281EE0480077D8AD /* WorkoutsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsTabView.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			children = (
 				09FE502E280DD9DF00DE4368 /* HomeTabView.swift */,
 				09A7CA1D288AEE8500211FDB /* WeekView.swift */,
+				09BCA62E28DF54C8006AC5F2 /* EmptyView.swift */,
 			);
 			path = HomeTab;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09ACE7072880A6C4001FDCFF /* CreateExerciseSheetView.swift in Sources */,
+				09BCA62F28DF54C8006AC5F2 /* EmptyView.swift in Sources */,
 				09A91B3E28DB516D00C5C985 /* StoreSetEntity+CoreDataClass.swift in Sources */,
 				098D3B39289AAB410003C06D /* CoreDataManager.swift in Sources */,
 				09C2395B281EE05D0077D8AD /* ProfileTabView.swift in Sources */,

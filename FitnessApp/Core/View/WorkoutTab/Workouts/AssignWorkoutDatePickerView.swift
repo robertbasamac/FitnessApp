@@ -19,10 +19,11 @@ struct AssignWorkoutDatePickerView: View {
     var body: some View {
         NavigationView {
             VStack {
-                DatePicker(selection: $date, in: Date()..., displayedComponents: [.date]) {
-                    Text("Select Date")
-                }
-                .datePickerStyle(GraphicalDatePickerStyle())
+                DatePicker("Select Date",
+                           selection: $date,
+                           in: Date()...,
+                           displayedComponents: [.date, .hourAndMinute])
+                    .datePickerStyle(GraphicalDatePickerStyle())
                 
                 Spacer()
             }
@@ -40,7 +41,7 @@ struct AssignWorkoutDatePickerView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        workoutManager.assignWorkout(workout, toDate: dateModel.extractDate(date: date, format: "dd/MM/yyy"))
+                        workoutManager.scheduleWorkout(workout, toDate: dateModel.extractDate(date: date, format: "dd/MM/yyy"))
                         dismiss()
                     } label: {
                         Text("Assign")

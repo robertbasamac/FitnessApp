@@ -30,6 +30,7 @@ struct HomeTabView: View {
                         updateWeekSection
                         
                         swipeableWeekView
+                            .padding(.bottom, 4)
                         
                         todayWorkoutsSection
                     } header: {
@@ -134,15 +135,39 @@ extension HomeTabView {
         LazyVStack {
             if let workouts = workoutManager.getWorkouts(forDate: dateModel.extractDate(date: dateModel.selectedDay, format: "dd/MM/yyy")) {
                 ForEach(workouts) { workout in
-                    Text("\(workout.title)")
-                        .font(.system(size: 16))
-                        .frame(maxWidth: .infinity)
+                    WorkoutCardView(workout: .constant(workout))
+                        .padding(.horizontal, 4)
+                        .contextMenu {
+                            Button {
+                                
+                            } label: {
+                                Label("Start Workout", systemImage: "pencil")
+                            }
+                            
+                            Button {
+
+                            } label: {
+                                Label("Edit Time", systemImage: "calendar.badge.plus")
+                            }
+                            
+                            Button(role: .destructive) {
+                                workoutManager.deleteWorkoutFromSchedule(workout, forDate: dateModel.extractDate(date: dateModel.selectedDay, format: "dd/MM/yyy"))
+                            } label: {
+                                Label("Remove Workout", systemImage: "trash")
+                            }
+                        } preview: {
+                            Text("\(workout.title)")
+                                .font(.title2)
+                                .frame(width: 250, alignment: .center)
+                                .multilineTextAlignment(.center)
+                                .padding(.vertical)
+                                .background {
+                                    Color(uiColor: .secondarySystemBackground)
+                                }
+                        }
                 }
             } else {
-                Text("No workouts assigned.")
-                    .font(.system(size: 16))
-                    .foregroundColor(.red)
-                    .frame(maxWidth: .infinity)
+                EmptyView()
             }
         }
     }
