@@ -9,8 +9,8 @@ import SwiftUI
 
 @main
 struct FitnessAppApp: App {
-    @StateObject var workoutManager = WorkoutManager()
-    @StateObject var dateModel = DateModel()
+    @StateObject var workoutManager = WorkoutViewModel()
+    @StateObject var dateModel = DateCalendarViewModel()
     @StateObject var viewRouter = ViewRouter()
 //    @StateObject var coreData = CoreDataViewModel()
 
@@ -19,7 +19,7 @@ struct FitnessAppApp: App {
             BaseView()
                 .environmentObject(workoutManager)
                 .environmentObject(dateModel)
-                .environmentObject(ViewRouter())
+                .environmentObject(viewRouter)
         }
     }
 }
