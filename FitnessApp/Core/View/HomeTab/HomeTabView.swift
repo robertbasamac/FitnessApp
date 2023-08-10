@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct HomeTabView: View {   
-    @EnvironmentObject var workoutManager: WorkoutManager
-    @EnvironmentObject var dateModel: DateModel
+    @EnvironmentObject var workoutManager: WorkoutViewModel
+    @EnvironmentObject var dateModel: DateCalendarViewModel
         
     @Environment(\.colorScheme) var colorScheme
     
@@ -190,8 +190,8 @@ extension HomeTabView {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         BaseView()
-            .environmentObject(WorkoutManager())
-            .environmentObject(DateModel())
+            .environmentObject(WorkoutViewModel())
+            .environmentObject(DateCalendarViewModel())
             .environmentObject(ViewRouter())
     }
 }

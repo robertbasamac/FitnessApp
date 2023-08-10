@@ -8,22 +8,39 @@
 import SwiftUI
 
 struct ProfileTabView: View {
+    
+    @State private var editAppIcon: Bool = false
+    
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(alignment: .center){
-                Text("Profile")
+        NavigationStack {
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment: .center){
+                    Text("Profile")
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .clipped()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        editAppIcon.toggle()
+                    } label: {
+                        Image(systemName: "apps.iphone")
+                    }
+                }
+            }
+            .sheet(isPresented: $editAppIcon) {
+                ChangeAppIconView()
+            }
         }
-        .clipped()
     }
 }
 
 struct ProfileTabView_Previews: PreviewProvider {
     static var previews: some View {
         BaseView()
-            .environmentObject(WorkoutManager())
-            .environmentObject(DateModel())
+            .environmentObject(WorkoutViewModel())
+            .environmentObject(DateCalendarViewModel())
             .environmentObject(ViewRouter())
     }
 }

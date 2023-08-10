@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct AssignWorkoutDatePickerView: View {
-    @EnvironmentObject var workoutManager: WorkoutManager
-    @EnvironmentObject var dateModel: DateModel
+    @EnvironmentObject var workoutManager: WorkoutViewModel
+    @EnvironmentObject var dateModel: DateCalendarViewModel
 
     @Environment(\.dismiss) private var dismiss
 
@@ -56,8 +56,8 @@ struct AssignWorkoutDatePickerView: View {
 struct AssignWorkoutSheetView_Previews: PreviewProvider {
     static var previews: some View {
         BaseView()
-            .environmentObject(WorkoutManager())
-            .environmentObject(DateModel())
+            .environmentObject(WorkoutViewModel())
+            .environmentObject(DateCalendarViewModel())
             .environmentObject(ViewRouter())
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MultiSelectPickerView: View {
     
-    @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var workoutManager: WorkoutViewModel
     
     @Environment(\.dismiss) private var dismiss
     
@@ -63,8 +63,8 @@ extension MultiSelectPickerView {
 struct SelectExercisesView_Previews: PreviewProvider {
     static var previews: some View {
         BaseView()
-            .environmentObject(WorkoutManager())
-            .environmentObject(DateModel())
+            .environmentObject(WorkoutViewModel())
+            .environmentObject(DateCalendarViewModel())
             .environmentObject(ViewRouter())
     }
 }

@@ -92,7 +92,7 @@ struct CollectionTabView: View {
 struct CollectionTabView_Previews: PreviewProvider {
     static var previews: some View {
         CollectionTabView()
-            .environmentObject(WorkoutManager())
-            .environmentObject(DateModel())
+            .environmentObject(WorkoutViewModel())
+            .environmentObject(DateCalendarViewModel())
     }
 }

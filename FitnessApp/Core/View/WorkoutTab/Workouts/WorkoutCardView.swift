@@ -187,8 +187,8 @@ extension WorkoutCardView {
 struct WorkoutCardView_Previews: PreviewProvider {
     static var previews: some View {
         BaseView()
-            .environmentObject(WorkoutManager())
-            .environmentObject(DateModel())
+            .environmentObject(WorkoutViewModel())
+            .environmentObject(DateCalendarViewModel())
             .environmentObject(ViewRouter())
     }
 }

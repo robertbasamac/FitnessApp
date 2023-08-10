@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct WeekView: View {
-    @EnvironmentObject private var workoutManager: WorkoutManager
-    @EnvironmentObject private var dateModel: DateModel
+    @EnvironmentObject private var workoutManager: WorkoutViewModel
+    @EnvironmentObject private var dateModel: DateCalendarViewModel
     
     @Environment(\.colorScheme) var colorScheme
         
@@ -60,8 +60,8 @@ struct WeekView: View {
 struct WeekPreviewView_Previews: PreviewProvider {
     static var previews: some View {
         BaseView()
-            .environmentObject(WorkoutManager())
-            .environmentObject(DateModel())
+            .environmentObject(WorkoutViewModel())
+            .environmentObject(DateCalendarViewModel())
             .environmentObject(ViewRouter())
     }
 }

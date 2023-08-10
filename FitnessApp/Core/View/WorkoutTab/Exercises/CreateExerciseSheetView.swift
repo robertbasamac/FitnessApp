@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CreateExerciseSheetView: View {
-    @EnvironmentObject var workoutManager: WorkoutManager
-    @EnvironmentObject var dateModel: DateModel
+    @EnvironmentObject var workoutManager: WorkoutViewModel
+    @EnvironmentObject var dateModel: DateCalendarViewModel
     
     @Environment(\.dismiss) private var dismiss
     
@@ -320,8 +320,8 @@ extension CreateExerciseSheetView {
 struct CreateExerciseSheetView_Previews: PreviewProvider {
     static var previews: some View {
         BaseView()
-            .environmentObject(WorkoutManager())
-            .environmentObject(DateModel())
+            .environmentObject(WorkoutViewModel())
+            .environmentObject(DateCalendarViewModel())
             .environmentObject(ViewRouter())
     }
 }

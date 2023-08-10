@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WorkoutsTabView: View {
     
-    @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var workoutManager: WorkoutViewModel
     
     @State private var selectedWorkout: WorkoutModel? = nil
     @State private var assignWorkout: WorkoutModel? = nil
@@ -94,8 +94,8 @@ struct WorkoutsTabView: View {
 struct WorkoutTabView_Previews: PreviewProvider {
     static var previews: some View {
         BaseView()
-            .environmentObject(WorkoutManager())
-            .environmentObject(DateModel())
+            .environmentObject(WorkoutViewModel())
+            .environmentObject(DateCalendarViewModel())
             .environmentObject(ViewRouter())
     }
 }

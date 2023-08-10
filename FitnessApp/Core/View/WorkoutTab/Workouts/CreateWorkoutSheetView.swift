@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct CreateWorkoutSheetView: View {
-    @EnvironmentObject var workoutManager: WorkoutManager
-    @EnvironmentObject var dateModel: DateModel
+    @EnvironmentObject var workoutManager: WorkoutViewModel
+    @EnvironmentObject var dateModel: DateCalendarViewModel
     
     @Environment(\.dismiss) private var dismiss
     
     @State var workout: WorkoutModel = WorkoutModel()
-    @State var exercisesToBeAdded: [ExerciseModel] = []
     
     var workoutToCompare: WorkoutModel = WorkoutModel()
     
@@ -433,8 +432,8 @@ extension CreateWorkoutSheetView {
 struct AddWorkoutView_Previews: PreviewProvider {
     static var previews: some View {
         BaseView()
-            .environmentObject(WorkoutManager())
-            .environmentObject(DateModel())
+            .environmentObject(WorkoutViewModel())
+            .environmentObject(DateCalendarViewModel())
             .environmentObject(ViewRouter())
     }
 }

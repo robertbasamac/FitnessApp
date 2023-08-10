@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExercisesTabView: View {
     
-    @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var workoutManager: WorkoutViewModel
 
     @State private var selectedExercise: ExerciseModel? = nil
     @State private var selectedExerciseForDeletion: ExerciseModel? = nil
