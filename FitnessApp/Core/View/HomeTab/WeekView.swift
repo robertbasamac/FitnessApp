@@ -19,17 +19,17 @@ struct WeekView: View {
         HStack {
             ForEach(week, id: \.self) { day in
                 VStack(spacing: 2) {
-                    Text(dateModel.extractDate(date: day, format: "dd"))
+                    Text(day.format("dd"))
                         .font(.headline)
                         .fontWeight(.semibold)
-                    Text(dateModel.extractDate(date: day, format: "EE"))
+                    Text(day.format("EE"))
                         .font(.callout)
                     Circle()
                         .fill(dateModel.isSelectedDay(date: day) ?
                               (colorScheme == .light ? Color.white : Color.black) :
                                 (colorScheme == .light ? Color.black : Color.white))
                         .frame(width: 8, height: 8)
-                        .opacity(workoutManager.hasWorkouts(forDate: dateModel.extractDate(date: day, format: "dd/MM/yyy")) ? 1 : 0)
+                        .opacity(workoutManager.hasWorkouts(forDate: day.format("dd/MM/yyy")) ? 1 : 0)
                 }
                 .foregroundStyle(dateModel.isToday(date: day) ? .primary : .secondary)
                 .foregroundColor(dateModel.isToday(date: day) ? .red

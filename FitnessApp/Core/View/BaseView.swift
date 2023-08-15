@@ -12,12 +12,12 @@ struct BaseView: View {
     @EnvironmentObject var viewRouter: ViewRouter
         
     init() {
-        let tabBarScrollEdgeAppearance = UITabBarAppearance()
-        tabBarScrollEdgeAppearance.configureWithOpaqueBackground()
-        tabBarScrollEdgeAppearance.shadowColor = nil
-
-        UITabBar.appearance().scrollEdgeAppearance = tabBarScrollEdgeAppearance
-        UITabBar.appearance().tintColor = .systemBlue
+//        let tabBarScrollEdgeAppearance = UITabBarAppearance()
+//        tabBarScrollEdgeAppearance.configureWithOpaqueBackground()
+//        tabBarScrollEdgeAppearance.shadowColor = nil
+//
+//        UITabBar.appearance().scrollEdgeAppearance = tabBarScrollEdgeAppearance
+//        UITabBar.appearance().tintColor = .systemBlue
         
 //        let navigationBarAppearance = UINavigationBarAppearance()
 //        navigationBarAppearance.configureWithDefaultBackground()
@@ -54,14 +54,6 @@ struct BaseView: View {
                 }
                 .tag(Page.profile)
         }
-    }
-}
-
-struct BGModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(uiColor: .systemGray6))
     }
 }
 

@@ -41,13 +41,14 @@ struct CreateExerciseSheetView: View {
                         Spacer()
                             .frame(height: 40)
                     }
-                    .onChange(of: scrollToIndex) { newValue in
+                    .onChange(of: scrollToIndex, { oldValue, newValue in
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             withAnimation {
                                 proxy.scrollTo(newValue, anchor: .top)
                             }
                         }
-                    }
+                    })
+
                 }
             }
             .navigationTitle(editExercise ? "Edit Exercise" : "Create Exercise")

@@ -1,197 +1,149 @@
 //
-//  HomeView.swift
+//  Home.swift
 //  FitnessApp
 //
-//  Created by Robert Basamac on 18.04.2022.
+//  Created by Robert Basamac on 10.08.2023.
 //
 
 import SwiftUI
 
-struct HomeTabView: View {   
-    @EnvironmentObject var workoutManager: WorkoutViewModel
+struct HomeTabView: View {
+    
     @EnvironmentObject var dateModel: DateCalendarViewModel
-        
-    @Environment(\.colorScheme) var colorScheme
     
-    @State private var weekViewTransitionDirection: WeekTransition = .previous
-    
-    enum WeekTransition: Identifiable, CaseIterable {
-        var id: Self { self }
-        
-        case previous
-        case next
-    }
+    /// Animation Namespace
+    @Namespace private var animation
     
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack(spacing: 0, pinnedViews: [.sectionHeaders]) {
-                    Section {
-                        updateWeekSection
-                        
-                        swipeableWeekView
-                            .padding(.bottom, 4)
-                        
-                        todayWorkoutsSection
-                    } header: {
-                        headerSection
-                    }
-                }
-                .padding(.horizontal, 4)
-                .onAppear {
-                    dateModel.showCurrentWeek()
-                }
-            }
-            .frame(maxHeight: .infinity)
+        VStack(alignment: .leading, spacing: 0) {
+            HeaderView()
         }
-        .clipped()
+        .vSpacing(.top)
     }
 }
 
-//MARK: - Content Views
-
 extension HomeTabView {
-    
-    private var headerSection: some View {
-        
-        HStack(spacing: 10) {
-            VStack(alignment: .leading, spacing: 15) {
-                Text(Date().formatted(date: .abbreviated, time: .omitted))
-                    .foregroundColor(.gray)
+    @ViewBuilder
+    func HeaderView() -> some View {
+        VStack(alignment: .center, spacing: 0) {
+            /// Current Date Header
+            HStack(alignment: .center) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(Date.init().format("eeee"))
+                        .foregroundStyle(.red)
+                        .font(.title.weight(.semibold))
+                    
+                    Text(Date.init().formatted(date: .long, time: .omitted))
+                        .font(.callout.weight(.medium))
+                }
+                .onTapGesture(perform: {
+                        dateModel.generateWeeks()
+                })
                 
-                Text(dateModel.extractDate(date: Date(), format: "EEEE"))
-                    .font(.largeTitle.bold())
+                Spacer()
+                
+                /// Profile Picture
+                Button {
+                    
+                } label: {
+                    Image("Profile")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 45, height: 45)
+                        .clipShape(Circle())
+                }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .hSpacing(.leading)
+            .padding(.horizontal, 15)
+            .padding(.vertical, 8)
             
-            Button {
-                
-            } label: {
-                Image("Profile")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 45, height: 45)
-                    .clipShape(Circle())
-            }
-        }
-        .padding()
-        .background {
-            Color(uiColor: .systemBackground)
-        }
-    }
-    
-    private var updateWeekSection: some View {
-        
-        HStack {
-            Button {
-                weekViewTransitionDirection = .previous
-                
-                withAnimation {
-                    dateModel.showPreviousWeek()
+            /// Week Days initials
+            HStack(alignment: .center, spacing: 0) {
+                ForEach(dateModel.weekSlider[dateModel.currentWeekIndex]) { day in
+                    Text(day.date.format("EEEEE"))
+                        .font(.callout.weight(.regular))
+                        .foregroundStyle(.primary)
+                        .textScale(.secondary)
                 }
-            } label: {
-                Image(systemName: "chevron.left")
-                    .padding(.horizontal)
+                .hSpacing(.center)
             }
             
-            Button {
-                    dateModel.showCurrentWeek()
-            } label: {
-                Text("Today")
-                    .padding(.horizontal)
-            }
-                        
-            Button {
-                weekViewTransitionDirection = .next
-                
-                withAnimation {
-                    dateModel.showNextWeek()
+            /// Week Slider
+            TabView(selection: $dateModel.currentWeekIndex,
+                    content:  {
+                ForEach(dateModel.weekSlider.indices, id: \.self) { index in
+                    WeekView(dateModel.weekSlider[index])
+//                        .padding(.horizontal, 15)
+                        .tag(index)
                 }
-            } label: {
-                Image(systemName: "chevron.right")
-                    .padding(.horizontal)
-            }
+            })
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .frame(height: 45)
+            
+            /// Selected Date fotter
+            Text(dateModel.currentDate.formatted(date: .complete, time: .omitted))
+                .hSpacing(.center)
+                .overlay(alignment: .leading) {
+                    Text("W\(dateModel.currentDate.format("ww"))")
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.horizontal, 8)
         }
-        .padding(.vertical, 4)
-        .frame(maxWidth: .infinity, alignment: .trailing)
-        .foregroundColor(colorScheme == .light ? Color.black : Color.white)
-    }
-    
-    private var swipeableWeekView: some View {
-        
-        ZStack {
-            ForEach(dateModel.displayedWeeks, id: \.self) { week in
-                if week == dateModel.currentWeek {
-                    WeekView(week: week)
-                        .padding(.horizontal, 4)
-                        .transition(getTransition())
-                }
+        .onChange(of: dateModel.currentWeekIndex, initial: false) { oldValue, newValue in
+            /// Creating new weeks when index reaches first/last Page
+            if newValue == 0 || newValue == (dateModel.weekSlider.count - 1) {
+                dateModel.createWeek = true
             }
         }
     }
     
-    private var todayWorkoutsSection: some View {
-        
-        LazyVStack {
-            if let workouts = workoutManager.getWorkouts(forDate: dateModel.extractDate(date: dateModel.selectedDay, format: "dd/MM/yyy")) {
-                ForEach(workouts) { workout in
-                    WorkoutCardView(workout: .constant(workout))
-                        .padding(.horizontal, 4)
-                        .contextMenu {
-                            Button {
-                                
-                            } label: {
-                                Label("Start Workout", systemImage: "pencil")
-                            }
-                            
-                            Button {
-
-                            } label: {
-                                Label("Edit Time", systemImage: "calendar.badge.plus")
-                            }
-                            
-                            Button(role: .destructive) {
-                                workoutManager.deleteWorkoutFromSchedule(workout, forDate: dateModel.extractDate(date: dateModel.selectedDay, format: "dd/MM/yyy"))
-                            } label: {
-                                Label("Remove Workout", systemImage: "trash")
-                            }
-                        } preview: {
-                            Text("\(workout.title)")
-                                .font(.title2)
-                                .frame(width: 250, alignment: .center)
-                                .multilineTextAlignment(.center)
-                                .padding(.vertical)
-                                .background {
-                                    Color(uiColor: .secondarySystemBackground)
-                                }
+    /// Week View
+    @ViewBuilder
+    func WeekView(_ week: [Date.WeekDay]) -> some View {
+        HStack(spacing: 0) {
+            ForEach(week) { day in
+                Text(day.date.format("dd"))
+                    .font(.title3)
+                    .foregroundStyle(dateModel.isSameDay(day.date, dateModel.currentDate) ? .white :
+                                        (dateModel.isSameDay(day.date, Date.init()) ? .red : .black)
+                    )
+                    .frame(width: 35, height: 35)
+                    .background(content: {
+                        if dateModel.isSameDay(day.date, dateModel.currentDate) {
+                            Circle()
+                                .fill((dateModel.isSameDay(day.date, Date.init()) ? .red : .black))
+                                .matchedGeometryEffect(id: "TABINDICATOR", in: animation)
                         }
-                }
-            } else {
-                EmptyView()
+                    })
+                    .hSpacing(.center)
+                    .padding(.vertical, 5)
+                    .contentShape(.rect)
+                    .onTapGesture {
+                        /// Updating Current Date
+                        withAnimation(.snappy) {
+                            dateModel.currentDate = day.date
+                        }
+                    }
+            }
+        }
+        .background {
+            GeometryReader {
+                let minX = $0.frame(in: .global).minX
+                
+                Color.clear
+                    .preference(key: OffsetKey.self, value: minX)
+                    .onPreferenceChange(OffsetKey.self) { value in
+                        /// When the offset reaches 15 and if the createWeek is toggled then simply generate next set of weeks
+                        if value.rounded() == 0 && dateModel.createWeek {
+                            dateModel.updateWeeks()
+                        }
+                    }
             }
         }
     }
 }
 
-//MARK: - Helper Methods
-
-extension HomeTabView {
-    
-    private func getTransition() -> AnyTransition {
-        switch weekViewTransitionDirection {
-        case .previous:
-            return AnyTransition.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing))
-        case .next:
-            return AnyTransition.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading))
-        }
-    }
-}
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        BaseView()
-            .environmentObject(WorkoutViewModel())
-            .environmentObject(DateCalendarViewModel())
-            .environmentObject(ViewRouter())
-    }
+#Preview {
+    HomeTabView()
+        .environmentObject(DateCalendarViewModel())
 }
