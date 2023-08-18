@@ -19,6 +19,7 @@
 		09A1F869281976FA00ADD4FE /* WorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1F868281976FA00ADD4FE /* WorkoutViewModel.swift */; };
 		09A408382885595D0026632C /* MultiSelectPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A408372885595D0026632C /* MultiSelectPickerView.swift */; };
 		09A4F4AF28266C9500E73DE2 /* SetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A4F4AE28266C9500E73DE2 /* SetModel.swift */; };
+		09A7247B2A8F93F300125773 /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A7247A2A8F93F300125773 /* DateValue.swift */; };
 		09A75F802881925A001CF5B9 /* CollectionTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A75F7F2881925A001CF5B9 /* CollectionTabView.swift */; };
 		09A75F822881ABAB001CF5B9 /* ExercisesTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A75F812881ABAB001CF5B9 /* ExercisesTabView.swift */; };
 		09A760762884966900381E05 /* ExerciseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A760752884966900381E05 /* ExerciseCardView.swift */; };
@@ -67,6 +68,7 @@
 		09A1F868281976FA00ADD4FE /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
 		09A408372885595D0026632C /* MultiSelectPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectPickerView.swift; sourceTree = "<group>"; };
 		09A4F4AE28266C9500E73DE2 /* SetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetModel.swift; sourceTree = "<group>"; };
+		09A7247A2A8F93F300125773 /* DateValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValue.swift; sourceTree = "<group>"; };
 		09A75F7F2881925A001CF5B9 /* CollectionTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTabView.swift; sourceTree = "<group>"; };
 		09A75F812881ABAB001CF5B9 /* ExercisesTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesTabView.swift; sourceTree = "<group>"; };
 		09A760752884966900381E05 /* ExerciseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCardView.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				09B398722811CC180067ECE4 /* ExerciseModel.swift */,
 				09A4F4AE28266C9500E73DE2 /* SetModel.swift */,
 				09376AE528DC8A3900732AF5 /* ScheduleModel.swift */,
+				09A7247A2A8F93F300125773 /* DateValue.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				09A1F869281976FA00ADD4FE /* WorkoutViewModel.swift in Sources */,
 				09376AEE28DCD16400732AF5 /* WorkoutEntity+CoreDataProperties.swift in Sources */,
 				09BA01282A85513B00E21B8A /* View+Extensions.swift in Sources */,
+				09A7247B2A8F93F300125773 /* DateValue.swift in Sources */,
 				09FE5034280DDF4100DE4368 /* DateCalendarViewModel.swift in Sources */,
 				09A91B3F28DB516D00C5C985 /* StoreSetEntity+CoreDataProperties.swift in Sources */,
 				09A4F4AF28266C9500E73DE2 /* SetModel.swift in Sources */,

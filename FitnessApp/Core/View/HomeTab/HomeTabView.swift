@@ -102,15 +102,12 @@ extension HomeTabView {
             ForEach(week) { day in
                 Text(day.date.format("dd"))
                     .font(.title3)
-                    .foregroundStyle(dateModel.isSameDay(day.date, Date.init()) ?
-                                     (dateModel.isSameDay(day.date, dateModel.currentDate) ? .white : .red) :
-                                        ((dateModel.isSameDay(day.date, dateModel.currentDate) ? Color(uiColor: .systemBackground) : Color(uiColor: .label)))
-                    )
+                    .foregroundStyle(getForegroundColor(for: day.date))
                     .frame(width: 35, height: 35)
                     .background(content: {
-                        if dateModel.isSameDay(day.date, dateModel.currentDate) {
+                        if day.date.isSameDayAs(dateModel.currentDate) {
                             Circle()
-                                .fill((dateModel.isSameDay(day.date, Date.init()) ? .red : Color(uiColor: .label)))
+                                .fill((day.date.isToday ? .red : Color(uiColor: .label)))
                                 .matchedGeometryEffect(id: "TABINDICATOR", in: animation)
                         }
                     })
@@ -139,6 +136,12 @@ extension HomeTabView {
                     }
             }
         }
+    }
+    
+    func getForegroundColor(for date: Date) -> Color {
+        return (date.isToday) ?
+            (date.isSameDayAs(dateModel.currentDate) ? .white : .red) :
+            (date.isSameDayAs(dateModel.currentDate) ? Color(uiColor: .systemBackground) : Color(uiColor: .label))
     }
 }
 
