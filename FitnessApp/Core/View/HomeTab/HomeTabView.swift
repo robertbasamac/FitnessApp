@@ -62,7 +62,6 @@ extension HomeTabView {
                 ForEach(dateModel.weekSlider[dateModel.currentWeekIndex]) { day in
                     Text(day.date.format("EEEEE"))
                         .font(.callout.weight(.regular))
-                        .foregroundStyle(.primary)
                         .textScale(.secondary)
                 }
                 .hSpacing(.center)
@@ -73,7 +72,6 @@ extension HomeTabView {
                     content:  {
                 ForEach(dateModel.weekSlider.indices, id: \.self) { index in
                     WeekView(dateModel.weekSlider[index])
-//                        .padding(.horizontal, 15)
                         .tag(index)
                 }
             })
@@ -85,7 +83,7 @@ extension HomeTabView {
                 .hSpacing(.center)
                 .overlay(alignment: .leading) {
                     Text("W\(dateModel.currentDate.format("ww"))")
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color(uiColor: .secondaryLabel))
                 }
                 .padding(.horizontal, 8)
         }
@@ -104,14 +102,15 @@ extension HomeTabView {
             ForEach(week) { day in
                 Text(day.date.format("dd"))
                     .font(.title3)
-                    .foregroundStyle(dateModel.isSameDay(day.date, dateModel.currentDate) ? .white :
-                                        (dateModel.isSameDay(day.date, Date.init()) ? .red : .black)
+                    .foregroundStyle(dateModel.isSameDay(day.date, Date.init()) ?
+                                     (dateModel.isSameDay(day.date, dateModel.currentDate) ? .white : .red) :
+                                        ((dateModel.isSameDay(day.date, dateModel.currentDate) ? Color(uiColor: .systemBackground) : Color(uiColor: .label)))
                     )
                     .frame(width: 35, height: 35)
                     .background(content: {
                         if dateModel.isSameDay(day.date, dateModel.currentDate) {
                             Circle()
-                                .fill((dateModel.isSameDay(day.date, Date.init()) ? .red : .black))
+                                .fill((dateModel.isSameDay(day.date, Date.init()) ? .red : Color(uiColor: .label)))
                                 .matchedGeometryEffect(id: "TABINDICATOR", in: animation)
                         }
                     })
