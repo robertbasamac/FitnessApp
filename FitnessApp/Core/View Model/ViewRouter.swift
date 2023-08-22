@@ -19,29 +19,16 @@ enum Page: String, Identifiable {
     case collection = "Collection"
     case profile = "Profile"
     
-//    var systemImageName: String {
-//        switch self {
-//        case .home:
-//            return "house"
-//        case .calendar:
-//            return "calendar"
-//        case .collection:
-//            return "list.bullet.rectangle"
-//        case .profile:
-//            return "person"
-//        }
-//    }
-//
-//    var title: String {
-//        switch self {
-//        case .home:
-//            return "Home"
-//        case .calendar:
-//            return "Calendar"
-//        case .collection:
-//            return "Collection"
-//        case .profile:
-//            return "Profile"
-//        }
-//    }
+    var systemImageName: String {
+        switch self {
+        case .home:
+            return "house"
+        case .calendar:
+            return "calendar"
+        case .collection:
+            return "list.bullet.below.rectangle"
+        case .profile:
+            return "person"
+        }
+    }
 }

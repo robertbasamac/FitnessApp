@@ -24,7 +24,7 @@ struct CalendarTabView: View {
 
 struct CalendarTabView_Previews: PreviewProvider {
     static var previews: some View {
-        BaseView()
+        CalendarTabView()
             .environmentObject(WorkoutViewModel())
             .environmentObject(DateCalendarViewModel())
             .environmentObject(ViewRouter())

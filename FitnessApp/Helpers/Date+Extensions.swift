@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-/// Date Extensions needed for building UI
 extension Date {
     /// Custom Date Format
     func format(_ format: String) -> String {
