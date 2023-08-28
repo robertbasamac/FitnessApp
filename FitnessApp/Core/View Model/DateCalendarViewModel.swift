@@ -10,10 +10,15 @@ import SwiftUI
 
 class DateCalendarViewModel: ObservableObject {
     
+    // Properties used for HomeTabView
     @Published var currentDate: Date = .init()
     @Published var weekSlider: [[Date.WeekDay]] = []
     @Published var currentWeekIndex: Int = 1
     @Published var createWeek: Bool = false
+    
+    
+    // Properties used for CalendarTabView
+    @Published var date: Date = .init()
     
     private let calendar = Calendar.autoupdatingCurrent
     
