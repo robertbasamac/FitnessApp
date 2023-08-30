@@ -15,7 +15,7 @@ struct HomeTabView: View {
     @Namespace private var animation
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(spacing: 0) {
             HeaderView()
         }
         .vSpacing(.top)
@@ -79,10 +79,10 @@ extension HomeTabView {
             .frame(height: 45)
             
             /// Selected Date fotter
-            Text(dateModel.currentDate.formatted(date: .complete, time: .omitted))
+            Text(dateModel.selectedDate.formatted(date: .complete, time: .omitted))
                 .hSpacing(.center)
                 .overlay(alignment: .leading) {
-                    Text("W\(dateModel.currentDate.format("ww"))")
+                    Text("W\(dateModel.selectedDate.format("ww"))")
                         .foregroundStyle(Color(uiColor: .secondaryLabel))
                 }
                 .padding(.horizontal, 8)
@@ -105,7 +105,7 @@ extension HomeTabView {
                     .foregroundStyle(getForegroundColor(for: day.date))
                     .frame(width: 35, height: 35)
                     .background(content: {
-                        if day.date.isSameDayAs(dateModel.currentDate) {
+                        if day.date.isSameDayAs(dateModel.selectedDate) {
                             Circle()
                                 .fill((day.date.isToday ? .red : Color(uiColor: .label)))
                                 .matchedGeometryEffect(id: "TABINDICATOR", in: animation)
@@ -117,7 +117,8 @@ extension HomeTabView {
                     .onTapGesture {
                         /// Updating Current Date
                         withAnimation(.snappy) {
-                            dateModel.currentDate = day.date
+                            dateModel.selectedDate = day.date
+                            print(day.date.description)
                         }
                     }
             }
@@ -140,8 +141,8 @@ extension HomeTabView {
     
     func getForegroundColor(for date: Date) -> Color {
         return (date.isToday) ?
-            (date.isSameDayAs(dateModel.currentDate) ? .white : .red) :
-            (date.isSameDayAs(dateModel.currentDate) ? Color(uiColor: .systemBackground) : Color(uiColor: .label))
+            (date.isSameDayAs(dateModel.selectedDate) ? .white : .red) :
+            (date.isSameDayAs(dateModel.selectedDate) ? Color(uiColor: .systemBackground) : Color(uiColor: .label))
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		091117842A9E25EB00F3EA0E /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091117832A9E25EB00F3EA0E /* CustomDatePicker.swift */; };
 		09376AE628DC8A3900732AF5 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09376AE528DC8A3900732AF5 /* ScheduleModel.swift */; };
 		09376AEB28DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09376AE728DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift */; };
 		09376AEC28DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09376AE828DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		091117832A9E25EB00F3EA0E /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		09376AE528DC8A3900732AF5 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 		09376AE728DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScheduleEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		09376AE828DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScheduleEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				09C23956281EE0390077D8AD /* CalendarTabView.swift */,
+				091117832A9E25EB00F3EA0E /* CustomDatePicker.swift */,
 			);
 			path = CalendarTab;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 			children = (
 				09D352FC28D9F98A00CA5D1F /* Model */,
 				09FE502C280DD9A700DE4368 /* View */,
+				095E7CAA293A23C500EADB03 /* ChangeAppIcon */,
 				09FE502D280DD9AE00DE4368 /* View Model */,
 			);
 			path = Core;
@@ -308,7 +312,6 @@
 			isa = PBXGroup;
 			children = (
 				09FE5035280DF50C00DE4368 /* BaseView.swift */,
-				095E7CAA293A23C500EADB03 /* ChangeAppIcon */,
 				09A4F4B42826746700E73DE2 /* HomeTab */,
 				09A4F4B52826748300E73DE2 /* CalendarTab */,
 				09A4F4B62826748E00E73DE2 /* WorkoutTab */,
@@ -426,6 +429,7 @@
 				09C23959281EE0480077D8AD /* WorkoutsTabView.swift in Sources */,
 				09376AEC28DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift in Sources */,
 				09A91B4028DB516D00C5C985 /* ExerciseEntity+CoreDataClass.swift in Sources */,
+				091117842A9E25EB00F3EA0E /* CustomDatePicker.swift in Sources */,
 				09F0AD2F283BD5C200A7E1AE /* WorkoutCardView.swift in Sources */,
 				09A91B4328DB516D00C5C985 /* SetEntity+CoreDataProperties.swift in Sources */,
 				09C23955281ED6100077D8AD /* ViewRouter.swift in Sources */,

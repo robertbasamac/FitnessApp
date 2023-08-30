@@ -9,13 +9,15 @@ import SwiftUI
 
 struct CalendarTabView: View {
 
+    @EnvironmentObject var dateModel: DateCalendarViewModel
+    
     var body: some View {
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .center){
-                    Text("Calendar")
+                VStack(spacing: 20) {
+                    CustomDatePicker()
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .vSpacing(.top)
             }
             .clipped()
         }
