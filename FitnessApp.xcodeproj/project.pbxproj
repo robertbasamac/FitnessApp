@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		091117842A9E25EB00F3EA0E /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091117832A9E25EB00F3EA0E /* CustomDatePicker.swift */; };
 		09376AE628DC8A3900732AF5 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09376AE528DC8A3900732AF5 /* ScheduleModel.swift */; };
 		09376AEB28DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09376AE728DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift */; };
 		09376AEC28DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09376AE828DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift */; };
@@ -38,7 +37,7 @@
 		09BA01282A85513B00E21B8A /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BA01272A85513B00E21B8A /* View+Extensions.swift */; };
 		09BA012B2A85533F00E21B8A /* HomeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BA012A2A85533F00E21B8A /* HomeTabView.swift */; };
 		09BA012D2A85537000E21B8A /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BA012C2A85537000E21B8A /* Date+Extensions.swift */; };
-		09BA012F2A85601A00E21B8A /* OffsetKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BA012E2A85601A00E21B8A /* OffsetKey.swift */; };
+		09BA012F2A85601A00E21B8A /* PreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BA012E2A85601A00E21B8A /* PreferenceKeys.swift */; };
 		09BA3889287DEEAD00E88368 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BA3888287DEEAD00E88368 /* HapticManager.swift */; };
 		09BCA62F28DF54C8006AC5F2 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCA62E28DF54C8006AC5F2 /* EmptyView.swift */; };
 		09C23955281ED6100077D8AD /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C23954281ED6100077D8AD /* ViewRouter.swift */; };
@@ -56,7 +55,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		091117832A9E25EB00F3EA0E /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		09376AE528DC8A3900732AF5 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 		09376AE728DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScheduleEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		09376AE828DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScheduleEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -87,7 +85,7 @@
 		09BA01272A85513B00E21B8A /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		09BA012A2A85533F00E21B8A /* HomeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabView.swift; sourceTree = "<group>"; };
 		09BA012C2A85537000E21B8A /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
-		09BA012E2A85601A00E21B8A /* OffsetKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetKey.swift; sourceTree = "<group>"; };
+		09BA012E2A85601A00E21B8A /* PreferenceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceKeys.swift; sourceTree = "<group>"; };
 		09BA3888287DEEAD00E88368 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		09BCA62E28DF54C8006AC5F2 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		09C23954281ED6100077D8AD /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 			isa = PBXGroup;
 			children = (
 				09C23956281EE0390077D8AD /* CalendarTabView.swift */,
-				091117832A9E25EB00F3EA0E /* CustomDatePicker.swift */,
 			);
 			path = CalendarTab;
 			sourceTree = "<group>";
@@ -189,7 +186,7 @@
 			children = (
 				09BA01272A85513B00E21B8A /* View+Extensions.swift */,
 				09BA012C2A85537000E21B8A /* Date+Extensions.swift */,
-				09BA012E2A85601A00E21B8A /* OffsetKey.swift */,
+				09BA012E2A85601A00E21B8A /* PreferenceKeys.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -411,7 +408,7 @@
 				09A91B3E28DB516D00C5C985 /* StoreSetEntity+CoreDataClass.swift in Sources */,
 				098D3B39289AAB410003C06D /* CoreDataManager.swift in Sources */,
 				09C2395B281EE05D0077D8AD /* ProfileTabView.swift in Sources */,
-				09BA012F2A85601A00E21B8A /* OffsetKey.swift in Sources */,
+				09BA012F2A85601A00E21B8A /* PreferenceKeys.swift in Sources */,
 				09A408382885595D0026632C /* MultiSelectPickerView.swift in Sources */,
 				09C23957281EE0390077D8AD /* CalendarTabView.swift in Sources */,
 				09B398732811CC180067ECE4 /* ExerciseModel.swift in Sources */,
@@ -429,7 +426,6 @@
 				09C23959281EE0480077D8AD /* WorkoutsTabView.swift in Sources */,
 				09376AEC28DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift in Sources */,
 				09A91B4028DB516D00C5C985 /* ExerciseEntity+CoreDataClass.swift in Sources */,
-				091117842A9E25EB00F3EA0E /* CustomDatePicker.swift in Sources */,
 				09F0AD2F283BD5C200A7E1AE /* WorkoutCardView.swift in Sources */,
 				09A91B4328DB516D00C5C985 /* SetEntity+CoreDataProperties.swift in Sources */,
 				09C23955281ED6100077D8AD /* ViewRouter.swift in Sources */,
