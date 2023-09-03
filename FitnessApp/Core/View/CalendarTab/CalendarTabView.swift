@@ -11,8 +11,6 @@ struct CalendarTabView: View {
 
     @EnvironmentObject var dateModel: DateCalendarViewModel
         
-    @State private var tabHeight: CGFloat = 100
-
     var body: some View {
         VStack(spacing: 0) {
             HeaderView()
@@ -21,7 +19,7 @@ struct CalendarTabView: View {
             
             ScrollView(.vertical) {
                 VStack {
-                    Text("Sroll View Test")
+                    Text("Scroll View Test")
                 }
                 .padding()
                 .vSpacing(.top)
@@ -38,35 +36,15 @@ extension CalendarTabView {
     
     @ViewBuilder
     func HeaderView() -> some View {
-        VStack(spacing: 4) {
-            
+        VStack(spacing: 0) {
             // Current Month Header
-            HStack(spacing: 40) {
-                
-                HStack(spacing: 10) {
-                    Text(Date.init().format("MMMM"))
-                        .foregroundStyle(.red)
-                    Text(Date.init().format("yyyy"))
-                }
-                .font(.title.weight(.semibold))
-
-                
-                Spacer()
-                
-                Button(action: {
-                    dateModel.currentMonthIndex -= 1
-                }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.title2)
-                })
-                
-                Button(action: {
-                    dateModel.currentMonthIndex += 1
-                }, label: {
-                    Image(systemName: "chevron.right")
-                        .font(.title2)
-                })
+            HStack(spacing: 10) {
+                Text((dateModel.monthSlider[dateModel.currentMonthIndex][15].date).format("MMMM"))
+                    .foregroundStyle(.red)
+                Text((dateModel.monthSlider[dateModel.currentMonthIndex][15].date).format("yyyy"))
             }
+            .font(.title.weight(.semibold))
+            .hSpacing(.leading)
             .padding(.horizontal, 15)
             .padding(.vertical, 8)
             
@@ -85,19 +63,14 @@ extension CalendarTabView {
                 ForEach(dateModel.monthSlider.indices, id: \.self) { index in
                     MonthView(dateModel.monthSlider[index])
                         .tag(index)
-                        .background {
-                            GeometryReader { geometry in
-                                Color.clear
-                                    .preference(key: TabViewHeightPreference.self, value: geometry.frame(in: .local).height)
-                            }
-                        }
                 }
             })
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .frame(minHeight: 100)
-            .frame(height: tabHeight)
-            .onPreferenceChange(TabViewHeightPreference.self) { height in
-                self.tabHeight = height
+        }
+        .onChange(of: dateModel.currentMonthIndex, initial: false) { oldValue, newValue in
+            // Creating new months when index reaches first/last Page
+            if newValue == 0 || newValue == (dateModel.monthSlider.count - 1) {
+                dateModel.createMonth = true
             }
         }
     }
@@ -106,42 +79,59 @@ extension CalendarTabView {
     
     @ViewBuilder
     func MonthView(_ month: [Date.MonthDay]) -> some View {
-        let columns = Array(repeating: GridItem(.flexible()), count: 7)
-        
-        LazyVGrid(columns: columns, content: {
-            ForEach(dateModel.monthSlider[dateModel.currentMonthIndex]) { date in
-                DayCardView(date: date)
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 0), count: 7), spacing: 0, content: {
+            ForEach(month) { date in
+                DayCardView(day: date)
                     .onTapGesture {
+                        withAnimation {
+                            dateModel.currentDate = date.date
+                        }
                         print(date.date.description)
                     }
             }
         })
-//        .background {
-//            GeometryReader {
-//                let minX = $0.frame(in: .global).minX
-//                
-//                Color.clear
-//                    .preference(key: OffsetKey.self, value: minX)
-//                    .onPreferenceChange(OffsetKey.self) { value in
-//                        /// When the offset reaches 15 and if the createWeek is toggled then simply generate next set of weeks
-//                        if value.rounded() == 0 && dateModel.createWeek {
-//                            dateModel.updateWeeks()
-//                        }
-//                    }
-//            }
-//        }
+        .background {
+            GeometryReader {
+                let minX = $0.frame(in: .global).minX
+                
+                Color.clear
+                    .preference(key: OffsetKey.self, value: minX)
+                    .onPreferenceChange(OffsetKey.self) { value in
+                        // When the offset changes and if the createMonth is toggled then simply generate next set of months
+                        if value.rounded() == 0 && dateModel.createMonth {
+                            dateModel.updateMonths()
+                        }
+                    }
+            }
+        }
     }
     
     // MARK: - DayCardView
+    
     @ViewBuilder
-    func DayCardView(date: Date.MonthDay) -> some View {
-        VStack(spacing: 0) {
-            Text("\(date.date.format("d"))")
-                .font(.title3)
-                .foregroundStyle(date.day == -1 ? .secondary : .primary)
-        }
-        .frame(height: 45, alignment: .top)
-        .hSpacing(.center)
+    func DayCardView(day: Date.MonthDay) -> some View {
+        Text("\(day.date.format("d"))")
+            .font(.title3)
+            .foregroundStyle(day.day == -1 ? .secondary : .primary)
+            .foregroundStyle(getForegroundColor(for: day.date))
+            .frame(width: 45, height: 45)
+            .hSpacing(.center)
+            .background(content: {
+                if day.date.isSameDayAs(dateModel.currentDate) {
+                    Circle()
+                        .fill((day.date.isToday ? .red : Color(uiColor: .label)))
+                        .frame(width: 35, height: 35, alignment: .center)
+                }
+            })
+            .contentShape(.rect)
+    }
+    
+    // MARK: - Helper methods
+    
+    func getForegroundColor(for date: Date) -> Color {
+        return (date.isToday) ?
+            (date.isSameDayAs(dateModel.currentDate) ? .white : .red) :
+            (date.isSameDayAs(dateModel.currentDate) ? Color(uiColor: .systemBackground) : Color(uiColor: .label))
     }
 }
 

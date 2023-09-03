@@ -15,10 +15,18 @@ struct OffsetKey: PreferenceKey {
     }
 }
 
-struct TabViewHeightPreference: PreferenceKey {
+struct OffseMonthtKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
     
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-        value = max(value, nextValue())
+        value = nextValue()
     }
 }
+
+//struct TabViewHeightPreference: PreferenceKey {
+//    static var defaultValue: CGFloat = 0
+//    
+//    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+//        value = max(value, nextValue())
+//    }
+//}
