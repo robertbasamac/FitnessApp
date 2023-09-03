@@ -10,7 +10,9 @@ import SwiftUI
 struct CalendarTabView: View {
 
     @EnvironmentObject var dateModel: DateCalendarViewModel
-        
+    
+    @State private var tabHeight: CGFloat = 270
+    
     var body: some View {
         VStack(spacing: 0) {
             HeaderView()
@@ -63,9 +65,22 @@ extension CalendarTabView {
                 ForEach(dateModel.monthSlider.indices, id: \.self) { index in
                     MonthView(dateModel.monthSlider[index])
                         .tag(index)
+                        .background {
+                            GeometryReader { geometry in
+                                Color.clear
+                                    .preference(key: TabViewHeightPreference.self, value: geometry.frame(in: .local).height)
+                            }
+                        }
                 }
             })
             .tabViewStyle(.page(indexDisplayMode: .never))
+            .frame(minHeight: 225)
+            .frame(height: tabHeight)
+            .onPreferenceChange(TabViewHeightPreference.self) { height in
+                if height != 0 {
+                    self.tabHeight = height
+                }
+            }
         }
         .onChange(of: dateModel.currentMonthIndex, initial: false) { oldValue, newValue in
             // Creating new months when index reaches first/last Page
