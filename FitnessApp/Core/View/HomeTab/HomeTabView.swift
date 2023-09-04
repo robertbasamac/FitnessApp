@@ -61,8 +61,8 @@ extension HomeTabView {
             
             // Week Days initials
             HStack(alignment: .center, spacing: 0) {
-                ForEach(dateModel.weekSlider[dateModel.currentWeekIndex]) { day in
-                    Text(day.date.format("EEEEE"))
+                ForEach(dateModel.weekDaysInitials) { day in
+                    Text(day.weekDay)
                         .font(.callout.weight(.regular))
                         .textScale(.secondary)
                 }
@@ -70,8 +70,7 @@ extension HomeTabView {
             }
             
             // Week Slider
-            TabView(selection: $dateModel.currentWeekIndex,
-                    content:  {
+            TabView(selection: $dateModel.currentWeekIndex, content:  {
                 ForEach(dateModel.weekSlider.indices, id: \.self) { index in
                     WeekView(dateModel.weekSlider[index])
                         .tag(index)
@@ -81,10 +80,10 @@ extension HomeTabView {
             .frame(height: 45)
             
             // Selected Date fotter
-            Text(dateModel.selectedDate.formatted(date: .complete, time: .omitted))
+            Text(dateModel.weekSelectedDate.formatted(date: .complete, time: .omitted))
                 .hSpacing(.center)
                 .overlay(alignment: .leading) {
-                    Text("W\(dateModel.selectedDate.format("ww"))")
+                    Text("W\(dateModel.weekSelectedDate.format("ww"))")
                         .foregroundStyle(Color(uiColor: .secondaryLabel))
                 }
                 .padding(.horizontal, 8)
@@ -105,10 +104,9 @@ extension HomeTabView {
             ForEach(week) { day in
                 DayCardView(day)
                     .onTapGesture {
-                        withAnimation(.snappy) {
-                            dateModel.selectedDate = day.date
+                        withAnimation {
+                            dateModel.weekSelectedDate = day.date
                         }
-                        print("selectedDate: \(day.date.description)")
                     }
             }
         }
@@ -138,7 +136,7 @@ extension HomeTabView {
             .frame(width: 45, height: 45)
             .hSpacing(.center)
             .background(content: {
-                if day.date.isSameDayAs(dateModel.selectedDate) {
+                if day.date.isSameDayAs(dateModel.weekSelectedDate) {
                     Circle()
                         .fill((day.date.isToday ? .red : Color(uiColor: .label)))
                         .matchedGeometryEffect(id: "SELECTEDDATE", in: animation)
@@ -153,8 +151,8 @@ extension HomeTabView {
     
     func getForegroundColor(for date: Date) -> Color {
         return (date.isToday) ?
-            (date.isSameDayAs(dateModel.selectedDate) ? .white : .red) :
-            (date.isSameDayAs(dateModel.selectedDate) ? Color(uiColor: .systemBackground) : Color(uiColor: .label))
+            (date.isSameDayAs(dateModel.weekSelectedDate) ? .white : .red) :
+            (date.isSameDayAs(dateModel.weekSelectedDate) ? Color(uiColor: .systemBackground) : Color(uiColor: .label))
     }
 }
 

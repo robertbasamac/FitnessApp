@@ -13,24 +13,25 @@ class DateCalendarViewModel: ObservableObject {
     // MARK: - Properties
     
     // Home View Week Slider properties
-    @Published var selectedDate: Date = .init()
+    @Published var weekSelectedDate: Date = .init()
     @Published var weekSlider: [[Date.WeekDay]] = []
     @Published var currentWeekIndex: Int = 1
     @Published var createWeek: Bool = false
     
     // Calendar View Month Slider properties
-    @Published var currentDate: Date = .init()
+    @Published var monthSelectedDate: Date = .init()
     @Published var monthSlider: [[Date.MonthDay]] = []
     @Published var currentMonthIndex: Int = 1
     @Published var createMonth: Bool = false
-
-    @Published var showLastWeek: Bool = false
+    
+    @Published var weekDaysInitials: [Date.WeekDayInitial] = []
     
     private let calendar = Calendar.autoupdatingCurrent
     
     init() {
         generateWeeks()
         generateMonths()
+        generateWeekDayInitials()
     }
     
     //MARK: - Week Slider methods
@@ -51,20 +52,20 @@ class DateCalendarViewModel: ObservableObject {
             weekSlider.append(createNextWeek(for: lastDate))
         }
         
-        selectedDate = Date.init()
+        weekSelectedDate = Date.init()
     }
     
     /// Updates the weeks displayed in the WeekSlider by creating new next/previous weeks and removing the older ones in order to always store and display the previous, current and next weeks.
     func updateWeeks() {
         if weekSlider.indices.contains(currentWeekIndex) {
             if let firstDate = weekSlider[currentWeekIndex].first?.date, currentWeekIndex == 0 {
-                /// Inserting Previous Week at 0th index and removing Next Week
+                // Inserting Previous Week at 0th index and removing Next Week
                 weekSlider.insert(createPreviousWeek(for: firstDate), at: 0)
                 weekSlider.removeLast()
             }
         
             if let lastDate = weekSlider[currentWeekIndex].last?.date, currentWeekIndex == (weekSlider.count - 1) {
-                /// Inserting Next Week at 0th index and removing First Week
+                // Inserting Next Week at 0th index and removing First Week
                 weekSlider.append(createNextWeek(for: lastDate))
                 weekSlider.removeFirst()
             }
@@ -135,20 +136,20 @@ class DateCalendarViewModel: ObservableObject {
             monthSlider.append(createNextMonth(for: lastDate))
         }
         
-        currentDate = Date.init()
+        monthSelectedDate = Date.init()
     }
     
     /// Updates the weeks  displayed in the MonthSlider by creating new next/previous months and removing the older ones in order to always store and display the previous, current and next months.
     func updateMonths() {
         if monthSlider.indices.contains(currentMonthIndex) {
             if let firstDate = monthSlider[currentMonthIndex].first?.date, currentMonthIndex == 0 {
-                /// Inserting Previous Month at 0th index and removing Next Month
+                // Inserting Previous Month at 0th index and removing Next Month
                 monthSlider.insert(createPreviousMonth(for: firstDate), at: 0)
                 monthSlider.removeLast()
             }
         
             if let lastDate = monthSlider[currentMonthIndex].last?.date, currentMonthIndex == (monthSlider.count - 1) {
-                /// Inserting Next Month at 0th index and removing First Month
+                // Inserting Next Month at 0th index and removing First Month
                 monthSlider.append(createNextMonth(for: lastDate))
                 monthSlider.removeFirst()
             }
@@ -227,5 +228,14 @@ class DateCalendarViewModel: ObservableObject {
         }
         
         return fetchMonth(for: nextDate)
+    }
+    
+    private func generateWeekDayInitials() {
+        if weekSlider.count > 0 {
+            weekSlider.first?.forEach { day in
+                let weekDay = Date.WeekDayInitial(weekDay: day.date.format("EEEEE"))
+                weekDaysInitials.append(weekDay)
+            }
+        }
     }
 }

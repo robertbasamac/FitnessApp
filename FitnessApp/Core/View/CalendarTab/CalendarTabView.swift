@@ -11,7 +11,7 @@ struct CalendarTabView: View {
 
     @EnvironmentObject var dateModel: DateCalendarViewModel
     
-    @State private var tabHeight: CGFloat = 270
+    @State private var tabHeight: CGFloat = 100
     
     var body: some View {
         VStack(spacing: 0) {
@@ -52,8 +52,8 @@ extension CalendarTabView {
             
             // Week Days initials
             HStack(alignment: .center, spacing: 0) {
-                ForEach(dateModel.weekSlider[dateModel.currentWeekIndex]) { day in
-                    Text(day.date.format("EEEEE"))
+                ForEach(dateModel.weekDaysInitials) { day in
+                    Text(day.weekDay)
                         .font(.callout.weight(.regular))
                         .textScale(.secondary)
                 }
@@ -74,7 +74,7 @@ extension CalendarTabView {
                 }
             })
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .frame(minHeight: 225)
+            .frame(minHeight: 100)
             .frame(height: tabHeight)
             .onPreferenceChange(TabViewHeightPreference.self) { height in
                 if height != 0 {
@@ -99,7 +99,9 @@ extension CalendarTabView {
                 DayCardView(day: date)
                     .onTapGesture {
                         withAnimation {
-                            dateModel.currentDate = date.date
+                            
+                            dateModel.monthSelectedDate = date.date
+                            
                         }
                         print(date.date.description)
                     }
@@ -132,7 +134,7 @@ extension CalendarTabView {
             .frame(width: 45, height: 45)
             .hSpacing(.center)
             .background(content: {
-                if day.date.isSameDayAs(dateModel.currentDate) {
+                if day.date.isSameDayAs(dateModel.monthSelectedDate) {
                     Circle()
                         .fill((day.date.isToday ? .red : Color(uiColor: .label)))
                         .frame(width: 35, height: 35, alignment: .center)
@@ -145,8 +147,8 @@ extension CalendarTabView {
     
     func getForegroundColor(for date: Date) -> Color {
         return (date.isToday) ?
-            (date.isSameDayAs(dateModel.currentDate) ? .white : .red) :
-            (date.isSameDayAs(dateModel.currentDate) ? Color(uiColor: .systemBackground) : Color(uiColor: .label))
+            (date.isSameDayAs(dateModel.monthSelectedDate) ? .white : .red) :
+            (date.isSameDayAs(dateModel.monthSelectedDate) ? Color(uiColor: .systemBackground) : Color(uiColor: .label))
     }
 }
 

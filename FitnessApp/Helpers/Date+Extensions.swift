@@ -31,22 +31,6 @@ extension Date {
         return Calendar.autoupdatingCurrent.isDate(self, inSameDayAs: date)
     }
     
-//    func getAllMonthDates() -> [Date] {
-//        let calendar = Calendar.autoupdatingCurrent
-//        
-//        // getting start Date
-//        let startDate = calendar.date(from: calendar.dateComponents([.year, .month], from: self))!
-//        print("startDate: \(startDate)")
-//        
-//        let range = calendar.range(of: .day, in: .month, for: startDate)!
-//        
-//        // getting date
-//        return range.compactMap { day -> Date in
-//            print(calendar.date(byAdding: .day, value: day - 1, to: startDate)!)
-//            return calendar.date(byAdding: .day, value: day - 1, to: startDate)!
-//        }
-//    }
-    
     struct WeekDay: Identifiable {
         var id: UUID = .init()
         var date: Date
@@ -56,5 +40,10 @@ extension Date {
         var id: UUID = .init()
         var day: Int
         var date: Date
+    }
+    
+    struct WeekDayInitial: Identifiable {
+        var id: UUID = .init()
+        var weekDay: String
     }
 }
