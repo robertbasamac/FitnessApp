@@ -99,12 +99,11 @@ extension CalendarTabView {
                 DayCardView(day: date)
                     .onTapGesture {
                         withAnimation {
-                            
                             dateModel.monthSelectedDate = date.date
-                            
                         }
                         print(date.date.description)
                     }
+                    .allowsHitTesting(date.day != -1) // does not allow to press on dates not being part of the displayed month (grayed ones)
             }
         })
         .background {

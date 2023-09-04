@@ -23,12 +23,25 @@ extension Date {
         return Calendar.autoupdatingCurrent.isDateInToday(self)
     }
     
-    /// Returns `true` if the Self date is within the same day the given date, as defined by the calendar and calendar's locale.
+    /// Returns `true` if the Self date is within the same day as the given date, as defined by the calendar and calendar's locale.
     ///
     /// - parameter date: A date to check for containment.
     /// - returns: `true` if `Self` and `date` are in the same day.
     func isSameDayAs(_ date: Date) -> Bool {
         return Calendar.autoupdatingCurrent.isDate(self, inSameDayAs: date)
+    }
+    
+    /// Returns `true` if the Self date is within the same month as the given date, as defined by the calendar and calendar's locale.
+    ///
+    /// - parameter date: A date to check for containment.
+    /// - returns: `true` if `Self` and `date` are in the same month.
+    func isSameMonthAs(_ date: Date) -> Bool {
+        let calendar = Calendar.autoupdatingCurrent
+        
+        let currentMonth = calendar.dateComponents([.year, .month], from: self)
+        let selectedMonth = calendar.dateComponents([.year, .month], from: date)
+        
+        return currentMonth.year == selectedMonth.year && currentMonth.month == selectedMonth.month
     }
     
     struct WeekDay: Identifiable {
