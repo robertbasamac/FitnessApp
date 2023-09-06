@@ -20,6 +20,7 @@ struct FitnessAppApp: App {
                 .environmentObject(workoutManager)
                 .environmentObject(dateModel)
                 .environmentObject(viewRouter)
+                .preferredColorScheme(.dark)
         }
     }
 }

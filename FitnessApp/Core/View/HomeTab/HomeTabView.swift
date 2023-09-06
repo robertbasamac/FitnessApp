@@ -10,12 +10,58 @@ import SwiftUI
 struct HomeTabView: View {
     
     @EnvironmentObject var dateModel: DateCalendarViewModel
+    @EnvironmentObject var workoutManager: WorkoutViewModel
     
     @Namespace private var animation
     
     var body: some View {
         VStack(spacing: 0) {
             HeaderView()
+            
+            Divider()
+                .padding(.horizontal)
+            
+            if let workouts = workoutManager.getWorkouts(forDate: dateModel.weekSelectedDate.format("dd/MM/yyy")) {
+                ScrollView {
+                    VStack {
+                        ForEach(workouts) { workout in
+                            WorkoutCardView(workout: .constant(workout))
+                                .padding(.horizontal, 4)
+                                .contextMenu {
+                                    Button {
+                                        
+                                    } label: {
+                                        Label("Start Workout", systemImage: "pencil")
+                                    }
+                                    
+                                    Button {
+                                        
+                                    } label: {
+                                        Label("Edit Time", systemImage: "calendar.badge.plus")
+                                    }
+                                    
+                                    Button(role: .destructive) {
+                                        workoutManager.deleteWorkoutFromSchedule(workout, forDate: dateModel.weekSelectedDate.format("dd/MM/yyy"))
+                                    } label: {
+                                        Label("Remove Workout", systemImage: "trash")
+                                    }
+                                } preview: {
+                                    Text("\(workout.title)")
+                                        .font(.title2)
+                                        .frame(width: 250, alignment: .center)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.vertical)
+                                        .background {
+                                            Color(uiColor: .secondarySystemBackground)
+                                        }
+                                }
+                        }
+                    }
+                    .padding(8)
+                }
+            } else {
+                EmptyView()
+            }
         }
         .vSpacing(.top)
     }
@@ -85,9 +131,10 @@ extension HomeTabView {
                 .overlay(alignment: .leading) {
                     Text("W\(dateModel.weekSelectedDate.format("ww"))")
                         .foregroundStyle(Color(uiColor: .secondaryLabel))
+                        .padding(.horizontal, 15)
                 }
-                .padding(.horizontal, 8)
         }
+        .padding(.bottom, 10)
         .onChange(of: dateModel.currentWeekIndex, initial: false) { oldValue, newValue in
             // Creating new weeks when index reaches first/last Page
             if newValue == 0 || newValue == (dateModel.weekSlider.count - 1) {
@@ -159,4 +206,5 @@ extension HomeTabView {
 #Preview {
     HomeTabView()
         .environmentObject(DateCalendarViewModel())
+        .environmentObject(WorkoutViewModel())
 }
