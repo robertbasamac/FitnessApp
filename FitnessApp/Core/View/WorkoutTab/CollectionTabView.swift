@@ -25,66 +25,63 @@ struct CollectionTabView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                Picker("", selection: $selectedPage.animation()) {
-                    ForEach(CollectionPage.allCases, id: \.self) { value in
-                        Text(value.rawValue)
-                            .tag(value)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal, 8)
-                .padding(.bottom, 8)
-                
-                switch selectedPage {
-                case .workouts:
-                    WorkoutsTabView()
-                        .transition(.move(edge: .leading))
-                case .exercises:
-                    ExercisesTabView()
-                        .transition(.move(edge: .trailing))
+        VStack(spacing: 0) {
+            Picker("", selection: $selectedPage.animation()) {
+                ForEach(CollectionPage.allCases, id: \.self) { value in
+                    Text(value.rawValue)
+                        .tag(value)
                 }
             }
-            .navigationTitle("Collection")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button {
-                            editWorkout = false
-                            
-                            withAnimation {
-                                selectedPage = .workouts
-                                showCreateWorkout.toggle()
-                            }
-                        } label: {
-                            Text("Create Workout")
-                        }
-                        .accessibilityLabel("Create new Workout")
+            .pickerStyle(.segmented)
+            .padding(.horizontal, 8)
+            .padding(.bottom, 8)
+            
+            switch selectedPage {
+            case .workouts:
+                WorkoutsTabView()
+                    .transition(.move(edge: .leading))
+            case .exercises:
+                ExercisesTabView()
+                    .transition(.move(edge: .trailing))
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Menu {
+                    Button {
+                        editWorkout = false
                         
-                        Button {
-                            editExercise = false
-                            
-                            withAnimation {
-                                selectedPage = .exercises
-                                showCreateExercise.toggle()
-                            }
-                        } label: {
-                            Text("Create Exercise")
+                        withAnimation {
+                            selectedPage = .workouts
+                            showCreateWorkout.toggle()
                         }
-                        .accessibilityLabel("Create new Exercise")
                     } label: {
-                        Image(systemName: "plus")
+                        Text("Create Workout")
                     }
+                    .accessibilityLabel("Create new Workout")
+                    
+                    Button {
+                        editExercise = false
+                        
+                        withAnimation {
+                            selectedPage = .exercises
+                            showCreateExercise.toggle()
+                        }
+                    } label: {
+                        Text("Create Exercise")
+                    }
+                    .accessibilityLabel("Create new Exercise")
+                } label: {
+                    Image(systemName: "plus")
                 }
             }
-            .sheet(isPresented: $showCreateWorkout) {
-                CreateWorkoutSheetView(editWorkout: $editWorkout)
-            }
-            .sheet(isPresented: $showCreateExercise) {
-                CreateExerciseSheetView(editExercise: $editExercise)
-            }
+        }
+        .sheet(isPresented: $showCreateWorkout) {
+            CreateWorkoutSheetView(editWorkout: $editWorkout)
+        }
+        .sheet(isPresented: $showCreateExercise) {
+            CreateExerciseSheetView(editExercise: $editExercise)
         }
     }
 }

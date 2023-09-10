@@ -8,10 +8,10 @@
 import SwiftUI
 
 class ViewRouter: ObservableObject {
-    @Published var currentTab: Page = .home
+    @Published var currentTab: Tab = .home
 }
 
-enum Page: String, Identifiable {
+enum Tab: String, Identifiable, CaseIterable {
     var id: Self { self }
     
     case home = "Home"
@@ -31,4 +31,10 @@ enum Page: String, Identifiable {
             return "person"
         }
     }
+}
+
+struct AnimatedTab: Identifiable {
+    var id: UUID = .init()
+    var tab: Tab
+    var isAnimatig: Bool?
 }
