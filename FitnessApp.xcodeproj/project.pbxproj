@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0912C3AF2AB085A700982C68 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0912C3AE2AB085A700982C68 /* PreviewProvider.swift */; };
+		0912C3B12AB086BB00982C68 /* WorkoutCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0912C3B02AB086BB00982C68 /* WorkoutCardView.swift */; };
 		09376AE628DC8A3900732AF5 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09376AE528DC8A3900732AF5 /* ScheduleModel.swift */; };
 		09376AEB28DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09376AE728DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift */; };
 		09376AEC28DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09376AE828DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift */; };
@@ -45,7 +47,7 @@
 		09C23959281EE0480077D8AD /* WorkoutsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C23958281EE0480077D8AD /* WorkoutsTabView.swift */; };
 		09C2395B281EE05D0077D8AD /* ProfileTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C2395A281EE05D0077D8AD /* ProfileTabView.swift */; };
 		09CD7B9328CBA69600F6FAD6 /* CollectionContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09CD7B9128CBA69600F6FAD6 /* CollectionContainer.xcdatamodeld */; };
-		09F0AD2F283BD5C200A7E1AE /* WorkoutCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F0AD2E283BD5C200A7E1AE /* WorkoutCardView.swift */; };
+		09F0AD2F283BD5C200A7E1AE /* WorkoutCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F0AD2E283BD5C200A7E1AE /* WorkoutCard.swift */; };
 		09FE501F280DD95600DE4368 /* FitnessAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE501E280DD95600DE4368 /* FitnessAppApp.swift */; };
 		09FE5023280DD95700DE4368 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09FE5022280DD95700DE4368 /* Assets.xcassets */; };
 		09FE5026280DD95700DE4368 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09FE5025280DD95700DE4368 /* Preview Assets.xcassets */; };
@@ -55,6 +57,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0912C3AE2AB085A700982C68 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
+		0912C3B02AB086BB00982C68 /* WorkoutCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutCardView.swift; sourceTree = "<group>"; };
 		09376AE528DC8A3900732AF5 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 		09376AE728DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScheduleEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		09376AE828DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScheduleEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -94,7 +98,7 @@
 		09C2395A281EE05D0077D8AD /* ProfileTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabView.swift; sourceTree = "<group>"; };
 		09CD7B9228CBA69600F6FAD6 /* CollectionContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CollectionContainer.xcdatamodel; sourceTree = "<group>"; };
 		09E3ED382A894B1C00D9395C /* DeveloperToolsSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeveloperToolsSupport.framework; path = System/Library/Frameworks/DeveloperToolsSupport.framework; sourceTree = SDKROOT; };
-		09F0AD2E283BD5C200A7E1AE /* WorkoutCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCardView.swift; sourceTree = "<group>"; };
+		09F0AD2E283BD5C200A7E1AE /* WorkoutCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCard.swift; sourceTree = "<group>"; };
 		09FE501B280DD95600DE4368 /* FitnessApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitnessApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09FE501E280DD95600DE4368 /* FitnessAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessAppApp.swift; sourceTree = "<group>"; };
 		09FE5022280DD95700DE4368 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,6 +119,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0912C3B22AB0E2C800982C68 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				09F0AD2E283BD5C200A7E1AE /* WorkoutCard.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		095E7CAA293A23C500EADB03 /* ChangeAppIcon */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				09C23958281EE0480077D8AD /* WorkoutsTabView.swift */,
-				09F0AD2E283BD5C200A7E1AE /* WorkoutCardView.swift */,
+				0912C3B02AB086BB00982C68 /* WorkoutCardView.swift */,
 				09FE54292825C89F0088D91D /* CreateWorkoutSheetView.swift */,
 				09981B2C2850DB8200EB909B /* AssignWorkoutDatePickerView.swift */,
 			);
@@ -187,6 +199,7 @@
 				09BA01272A85513B00E21B8A /* View+Extensions.swift */,
 				09BA012C2A85537000E21B8A /* Date+Extensions.swift */,
 				09BA012E2A85601A00E21B8A /* PreferenceKeys.swift */,
+				0912C3AE2AB085A700982C68 /* PreviewProvider.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -232,7 +245,7 @@
 			children = (
 				09D352FC28D9F98A00CA5D1F /* Model */,
 				09FE502C280DD9A700DE4368 /* View */,
-				095E7CAA293A23C500EADB03 /* ChangeAppIcon */,
+				0912C3B22AB0E2C800982C68 /* Components */,
 				09FE502D280DD9AE00DE4368 /* View Model */,
 			);
 			path = Core;
@@ -313,6 +326,7 @@
 				09A4F4B52826748300E73DE2 /* CalendarTab */,
 				09A4F4B62826748E00E73DE2 /* WorkoutTab */,
 				09A4F4B7282674A600E73DE2 /* ProfileTab */,
+				095E7CAA293A23C500EADB03 /* ChangeAppIcon */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -419,6 +433,7 @@
 				09A91B3F28DB516D00C5C985 /* StoreSetEntity+CoreDataProperties.swift in Sources */,
 				09A4F4AF28266C9500E73DE2 /* SetModel.swift in Sources */,
 				09B398712811CC0E0067ECE4 /* WorkoutModel.swift in Sources */,
+				0912C3AF2AB085A700982C68 /* PreviewProvider.swift in Sources */,
 				09376AEB28DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift in Sources */,
 				09A91B4128DB516D00C5C985 /* ExerciseEntity+CoreDataProperties.swift in Sources */,
 				095E7CAC293A23D500EADB03 /* ChangeAppIconView.swift in Sources */,
@@ -426,13 +441,14 @@
 				09C23959281EE0480077D8AD /* WorkoutsTabView.swift in Sources */,
 				09376AEC28DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift in Sources */,
 				09A91B4028DB516D00C5C985 /* ExerciseEntity+CoreDataClass.swift in Sources */,
-				09F0AD2F283BD5C200A7E1AE /* WorkoutCardView.swift in Sources */,
+				09F0AD2F283BD5C200A7E1AE /* WorkoutCard.swift in Sources */,
 				09A91B4328DB516D00C5C985 /* SetEntity+CoreDataProperties.swift in Sources */,
 				09C23955281ED6100077D8AD /* ViewRouter.swift in Sources */,
 				09A75F802881925A001CF5B9 /* CollectionTabView.swift in Sources */,
 				09A760762884966900381E05 /* ExerciseCardView.swift in Sources */,
 				09CD7B9328CBA69600F6FAD6 /* CollectionContainer.xcdatamodeld in Sources */,
 				09FE5036280DF50C00DE4368 /* BaseView.swift in Sources */,
+				0912C3B12AB086BB00982C68 /* WorkoutCardView.swift in Sources */,
 				09FE542A2825C89F0088D91D /* CreateWorkoutSheetView.swift in Sources */,
 				09ACE7052880482F001FDCFF /* NotificationManager.swift in Sources */,
 				09FE501F280DD95600DE4368 /* FitnessAppApp.swift in Sources */,

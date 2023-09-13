@@ -27,16 +27,6 @@ struct CollectionTabView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                Picker("", selection: $selectedPage.animation()) {
-                    ForEach(CollectionPage.allCases, id: \.self) { value in
-                        Text(value.rawValue)
-                            .tag(value)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal, 8)
-                .padding(.bottom, 8)
-                
                 switch selectedPage {
                 case .workouts:
                     WorkoutsTabView()
@@ -47,8 +37,18 @@ struct CollectionTabView: View {
                 }
             }
             .navigationTitle("Collection")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(.automatic)
             .toolbar {
+                ToolbarItem(placement: .bottomBar) {
+                    Picker("Select Page", selection: $selectedPage.animation()) {
+                        ForEach(CollectionPage.allCases, id: \.self) { value in
+                            Text(value.rawValue)
+                                .tag(value)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Button {
