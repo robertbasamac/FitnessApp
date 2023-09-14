@@ -12,8 +12,9 @@ struct WorkoutsTabView: View {
     @EnvironmentObject var workoutManager: WorkoutViewModel
     
     @State private var selectedWorkout: WorkoutModel? = nil
-    @State private var assignWorkout: WorkoutModel? = nil
-    @State private var selectedWorkoutForDeletion: WorkoutModel? = nil
+    @State private var workoutToEdit: WorkoutModel? = nil
+    @State private var workoutToAssign: WorkoutModel? = nil
+    @State private var workoutToDelete: WorkoutModel? = nil
     
     @State private var editWorkout: Bool = false
     @State private var deleteWorkout: Bool = false
@@ -31,64 +32,69 @@ struct WorkoutsTabView: View {
             List {
                 ForEach(workoutManager.workouts) { workout in
                     Section {
-                        NavigationLink {
-                            Text(workout.title)
-                        } label: {
-                            WorkoutCard(workout: workout)
-                                .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
-                                    Button {
-                                        assignWorkout = workout
-                                    } label: {
-                                        Label("Assign Workout", systemImage: "calendar")
-                                    }
-                                    .tint(.orange)
-                                })
-                                .swipeActions(edge: .trailing, allowsFullSwipe: true, content: {
-                                    Button(role: .destructive) {
-                                        deleteWorkout = true
-                                        selectedWorkoutForDeletion = workout
-                                    } label: {
-                                        Label("Delete Workout", systemImage: "trash")
-                                    }
-                                })
-                        }
-                        .contextMenu {
-                            Button {
-                                editWorkout = true
+                        WorkoutCard(workout: workout)
+                            .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
+                                Button {
+                                    workoutToAssign = workout
+                                } label: {
+                                    Label("Assign Workout", systemImage: "calendar")
+                                }
+                                .tint(.orange)
+                            })
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true, content: {
+                                Button(role: .destructive) {
+                                    deleteWorkout = true
+                                    workoutToDelete = workout
+                                } label: {
+                                    Label("Delete Workout", systemImage: "trash")
+                                }
+                            })
+                            .contextMenu {
+                                // Edit Button
+                                Button {
+                                    editWorkout = true
+                                    workoutToEdit = workout
+                                } label: {
+                                    Label("Edit Workout", systemImage: "pencil")
+                                }
+                                
+                                // Assign Button
+                                Button {
+                                    workoutToAssign = workout
+                                } label: {
+                                    Label("Assign Workout", systemImage: "calendar.badge.plus")
+                                }
+                                
+                                // Delete Button
+                                Button(role: .destructive) {
+                                    deleteWorkout = true
+                                    workoutToDelete = workout
+                                } label: {
+                                    Label("Delete Workout", systemImage: "trash")
+                                }
+                            }
+                            .onTapGesture {
                                 selectedWorkout = workout
-                            } label: {
-                                Label("Edit Workout", systemImage: "pencil")
                             }
-                            
-                            Button {
-                                assignWorkout = workout
-                            } label: {
-                                Label("Assign Workout", systemImage: "calendar.badge.plus")
-                            }
-                            
-                            Button(role: .destructive) {
-                                deleteWorkout = true
-                                selectedWorkoutForDeletion = workout
-                            } label: {
-                                Label("Delete Workout", systemImage: "trash")
-                            }
-                        }
                     }
-                    .listSectionSpacing(.compact)
                 }
             }
-            .sheet(item: $selectedWorkout) { workout in
-                CreateWorkoutSheetView(workout: workout, workoutToCompare: workout, editWorkout: $editWorkout)
+            .listSectionSpacing(.compact)
+            .navigationDestination(item: $selectedWorkout, destination: { workout in
+                Text(workout.title.uppercased())
+            })
+            .sheet(item: $workoutToEdit) { workout in
+                CreateWorkoutSheetView(workout: workout, editWorkout: $editWorkout)
                     .interactiveDismissDisabled()
             }
-            .sheet(item: $assignWorkout) { workout in
+            .sheet(item: $workoutToAssign) { workout in
                 AssignWorkoutDatePickerView(workout: workout)
                     .presentationDetents([.fraction(0.6)])
                     .presentationDragIndicator(.visible)
             }
             .confirmationDialog("Erase Workout from collection.",
                                 isPresented: $deleteWorkout,
-                                presenting: selectedWorkoutForDeletion) { workout in
+                                presenting: workoutToDelete) { workout in
                 Button(role: .destructive) {
                     workoutManager.deleteWorkoutFromCollection(workout)
                 } label: {
@@ -96,12 +102,13 @@ struct WorkoutsTabView: View {
                 }
                 
                 Button(role: .cancel) {
-                    indexSetForDeletion = nil
+                    deleteWorkout = false
+                    workoutToDelete = nil
                 } label: {
                     Text("Cancel")
                 }
             }  message: { workout in
-                Text("This will permanently delete the \(workout.title) workout from your collection.")
+                Text("This will permanently delete the \"\(workout.title)\" workout from your collection.")
             }
         }
     }

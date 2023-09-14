@@ -28,6 +28,7 @@ struct ExerciseCard: View {
                     .lineLimit(3)
             }
         }
+        .hSpacing(.leading)
     }
     
     private func getExercisesTitlesString(from workout: WorkoutModel) -> String {

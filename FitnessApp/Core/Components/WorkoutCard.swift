@@ -35,6 +35,8 @@ struct WorkoutCard: View {
                 .font(.subheadline)
                 .italic()
         }
+        .hSpacing(.leading)
+        .contentShape(.rect)
     }
     
     private func getExercisesTitlesString(from workout: WorkoutModel) -> String {

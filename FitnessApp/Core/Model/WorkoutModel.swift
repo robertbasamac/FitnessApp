@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WorkoutModel: Identifiable {
+struct WorkoutModel: Identifiable, Hashable {
     var id: String = UUID().uuidString
     var title: String = ""
     var details: String = ""

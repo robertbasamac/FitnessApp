@@ -25,65 +25,6 @@ class WorkoutViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
     
     init() {
-//        workouts = [
-//            WorkoutModel(title: "Workout 1",
-//                         details: "This is the first workout",
-//                         exercises: [
-//                            ExerciseModel(title: "Exercise 1",
-//                                          instructions: "Do some things",
-//                                          type: .repBased,
-//                                          sets: [
-//                                            SetModel(weight: 50, duration: 30, rest: 60, reps: 10),
-//                                            SetModel(weight: 30, duration: 30, rest: 60, reps: 10),
-//                                            SetModel(weight: 150, duration: 30, rest: 60, reps: 10)])
-//                            ]),
-//            WorkoutModel(title: "Workout 1",
-//                         details: "This is the first workout",
-//                         exercises: [
-//                            ExerciseModel(title: "Exercise 1",
-//                                          instructions: "Do some things",
-//                                          type: .repBased,
-//                                          sets: [
-//                                            SetModel(weight: 50, duration: 30, rest: 60, reps: 10),
-//                                            SetModel(weight: 30, duration: 30, rest: 60, reps: 10),
-//                                            SetModel(weight: 150, duration: 30, rest: 60, reps: 10)])
-//                            ]),
-//            WorkoutModel(title: "Workout 1",
-//                         details: "This is the first workout",
-//                         exercises: [
-//                            ExerciseModel(title: "Exercise 1",
-//                                          instructions: "Do some things",
-//                                          type: .repBased,
-//                                          sets: [
-//                                            SetModel(weight: 50, duration: 30, rest: 60, reps: 10),
-//                                            SetModel(weight: 30, duration: 30, rest: 60, reps: 10),
-//                                            SetModel(weight: 150, duration: 30, rest: 60, reps: 10)])
-//                            ])
-//        ]
-//        
-//        exercises = [
-//            ExerciseModel(title: "Exercise 1",
-//                          instructions: "Do some things",
-//                          type: .repBased,
-//                          sets: [
-//                            SetModel(weight: 50, duration: 30, rest: 60, reps: 10),
-//                            SetModel(weight: 30, duration: 30, rest: 60, reps: 10),
-//                            SetModel(weight: 150, duration: 30, rest: 60, reps: 10)]),
-//            ExerciseModel(title: "Exercise 1",
-//                          instructions: "Do some things",
-//                          type: .repBased,
-//                          sets: [
-//                            SetModel(weight: 50, duration: 30, rest: 60, reps: 10),
-//                            SetModel(weight: 30, duration: 30, rest: 60, reps: 10),
-//                            SetModel(weight: 150, duration: 30, rest: 60, reps: 10)]),
-//            ExerciseModel(title: "Exercise 1",
-//                          instructions: "Do some things",
-//                          type: .repBased,
-//                          sets: [
-//                            SetModel(weight: 50, duration: 30, rest: 60, reps: 10),
-//                        	SetModel(weight: 30, duration: 30, rest: 60, reps: 10),
-//                        	SetModel(weight: 150, duration: 30, rest: 60, reps: 10)])
-//        ]
         addSubscribers()
         getWorkoutsFromCollection()
         getExercisesFromCollection()

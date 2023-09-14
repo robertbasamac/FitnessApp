@@ -61,7 +61,6 @@ struct CollectionTabView: View {
                         } label: {
                             Text("Create Workout")
                         }
-                        .accessibilityLabel("Create new Workout")
                         
                         Button {
                             editExercise = false
@@ -73,7 +72,6 @@ struct CollectionTabView: View {
                         } label: {
                             Text("Create Exercise")
                         }
-                        .accessibilityLabel("Create new Exercise")
                     } label: {
                         Image(systemName: "plus")
                     }
