@@ -60,6 +60,30 @@ class WorkoutViewModel: ObservableObject {
 //                                            SetModel(weight: 150, duration: 30, rest: 60, reps: 10)])
 //                            ])
 //        ]
+//        
+//        exercises = [
+//            ExerciseModel(title: "Exercise 1",
+//                          instructions: "Do some things",
+//                          type: .repBased,
+//                          sets: [
+//                            SetModel(weight: 50, duration: 30, rest: 60, reps: 10),
+//                            SetModel(weight: 30, duration: 30, rest: 60, reps: 10),
+//                            SetModel(weight: 150, duration: 30, rest: 60, reps: 10)]),
+//            ExerciseModel(title: "Exercise 1",
+//                          instructions: "Do some things",
+//                          type: .repBased,
+//                          sets: [
+//                            SetModel(weight: 50, duration: 30, rest: 60, reps: 10),
+//                            SetModel(weight: 30, duration: 30, rest: 60, reps: 10),
+//                            SetModel(weight: 150, duration: 30, rest: 60, reps: 10)]),
+//            ExerciseModel(title: "Exercise 1",
+//                          instructions: "Do some things",
+//                          type: .repBased,
+//                          sets: [
+//                            SetModel(weight: 50, duration: 30, rest: 60, reps: 10),
+//                        	SetModel(weight: 30, duration: 30, rest: 60, reps: 10),
+//                        	SetModel(weight: 150, duration: 30, rest: 60, reps: 10)])
+//        ]
         addSubscribers()
         getWorkoutsFromCollection()
         getExercisesFromCollection()

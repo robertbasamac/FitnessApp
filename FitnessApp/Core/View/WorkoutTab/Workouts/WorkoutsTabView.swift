@@ -25,7 +25,8 @@ struct WorkoutsTabView: View {
             Text("No workouts found.")
                 .font(.system(size: 16))
                 .foregroundStyle(.red)
-                .vSpacing(.top)
+                .vSpacing(.center)
+                .hSpacing(.center)
         } else {
             List {
                 ForEach(workoutManager.workouts) { workout in

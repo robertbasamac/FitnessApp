@@ -18,70 +18,73 @@ struct ExercisesTabView: View {
     @State private var deleteExercise: Bool = false
 
     var body: some View {
-        ScrollView(.vertical, showsIndicators: true) {
-            if workoutManager.exercises.isEmpty {
-                Text("No exercises found.")
-                    .font(.system(size: 16))
-                    .foregroundColor(.red)
-                    .frame(maxWidth: .infinity)
-            } else {
-                VStack {
-                    ForEach($workoutManager.exercises) { exercise in
-                        ExerciseCardView(exercise: exercise)
-                            .frame(maxWidth: .infinity)
-                            .contextMenu {
-                                Button {
-                                    editExercise = true
-                                    selectedExercise = exercise.wrappedValue
-                                } label: {
-                                    Label("Edit Exercise", systemImage: "pencil")
-                                }
-
+        if workoutManager.exercises.isEmpty {
+            Text("No exercises found.")
+                .font(.system(size: 16))
+                .foregroundColor(.red)
+                .vSpacing(.center)
+                .hSpacing(.center)
+        } else {
+            List {
+                ForEach(workoutManager.exercises) { exercise in
+                    Section {
+                        ExerciseCard(exercise: exercise)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true, content: {
                                 Button(role: .destructive) {
                                     deleteExercise = true
-                                    selectedExerciseForDeletion = exercise.wrappedValue
+                                    selectedExerciseForDeletion = exercise
                                 } label: {
                                     Label("Delete Exercise", systemImage: "trash")
                                 }
-                            } preview: {
-                                Text("\(exercise.wrappedValue.title)")
-                                    .font(.title2)
-                                    .frame(width: 250, alignment: .center)
-                                    .padding(.vertical)
-                                    .background {
-                                        Color(uiColor: .secondarySystemBackground)
-                                    }
+                            })
+                            .contextMenu {
+                                Button {
+                                    editExercise = true
+                                    selectedExercise = exercise
+                                } label: {
+                                    Label("Edit Exercise", systemImage: "pencil")
+                                }
+                                
+                                Button(role: .destructive) {
+                                    deleteExercise = true
+                                    selectedExerciseForDeletion = exercise
+                                } label: {
+                                    Label("Delete Exercise", systemImage: "trash")
+                                }
                             }
                     }
+                    .listSectionSpacing(.compact)
                 }
-                .padding(.horizontal, 8)
             }
-        }
-        .sheet(item: $selectedExercise) { exercise in
-            CreateExerciseSheetView(exercise: exercise, exerciseToCompare: exercise, editExercise: $editExercise)
-        }
-        .confirmationDialog("Erase Exercise from collection.",
-                            isPresented: $deleteExercise,
-                            presenting: selectedExerciseForDeletion) { exercise in
-            Button(role: .destructive) {
-                workoutManager.deleteExerciseFromCollection(exercise)
-            } label: {
-                Text("Delete")
+            .sheet(item: $selectedExercise) { exercise in
+                CreateExerciseSheetView(exercise: exercise, exerciseToCompare: exercise, editExercise: $editExercise)
             }
-
-            Button(role: .cancel) {
-                selectedExerciseForDeletion = nil
-            } label: {
-                Text("Cancel")
+            .confirmationDialog("Erase Exercise from collection.",
+                                isPresented: $deleteExercise,
+                                presenting: selectedExerciseForDeletion) { exercise in
+                Button(role: .destructive) {
+                    workoutManager.deleteExerciseFromCollection(exercise)
+                } label: {
+                    Text("Delete")
+                }
+                
+                Button(role: .cancel) {
+                    selectedExerciseForDeletion = nil
+                } label: {
+                    Text("Cancel")
+                }
+            }  message: { exercise in
+                Text("This will permanently delete the \"\(exercise.title)\" exercise from your collection.")
             }
-        }  message: { exercise in
-            Text("This will permanently delete the \"\(exercise.title)\" exercise from your collection.")
         }
     }
 }
 
 struct ExercisesTabView_Previews: PreviewProvider {
     static var previews: some View {
-        ExercisesTabView()
+        CollectionTabView()
+            .environmentObject(WorkoutViewModel())
+            .environmentObject(DateCalendarViewModel())
+            .environmentObject(ViewRouter())
     }
 }

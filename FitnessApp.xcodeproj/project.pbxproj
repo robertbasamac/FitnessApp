@@ -34,6 +34,7 @@
 		09A91B4328DB516D00C5C985 /* SetEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A91B3928DB516D00C5C985 /* SetEntity+CoreDataProperties.swift */; };
 		09ACE7052880482F001FDCFF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ACE7042880482F001FDCFF /* NotificationManager.swift */; };
 		09ACE7072880A6C4001FDCFF /* CreateExerciseSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ACE7062880A6C4001FDCFF /* CreateExerciseSheetView.swift */; };
+		09AD6D872AB1E0570044FF02 /* ExerciseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AD6D862AB1E0570044FF02 /* ExerciseCard.swift */; };
 		09B398712811CC0E0067ECE4 /* WorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B398702811CC0E0067ECE4 /* WorkoutModel.swift */; };
 		09B398732811CC180067ECE4 /* ExerciseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B398722811CC180067ECE4 /* ExerciseModel.swift */; };
 		09BA01282A85513B00E21B8A /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BA01272A85513B00E21B8A /* View+Extensions.swift */; };
@@ -84,6 +85,7 @@
 		09A91B3928DB516D00C5C985 /* SetEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SetEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		09ACE7042880482F001FDCFF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		09ACE7062880A6C4001FDCFF /* CreateExerciseSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExerciseSheetView.swift; sourceTree = "<group>"; };
+		09AD6D862AB1E0570044FF02 /* ExerciseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCard.swift; sourceTree = "<group>"; };
 		09B398702811CC0E0067ECE4 /* WorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModel.swift; sourceTree = "<group>"; };
 		09B398722811CC180067ECE4 /* ExerciseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseModel.swift; sourceTree = "<group>"; };
 		09BA01272A85513B00E21B8A /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				09F0AD2E283BD5C200A7E1AE /* WorkoutCard.swift */,
+				09AD6D862AB1E0570044FF02 /* ExerciseCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 				09B398712811CC0E0067ECE4 /* WorkoutModel.swift in Sources */,
 				0912C3AF2AB085A700982C68 /* PreviewProvider.swift in Sources */,
 				09376AEB28DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift in Sources */,
+				09AD6D872AB1E0570044FF02 /* ExerciseCard.swift in Sources */,
 				09A91B4128DB516D00C5C985 /* ExerciseEntity+CoreDataProperties.swift in Sources */,
 				095E7CAC293A23D500EADB03 /* ChangeAppIconView.swift in Sources */,
 				09376AED28DCD16400732AF5 /* WorkoutEntity+CoreDataClass.swift in Sources */,
