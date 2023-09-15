@@ -12,11 +12,11 @@ struct ExercisesTabView: View {
     @EnvironmentObject var workoutManager: WorkoutViewModel
 
     @State private var selectedExercise: ExerciseModel? = nil
-    @State private var selectedExerciseForDeletion: ExerciseModel? = nil
-
+    @State private var selectedExerciseForAction: ExerciseModel = ExerciseModel()
+    
     @State private var editExercise: Bool = false
-    @State private var deleteExercise: Bool = false
-
+    @State private var showDeleteConfirmation: Bool = false
+    
     var body: some View {
         if workoutManager.exercises.isEmpty {
             Text("No exercises found.")
@@ -31,23 +31,23 @@ struct ExercisesTabView: View {
                         ExerciseCard(exercise: exercise)
                             .swipeActions(edge: .trailing, allowsFullSwipe: true, content: {
                                 Button(role: .destructive) {
-                                    deleteExercise = true
-                                    selectedExerciseForDeletion = exercise
+                                    selectedExerciseForAction = exercise
+                                    showDeleteConfirmation = true
                                 } label: {
                                     Label("Delete Exercise", systemImage: "trash")
                                 }
                             })
                             .contextMenu {
                                 Button {
+                                    selectedExerciseForAction = exercise
                                     editExercise = true
-                                    selectedExercise = exercise
                                 } label: {
                                     Label("Edit Exercise", systemImage: "pencil")
                                 }
                                 
                                 Button(role: .destructive) {
-                                    deleteExercise = true
-                                    selectedExerciseForDeletion = exercise
+                                    selectedExerciseForAction = exercise
+                                    showDeleteConfirmation = true
                                 } label: {
                                     Label("Delete Exercise", systemImage: "trash")
                                 }
@@ -56,12 +56,13 @@ struct ExercisesTabView: View {
                     .listSectionSpacing(.compact)
                 }
             }
-            .sheet(item: $selectedExercise) { exercise in
-                CreateExerciseSheetView(exercise: exercise, exerciseToCompare: exercise, editExercise: $editExercise)
+            .sheet(isPresented: $editExercise) {
+                CreateExerciseSheetView(exercise: selectedExerciseForAction, editExercise: true)
+                    .interactiveDismissDisabled()
             }
             .confirmationDialog("Erase Exercise from collection.",
-                                isPresented: $deleteExercise,
-                                presenting: selectedExerciseForDeletion) { exercise in
+                                isPresented: $showDeleteConfirmation,
+                                presenting: selectedExerciseForAction) { exercise in
                 Button(role: .destructive) {
                     workoutManager.deleteExerciseFromCollection(exercise)
                 } label: {
@@ -69,7 +70,7 @@ struct ExercisesTabView: View {
                 }
                 
                 Button(role: .cancel) {
-                    selectedExerciseForDeletion = nil
+                    showDeleteConfirmation = false
                 } label: {
                     Text("Cancel")
                 }

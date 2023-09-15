@@ -14,17 +14,15 @@ struct CreateWorkoutSheetView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State var workout: WorkoutModel
-    
     var workoutToCompare: WorkoutModel
-    
-    @Binding var editWorkout: Bool
+    var editWorkout: Bool
     
     @State var scrollToIndex: Int = 0
     
-    init(workout: WorkoutModel = WorkoutModel(), editWorkout: Binding<Bool>) {
+    init(workout: WorkoutModel = WorkoutModel(), editWorkout: Bool = false) {
         self._workout = State(wrappedValue: workout)
         self.workoutToCompare = workout
-        self._editWorkout = editWorkout
+        self.editWorkout = editWorkout
         self.scrollToIndex = scrollToIndex
     }
     

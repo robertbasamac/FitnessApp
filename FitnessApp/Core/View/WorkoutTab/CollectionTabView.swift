@@ -11,18 +11,21 @@ struct CollectionTabView: View {
     
     @State private var selectedPage: CollectionPage = .workouts
     
-    @State private var showCreateExercise: Bool = false
-    @State private var showCreateWorkout: Bool = false
-    
-    @State private var editWorkout: Bool = false
-    @State private var editExercise: Bool = false
-    
     enum CollectionPage: String, Identifiable, CaseIterable {
         var id: Self { self }
         
         case workouts = "Workouts"
         case exercises = "Exercises"
     }
+    
+    // Handling sheets presentation
+    enum Sheet: String, Identifiable {
+        case createWorkout, createExercise
+
+        var id: String { rawValue }
+    }
+    @State private var presentedSheet: Sheet?
+
     
     var body: some View {
         NavigationStack {
@@ -52,23 +55,19 @@ struct CollectionTabView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Button {
-                            editWorkout = false
-                            
                             withAnimation {
                                 selectedPage = .workouts
-                                showCreateWorkout.toggle()
                             }
+                            presentedSheet = .createWorkout
                         } label: {
                             Text("Create Workout")
                         }
                         
                         Button {
-                            editExercise = false
-                            
                             withAnimation {
                                 selectedPage = .exercises
-                                showCreateExercise.toggle()
                             }
+                            presentedSheet = .createExercise
                         } label: {
                             Text("Create Exercise")
                         }
@@ -77,11 +76,15 @@ struct CollectionTabView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showCreateWorkout) {
-                CreateWorkoutSheetView(editWorkout: $editWorkout)
-            }
-            .sheet(isPresented: $showCreateExercise) {
-                CreateExerciseSheetView(editExercise: $editExercise)
+            .sheet(item: $presentedSheet) { sheet in
+                switch sheet {
+                case .createWorkout:
+                    CreateWorkoutSheetView()
+                        .interactiveDismissDisabled()
+                case .createExercise:
+                    CreateExerciseSheetView()
+                        .interactiveDismissDisabled()
+                }
             }
         }
     }

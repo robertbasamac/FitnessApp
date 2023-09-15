@@ -13,14 +13,17 @@ struct CreateExerciseSheetView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    @State var exercise: ExerciseModel = ExerciseModel()
-    
-    var exerciseToCompare: ExerciseModel = ExerciseModel()
-    
-    @Binding var editExercise: Bool
+    @State var exercise: ExerciseModel
+    var exerciseToCompare: ExerciseModel
+    var editExercise: Bool
     
     @State var scrollToIndex: Int = 0
     
+    init(exercise: ExerciseModel = ExerciseModel(), editExercise: Bool = false) {
+        self._exercise = State(wrappedValue: exercise)
+        self.exerciseToCompare = exercise
+        self.editExercise = editExercise
+    }
     var body: some View {
         NavigationStack {
             ScrollViewReader { proxy in

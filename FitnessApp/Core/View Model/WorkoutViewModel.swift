@@ -520,7 +520,7 @@ class WorkoutViewModel: ObservableObject {
         var result = false
         
         if w1.title == w2.title && w1.details == w2.details {
-            if w1.exercises.count == w2.exercises.count {
+            if w1.exercises.count == w2.exercises.count && w1.exercises.count > 0 {
                 var index = 0
                 
                 repeat {
@@ -546,7 +546,7 @@ class WorkoutViewModel: ObservableObject {
         var result = false
         
         if ex1.title == ex2.title && ex1.instructions == ex2.instructions {
-            if ex1.sets.count == ex2.sets.count && ex1.type == ex2.type  && ex1.sets.count > 0 {
+            if ex1.sets.count == ex2.sets.count && ex1.type == ex2.type && ex1.sets.count > 0 {
                 var index = 0
                 
                 repeat {

@@ -17,7 +17,7 @@ struct AssignWorkoutDatePickerView: View {
     @State private var date: Date = Date()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 DatePicker("Select Date",
                            selection: $date,

@@ -8,16 +8,22 @@
 import SwiftUI
 
 struct WorkoutsTabView: View {
-    
     @EnvironmentObject var workoutManager: WorkoutViewModel
     
     @State private var selectedWorkout: WorkoutModel? = nil
-    @State private var workoutToEdit: WorkoutModel? = nil
-    @State private var workoutToAssign: WorkoutModel? = nil
-    @State private var workoutToDelete: WorkoutModel? = nil
     
-    @State private var editWorkout: Bool = false
-    @State private var deleteWorkout: Bool = false
+    // Handling delete action
+//    @State private var workoutToDelete: WorkoutModel? = nil
+    @State private var showDeleteConfirmation: Bool = false
+        
+    // Handling sheets presentation
+    enum Sheet: String, Identifiable {
+        case editWorkout, assignWorkout
+        
+        var id: String { rawValue }
+    }
+    @State private var selectedWorkoutForAction: WorkoutModel = WorkoutModel()
+    @State private var presentedSheet: Sheet?
     
     @State private var indexSetForDeletion: IndexSet?
     
@@ -34,17 +40,20 @@ struct WorkoutsTabView: View {
                     Section {
                         WorkoutCard(workout: workout)
                             .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
+                                // Swipe right action - Assign Workout
                                 Button {
-                                    workoutToAssign = workout
+                                    selectedWorkoutForAction = workout
+                                    presentedSheet = .assignWorkout
                                 } label: {
                                     Label("Assign Workout", systemImage: "calendar")
                                 }
                                 .tint(.orange)
                             })
                             .swipeActions(edge: .trailing, allowsFullSwipe: true, content: {
+                                // Swipe left action - Delete Workout
                                 Button(role: .destructive) {
-                                    deleteWorkout = true
-                                    workoutToDelete = workout
+                                    selectedWorkoutForAction = workout
+                                    showDeleteConfirmation = true
                                 } label: {
                                     Label("Delete Workout", systemImage: "trash")
                                 }
@@ -52,23 +61,24 @@ struct WorkoutsTabView: View {
                             .contextMenu {
                                 // Edit Button
                                 Button {
-                                    editWorkout = true
-                                    workoutToEdit = workout
+                                    selectedWorkoutForAction = workout
+                                    presentedSheet = .editWorkout
                                 } label: {
                                     Label("Edit Workout", systemImage: "pencil")
                                 }
                                 
                                 // Assign Button
                                 Button {
-                                    workoutToAssign = workout
+                                    selectedWorkoutForAction = workout
+                                    presentedSheet = .assignWorkout
                                 } label: {
                                     Label("Assign Workout", systemImage: "calendar.badge.plus")
                                 }
                                 
                                 // Delete Button
                                 Button(role: .destructive) {
-                                    deleteWorkout = true
-                                    workoutToDelete = workout
+                                    selectedWorkoutForAction = workout
+                                    showDeleteConfirmation = true
                                 } label: {
                                     Label("Delete Workout", systemImage: "trash")
                                 }
@@ -83,18 +93,20 @@ struct WorkoutsTabView: View {
             .navigationDestination(item: $selectedWorkout, destination: { workout in
                 Text(workout.title.uppercased())
             })
-            .sheet(item: $workoutToEdit) { workout in
-                CreateWorkoutSheetView(workout: workout, editWorkout: $editWorkout)
-                    .interactiveDismissDisabled()
-            }
-            .sheet(item: $workoutToAssign) { workout in
-                AssignWorkoutDatePickerView(workout: workout)
-                    .presentationDetents([.fraction(0.6)])
-                    .presentationDragIndicator(.visible)
+            .sheet(item: $presentedSheet) { sheet in
+                switch sheet {
+                case .editWorkout:
+                    CreateWorkoutSheetView(workout: selectedWorkoutForAction, editWorkout: true)
+                        .interactiveDismissDisabled()
+                case .assignWorkout:
+                    AssignWorkoutDatePickerView(workout: selectedWorkoutForAction)
+                        .presentationDetents([.fraction(0.6)])
+                        .presentationDragIndicator(.visible)
+                }
             }
             .confirmationDialog("Erase Workout from collection.",
-                                isPresented: $deleteWorkout,
-                                presenting: workoutToDelete) { workout in
+                                isPresented: $showDeleteConfirmation,
+                                presenting: selectedWorkoutForAction) { workout in
                 Button(role: .destructive) {
                     workoutManager.deleteWorkoutFromCollection(workout)
                 } label: {
@@ -102,8 +114,7 @@ struct WorkoutsTabView: View {
                 }
                 
                 Button(role: .cancel) {
-                    deleteWorkout = false
-                    workoutToDelete = nil
+                    showDeleteConfirmation = false
                 } label: {
                     Text("Cancel")
                 }
