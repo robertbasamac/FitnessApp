@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0912C3AF2AB085A700982C68 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0912C3AE2AB085A700982C68 /* PreviewProvider.swift */; };
 		0912C3B12AB086BB00982C68 /* WorkoutCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0912C3B02AB086BB00982C68 /* WorkoutCardView.swift */; };
+		0919F5942AB886C000F5B356 /* DetailWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0919F5932AB886C000F5B356 /* DetailWorkoutView.swift */; };
 		09376AE628DC8A3900732AF5 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09376AE528DC8A3900732AF5 /* ScheduleModel.swift */; };
 		09376AEB28DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09376AE728DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift */; };
 		09376AEC28DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09376AE828DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift */; };
@@ -60,6 +61,7 @@
 /* Begin PBXFileReference section */
 		0912C3AE2AB085A700982C68 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		0912C3B02AB086BB00982C68 /* WorkoutCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutCardView.swift; sourceTree = "<group>"; };
+		0919F5932AB886C000F5B356 /* DetailWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWorkoutView.swift; sourceTree = "<group>"; };
 		09376AE528DC8A3900732AF5 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 		09376AE728DCD16400732AF5 /* ScheduleEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScheduleEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		09376AE828DCD16400732AF5 /* ScheduleEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScheduleEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				0912C3B02AB086BB00982C68 /* WorkoutCardView.swift */,
 				09FE54292825C89F0088D91D /* CreateWorkoutSheetView.swift */,
 				09981B2C2850DB8200EB909B /* AssignWorkoutDatePickerView.swift */,
+				0919F5932AB886C000F5B356 /* DetailWorkoutView.swift */,
 			);
 			path = Workouts;
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 				09BA3889287DEEAD00E88368 /* HapticManager.swift in Sources */,
 				09A91B3C28DB516D00C5C985 /* StoreExerciseEntity+CoreDataClass.swift in Sources */,
 				09A75F822881ABAB001CF5B9 /* ExercisesTabView.swift in Sources */,
+				0919F5942AB886C000F5B356 /* DetailWorkoutView.swift in Sources */,
 				095E7CA9293A232200EADB03 /* ChangeAppIconViewModel.swift in Sources */,
 				09A91B3D28DB516D00C5C985 /* StoreExerciseEntity+CoreDataProperties.swift in Sources */,
 				09BA012B2A85533F00E21B8A /* HomeTabView.swift in Sources */,

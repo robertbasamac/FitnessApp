@@ -19,7 +19,7 @@ class CoreDataManager {
         container = NSPersistentContainer(name: "CollectionContainer")
         container.loadPersistentStores { description, error in
             if let error = error {
-                print("ERROR LOADING CORE DATA: \(error)")
+                print("ERROR LOADING CORE DATA: \(error).")
             } else {
                 print("Succesfully laoded the core data.")
             }
@@ -31,8 +31,9 @@ class CoreDataManager {
     func save() {
         do {
             try context.save()
+            print("Succesfully saved the core data.")
         } catch let error {
-            print("Error saving Core Data: \(error.localizedDescription)")
+            print("Error saving Core Data: \(error.localizedDescription).")
         }
     }
 }

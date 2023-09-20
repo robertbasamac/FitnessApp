@@ -91,7 +91,7 @@ struct WorkoutsTabView: View {
             }
             .listSectionSpacing(.compact)
             .navigationDestination(item: $selectedWorkout, destination: { workout in
-                Text(workout.title.uppercased())
+                DetailWorkoutView(workout: workout)
             })
             .sheet(item: $presentedSheet) { sheet in
                 switch sheet {
